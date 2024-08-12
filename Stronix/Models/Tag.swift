@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Tag {
+enum Tag: Codable {
     case drop
     case failure
     case warmUp

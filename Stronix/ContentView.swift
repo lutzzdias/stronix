@@ -6,19 +6,30 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Query
+    var exercises: [Exercise]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            HomeView().tabItem {
+                Label("Home", systemImage: "house")
+            }
+            
+            ExercisesView().tabItem {
+                Label("Exercises", systemImage: "tray.full")
+            }
+            
+            
+            SettingsView().tabItem {
+                Label("Settings", systemImage: "gear")
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().modelContainer(previewContainer)
 }

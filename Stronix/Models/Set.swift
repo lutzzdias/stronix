@@ -15,17 +15,15 @@ class Set {
     var minTargetRepetitions: Int?
     var maxTargetRepetitions: Int?
     var weight: Double
-    var rpe: RPE?
     var tag: Tag?
     var comment: String?
     
-    init(id: UUID = UUID(), repetitions: Int = 0, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, weight: Double = 0, rpe: RPE? = nil, tag: Tag? = nil, comment: String? = nil) {
+    init(id: UUID = UUID(), repetitions: Int = 0, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, weight: Double = 0, tag: Tag? = nil, comment: String? = nil) {
         self.id = id
         self.repetitions = repetitions
         self.minTargetRepetitions = minTargetRepetitions
         self.maxTargetRepetitions = maxTargetRepetitions
         self.weight = weight
-        self.rpe = rpe
         self.tag = tag
         self.comment = comment
     }
