@@ -8,19 +8,25 @@
 import Foundation
 import SwiftData
 
-@MainActor
-let previewContainer: ModelContainer = {
-    do {
-        let container = try ModelContainer(for: Exercise.self, Set.self, Workout.self, WorkoutExercise.self,
-                                           configurations: .init(isStoredInMemoryOnly: true))
+struct Preview {
+    let container: ModelContainer
+    
+    init(_ models: any PersistentModel.Type...) {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let schema = Schema(models)
         
-        // insert sample exercises
-        for exercise in Exercise.sampleData {
-            container.mainContext.insert(exercise)
+        do {
+            container = try ModelContainer(for: schema, configurations: config)
+        } catch {
+            fatalError("Could not create preview container")
         }
-
-        return container
-    } catch {
-        fatalError("Failed to create container")
     }
-}()
+    
+    func addData(_ data: [any PersistentModel]) {
+        Task { @MainActor in
+            data.forEach{ item in
+                container.mainContext.insert(item)
+            }
+        }
+    }
+}

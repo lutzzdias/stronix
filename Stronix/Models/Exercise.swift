@@ -13,23 +13,14 @@ class Exercise {
     @Attribute(.unique) var id: UUID
     var name: String
     var desc: String?
-    var muscle: String? // TODO: Create enum (back, shoulders, legs, chest, arms, ...)
     var equipment: String? // TODO: Create enum (barbell, dumbbell, machine, ...)
+    var muscle: String? // TODO: Create enum (back, shoulders, legs, chest, arms, ...)
 
-    init(id: UUID = UUID(), name: String, desc: String? = nil, muscle: String? = nil, equipment: String? = nil) {
+    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: String? = nil, muscle: String? = nil) {
         self.id = id
         self.name = name
         self.desc = desc
         self.muscle = muscle
         self.equipment = equipment
     }
-    
-    static let sampleData: [Exercise] = [
-        Exercise(name: "Pulldown"),
-        Exercise(name: "Squat"),
-        Exercise(name: "Preacher Curls"),
-        Exercise(name: "Triceps Pushdown"),
-        Exercise(name: "Bench Press"),
-        Exercise(name: "Shoulder Press")
-    ]
 }

@@ -6,30 +6,41 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Query
-    var exercises: [Exercise]
+    
+    enum Tab {
+        case home, exercises, settings
+    }
     
     var body: some View {
         TabView {
-            HomeView().tabItem {
-                Label("Home", systemImage: "house")
-            }
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+                .tag(Tab.home)
             
-            ExercisesView().tabItem {
-                Label("Exercises", systemImage: "tray.full")
-            }
+            ExercisesView()
+                .tabItem {
+                    Label("Exercises", systemImage: "tray.full")
+                }
+                .tag(Tab.exercises)
             
             
-            SettingsView().tabItem {
-                Label("Settings", systemImage: "gear")
-            }
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+                .tag(Tab.settings)
         }
     }
 }
 
 #Preview {
-    ContentView().modelContainer(previewContainer)
+    let preview = Preview(Exercise.self)
+    preview.addData(Exercise.sample)
+    return NavigationStack {
+        ContentView().modelContainer(preview.container)
+    }
 }
