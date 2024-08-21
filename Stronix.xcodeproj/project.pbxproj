@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4937D0D22C75860200734480 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4937D0D12C75860200734480 /* PreviewData.swift */; };
 		49553D552C672A4400973C0B /* StronixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D542C672A4400973C0B /* StronixApp.swift */; };
 		49553D572C672A4400973C0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D562C672A4400973C0B /* ContentView.swift */; };
 		49553D592C672A4400973C0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49553D582C672A4400973C0B /* Assets.xcassets */; };
 		49553D5D2C672A4400973C0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49553D5C2C672A4400973C0B /* Preview Assets.xcassets */; };
+		49752E552C7597E600111109 /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49752E542C7597E600111109 /* ExerciseDetailView.swift */; };
+		49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49752E562C75A06600111109 /* ExerciseEditor.swift */; };
 		49D38DE32C6AA59500D84C14 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D38DE22C6AA59500D84C14 /* Exercise.swift */; };
 		49D38DE52C6AAC6B00D84C14 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D38DE42C6AAC6B00D84C14 /* Set.swift */; };
 		49D38DE72C6AAF7500D84C14 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D38DE62C6AAF7500D84C14 /* Workout.swift */; };
@@ -23,12 +26,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4937D0D12C75860200734480 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		49553D512C672A4400973C0B /* Stronix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49553D542C672A4400973C0B /* StronixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StronixApp.swift; sourceTree = "<group>"; };
 		49553D562C672A4400973C0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		49553D582C672A4400973C0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49553D5A2C672A4400973C0B /* Stronix.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stronix.entitlements; sourceTree = "<group>"; };
 		49553D5C2C672A4400973C0B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		49752E542C7597E600111109 /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
+		49752E562C75A06600111109 /* ExerciseEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditor.swift; sourceTree = "<group>"; };
 		49D38DE22C6AA59500D84C14 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		49D38DE42C6AAC6B00D84C14 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		49D38DE62C6AAF7500D84C14 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
@@ -51,6 +57,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4937D0D32C758D7500734480 /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				49D38DF32C6AC81700D84C14 /* ExercisesView.swift */,
+				49752E542C7597E600111109 /* ExerciseDetailView.swift */,
+				49752E562C75A06600111109 /* ExerciseEditor.swift */,
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
 		49553D482C672A4400973C0B = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +102,7 @@
 			children = (
 				49553D5C2C672A4400973C0B /* Preview Assets.xcassets */,
 				49D38DFB2C6ACAF500D84C14 /* PreviewContainer.swift */,
+				4937D0D12C75860200734480 /* PreviewData.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -105,8 +122,8 @@
 		49D38DF02C6AC77F00D84C14 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4937D0D32C758D7500734480 /* Exercises */,
 				49D38DF12C6AC78A00D84C14 /* HomeView.swift */,
-				49D38DF32C6AC81700D84C14 /* ExercisesView.swift */,
 				49D38DF92C6ACA8700D84C14 /* SettingsView.swift */,
 			);
 			path = Views;
@@ -185,10 +202,13 @@
 				49D38DFC2C6ACAF500D84C14 /* PreviewContainer.swift in Sources */,
 				49D38DF42C6AC81700D84C14 /* ExercisesView.swift in Sources */,
 				49D38DE52C6AAC6B00D84C14 /* Set.swift in Sources */,
+				49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */,
+				49752E552C7597E600111109 /* ExerciseDetailView.swift in Sources */,
 				49553D572C672A4400973C0B /* ContentView.swift in Sources */,
 				49553D552C672A4400973C0B /* StronixApp.swift in Sources */,
 				49D38DEB2C6AB2EE00D84C14 /* Tag.swift in Sources */,
 				49D38DE72C6AAF7500D84C14 /* Workout.swift in Sources */,
+				4937D0D22C75860200734480 /* PreviewData.swift in Sources */,
 				49D38DF22C6AC78A00D84C14 /* HomeView.swift in Sources */,
 				49D38DFA2C6ACA8700D84C14 /* SettingsView.swift in Sources */,
 				49D38DE32C6AA59500D84C14 /* Exercise.swift in Sources */,
@@ -333,6 +353,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -371,6 +392,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

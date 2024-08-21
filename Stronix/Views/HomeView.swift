@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
+    
     var body: some View {
-        Text("Hello, Home!")
+        NavigationStack {
+            Text("Hello, Home!")
+        }
     }
 }
 
