@@ -38,9 +38,12 @@ struct ContentView: View {
 }
 
 #Preview {
-    let preview = Preview(Exercise.self)
+    let preview = Preview(Workout.self, WorkoutExercise.self, Exercise.self)
+    
     preview.addData(Exercise.sample)
-    return NavigationStack {
-        ContentView().modelContainer(preview.container)
-    }
+    preview.addData(WorkoutExercise.sample)
+    preview.addData(Workout.sample)
+    
+    return ContentView()
+        .modelContainer(preview.container)
 }
