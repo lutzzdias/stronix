@@ -16,19 +16,19 @@ struct CurrentWorkoutView: View {
     @Bindable var workout: Workout = Workout()
     
     var body: some View {
+        Text("\(workout.id)")
         // MARK: Timer
         HStack {
             HStack {
                 Image(systemName: "clock")
-                // TODO: update timer every second
-                Text(workout.durationStr)
+                Text(workout.start, style: .timer)
             }
             
             Spacer()
             
             // TODO: Add rest timer
         }
-        .padding()
+        .padding(.horizontal)
         
         List {
             
@@ -46,21 +46,23 @@ struct CurrentWorkoutView: View {
 //                }
                 
                 Button("Add exercise", systemImage: "plus") {
-                    print("Add exercise")
+                    debugPrint(workout.duration)
                 }
             }
         }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
-                    // TODO: Save properly
+                    workout.end = Date.now
+                    context.insert(workout)
                     dismiss()
                 }
             }
             
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
-                    // TODO: Delete properly
+                    context.delete(workout)
+                    try! context.save()
                     dismiss()
                 }
             }
