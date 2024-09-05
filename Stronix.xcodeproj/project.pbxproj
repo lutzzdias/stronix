@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490EF85B2C89647800E75ECD /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85A2C89647800E75ECD /* WorkoutsView.swift */; };
+		490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */; };
+		490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85E2C89664800E75ECD /* ArchiveView.swift */; };
 		4937D0D22C75860200734480 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4937D0D12C75860200734480 /* PreviewData.swift */; };
 		494057172C80099200C8A6BD /* CurrentWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494057162C80099200C8A6BD /* CurrentWorkoutView.swift */; };
 		49553D552C672A4400973C0B /* StronixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D542C672A4400973C0B /* StronixApp.swift */; };
@@ -27,6 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		490EF85A2C89647800E75ECD /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
+		490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
+		490EF85E2C89664800E75ECD /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		4937D0D12C75860200734480 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		494057162C80099200C8A6BD /* CurrentWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWorkoutView.swift; sourceTree = "<group>"; };
 		49553D512C672A4400973C0B /* Stronix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,7 +65,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4937D0D32C758D7500734480 /* Exercises */ = {
+		490EF8582C89644800E75ECD /* Exercises */ = {
 			isa = PBXGroup;
 			children = (
 				49D38DF32C6AC81700D84C14 /* ExercisesView.swift */,
@@ -67,6 +73,25 @@
 				49752E562C75A06600111109 /* ExerciseEditor.swift */,
 			);
 			path = Exercises;
+			sourceTree = "<group>";
+		};
+		490EF8592C89645A00E75ECD /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				490EF85A2C89647800E75ECD /* WorkoutsView.swift */,
+				490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		4937D0D32C758D7500734480 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				490EF8592C89645A00E75ECD /* Workouts */,
+				490EF8582C89644800E75ECD /* Exercises */,
+				490EF85E2C89664800E75ECD /* ArchiveView.swift */,
+			);
+			path = Archive;
 			sourceTree = "<group>";
 		};
 		49553D482C672A4400973C0B = {
@@ -134,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				4976B7972C764ADA00A818B5 /* Home */,
-				4937D0D32C758D7500734480 /* Exercises */,
+				4937D0D32C758D7500734480 /* Archive */,
 				49D38DF92C6ACA8700D84C14 /* SettingsView.swift */,
 			);
 			path = Views;
@@ -212,10 +237,13 @@
 			files = (
 				49D38DFC2C6ACAF500D84C14 /* PreviewContainer.swift in Sources */,
 				49D38DF42C6AC81700D84C14 /* ExercisesView.swift in Sources */,
+				490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */,
 				494057172C80099200C8A6BD /* CurrentWorkoutView.swift in Sources */,
 				49D38DE52C6AAC6B00D84C14 /* Set.swift in Sources */,
 				49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */,
 				49752E552C7597E600111109 /* ExerciseDetailView.swift in Sources */,
+				490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */,
+				490EF85B2C89647800E75ECD /* WorkoutsView.swift in Sources */,
 				49553D572C672A4400973C0B /* ContentView.swift in Sources */,
 				49553D552C672A4400973C0B /* StronixApp.swift in Sources */,
 				49D38DEB2C6AB2EE00D84C14 /* Tag.swift in Sources */,

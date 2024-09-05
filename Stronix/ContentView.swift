@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     enum Tab {
-        case home, exercises, settings
+        case home, archive, settings
     }
     
     var body: some View {
@@ -21,11 +21,11 @@ struct ContentView: View {
                 }
                 .tag(Tab.home)
             
-            ExercisesView()
+            ArchiveView()
                 .tabItem {
-                    Label("Exercises", systemImage: "tray.full")
+                    Label("Archive", systemImage: "tray.full")
                 }
-                .tag(Tab.exercises)
+                .tag(Tab.archive)
             
             
             SettingsView()
