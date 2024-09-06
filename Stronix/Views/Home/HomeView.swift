@@ -22,10 +22,6 @@ struct HomeView: View {
                 .foregroundStyle(.white)
                 .listRowBackground(Color.blue)
             }
-            
-            Button("Test") {
-                print(workouts)
-            }
             .navigationTitle("Home")
         }
     }
