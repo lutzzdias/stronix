@@ -45,19 +45,19 @@ extension Workout {
     static let sample: [Workout] = [
         Workout(
             name: "Chest and Triceps",
-            desc: "Exercises related with the muscles responsible for pushing",
+            comment: "Exercises related with the muscles responsible for pushing",
             end: Date.now.addingTimeInterval(10),
             exercises: WorkoutExercise.sample
         ),
         Workout(
             name: "Back and Biceps",
-            desc: "Exercises related with the muscles responsible for pulling",
+            comment: "Exercises related with the muscles responsible for pulling",
             end: Date.now.addingTimeInterval(250),
             exercises: WorkoutExercise.sample
         ),
         Workout(
             name: "Legs",
-            desc: "Death ☠️",
+            comment: "Death ☠️",
             end: Date.now.addingTimeInterval(500),
             exercises: WorkoutExercise.sample
         ),

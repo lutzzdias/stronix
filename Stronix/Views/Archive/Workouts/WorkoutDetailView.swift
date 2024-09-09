@@ -14,7 +14,7 @@ struct WorkoutDetailView: View {
     
     var body: some View {
         List {
-            Text(workout.desc)
+            Text(workout.comment)
         }
         .navigationTitle(workout.name)
         .toolbar {

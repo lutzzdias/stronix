@@ -12,7 +12,7 @@ import SwiftData
 class Workout {
     @Attribute(.unique) var id: UUID
     var name: String
-    var desc: String
+    var comment: String
     var start: Date
     var end: Date?
     
@@ -20,12 +20,12 @@ class Workout {
     var exercises: [WorkoutExercise]
     // var routineId: UUID TODO: create routines
     
-    init(name: String = "", desc: String = "", end: Date? = nil, exercises: [WorkoutExercise] = []) {
+    init(name: String = "", comment: String = "", end: Date? = nil, exercises: [WorkoutExercise] = []) {
         self.id = UUID()
         self.start = Date.now
         
         self.name = name
-        self.desc = desc
+        self.comment = comment
         self.end = end
         self.exercises = exercises
     }

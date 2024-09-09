@@ -25,9 +25,9 @@ struct CurrentWorkoutView: View {
     
     private var workoutDesc: Binding<String> {
         Binding<String> {
-            workout?.desc ?? ""
+            workout?.comment ?? ""
         } set: { desc in
-            workout?.desc = desc
+            workout?.comment = desc
         }
     }
     
