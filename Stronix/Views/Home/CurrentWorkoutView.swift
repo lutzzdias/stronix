@@ -14,6 +14,7 @@ struct CurrentWorkoutView: View {
     @Environment(\.modelContext) var context
     
     @State private var workout: Workout? = nil
+    @State private var isShowingExercisesSheet = false
     
     private var workoutName: Binding<String> {
         Binding<String> {
@@ -55,16 +56,19 @@ struct CurrentWorkoutView: View {
             
             // MARK: Exercises
             Section("Exercises") {
-                // TODO: Fix preview crash when uncommenting this
                 ForEach(workout?.exercises ?? []) { workoutExercise in
-                    Text(workoutExercise.exercise.name)
+                    VStack{
+                        Text(workoutExercise.exercise.name)
+                    }
                 }
                 
                 Button("Add exercise", systemImage: "plus") {
-                    // TODO: add workoutExercise
+                    isShowingExercisesSheet = true
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
@@ -82,7 +86,9 @@ struct CurrentWorkoutView: View {
                 }
             }
         }
-        .navigationBarBackButtonHidden()
+        .sheet(isPresented: $isShowingExercisesSheet) {
+            AddExerciseSheetView()
+        }
         .onAppear {
             workout = Workout()
         }
@@ -90,13 +96,10 @@ struct CurrentWorkoutView: View {
 }
 
 #Preview {
-    let preview = Preview(Workout.self, WorkoutExercise.self, Exercise.self, Set.self)
+    let preview = Preview()
     
-    preview.addData(Exercise.sample)
-    preview.addData(Set.sample)
-    preview.addData(WorkoutExercise.sample)
-    preview.addData(Workout.sample)
-    
-    return CurrentWorkoutView()
-        .modelContainer(preview.container)
+    return NavigationStack {
+        CurrentWorkoutView()
+            .modelContainer(preview.container)
+    }
 }

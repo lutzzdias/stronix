@@ -11,7 +11,8 @@ import SwiftData
 struct Preview {
     let container: ModelContainer
     
-    init(_ models: any PersistentModel.Type...) {
+    init() {
+        let models: [any PersistentModel.Type] = [Exercise.self, Set.self, WorkoutExercise.self, Workout.self]
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let schema = Schema(models)
         
@@ -20,13 +21,37 @@ struct Preview {
         } catch {
             fatalError("Could not create preview container")
         }
+        
+        addData()
     }
     
-    func addData(_ data: [any PersistentModel]) {
+    func addData() {
         Task { @MainActor in
-            data.forEach{ item in
-                container.mainContext.insert(item)
+            let exercises = Exercise.sample
+            let sets = Set.sample
+            
+            for exercise in exercises {
+                container.mainContext.insert(exercise)
             }
+
+            let workoutExercise = WorkoutExercise(exercise: exercises.first!)
+            
+            for s in sets {
+                container.mainContext.insert(s)
+                workoutExercise.sets.append(s)
+            }
+            
+            container.mainContext.insert(workoutExercise)
+            
+            let workout = Workout(
+                name: "Chest and Triceps",
+                comment: "Exercises related with the muscles responsible for pushing",
+                end: Date.now.addingTimeInterval(10)
+            )
+            
+            workout.exercises = [workoutExercise]
+            
+            container.mainContext.insert(workout)
         }
     }
 }

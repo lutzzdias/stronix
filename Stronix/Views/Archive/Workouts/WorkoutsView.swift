@@ -49,8 +49,7 @@ struct WorkoutsView: View {
 }
 
 #Preview {
-    let preview = Preview(Workout.self)
-    preview.addData(Workout.sample)
+    let preview = Preview()
     
     return WorkoutsView()
         .modelContainer(preview.container)

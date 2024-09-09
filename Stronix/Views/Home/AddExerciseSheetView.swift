@@ -8,12 +8,13 @@
 import SwiftUI
 import SwiftData
 
-struct ExercisesView: View {
+struct AddExerciseSheetView: View {
     @Environment(\.modelContext) private var modelContext
 
     @Query private let allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
+    @State private var selectedExercises: Set = Set()
     
     var exercises: [Exercise] {
         guard !query.isEmpty else { return allExercises }
@@ -26,16 +27,12 @@ struct ExercisesView: View {
         NavigationStack {
             List {
                 ForEach(exercises) { exercise in
-                    NavigationLink(value: exercise) {
-                        Text(exercise.name)
-                    }
-                }.onDelete(perform: delete)
+                    Text(exercise.name)
+                }
             }
             .searchable(text: $query)
             .navigationTitle("Exercises")
-            .navigationDestination(for: Exercise.self) { exercise in
-                ExerciseDetailView(exercise: exercise)
-            }
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -50,18 +47,11 @@ struct ExercisesView: View {
             }
         }
     }
-    
-    private func delete(at indexes: IndexSet) {
-        for index in indexes {
-            let exercise = exercises[index]
-            modelContext.delete(exercise)
-        }
-    }
 }
 
 #Preview {
     let preview = Preview()
     
-    return ExercisesView()
+    return AddExerciseSheetView()
         .modelContainer(preview.container)
 }

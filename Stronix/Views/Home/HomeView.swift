@@ -28,11 +28,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    let preview = Preview(Workout.self, WorkoutExercise.self, Exercise.self)
-    
-    preview.addData(Exercise.sample)
-    preview.addData(WorkoutExercise.sample)
-    preview.addData(Workout.sample)
+    let preview = Preview()
     
     return HomeView()
         .modelContainer(preview.container)
