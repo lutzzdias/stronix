@@ -12,7 +12,7 @@ struct Preview {
     let container: ModelContainer
     
     init() {
-        let models: [any PersistentModel.Type] = [Exercise.self, Set.self, WorkoutExercise.self, Workout.self]
+        let models: [any PersistentModel.Type] = [Exercise.self, WorkoutSet.self, WorkoutExercise.self, Workout.self]
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let schema = Schema(models)
         
@@ -28,7 +28,7 @@ struct Preview {
     func addData() {
         Task { @MainActor in
             let exercises = Exercise.sample
-            let sets = Set.sample
+            let sets = WorkoutSet.sample
             
             for exercise in exercises {
                 container.mainContext.insert(exercise)

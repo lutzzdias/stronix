@@ -1,5 +1,5 @@
 //
-//  Set.swift
+//  WorkoutSet.swift
 //  Stronix
 //
 //  Created by Thiago Dias on 12/08/24.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Set {
+class WorkoutSet {
     @Attribute(.unique) var id: UUID
     var repetitions: Int
     var minTargetRepetitions: Int?

@@ -14,9 +14,9 @@ class WorkoutExercise {
     var comment: String?
     
     var exercise: Exercise
-    var sets: [Set]
+    var sets: [WorkoutSet]
     
-    init(id: UUID = UUID(), comment: String? = nil, exercise: Exercise, sets: [Set] = []) {
+    init(id: UUID = UUID(), comment: String? = nil, exercise: Exercise, sets: [WorkoutSet] = []) {
         self.id = id
         self.comment = comment
         self.exercise = exercise

@@ -31,7 +31,6 @@ struct WorkoutDetailView: View {
 }
 
 #Preview {
-    let preview = Preview()
     let workout = Workout.sample
     
     return WorkoutDetailView(workout: workout.first!)

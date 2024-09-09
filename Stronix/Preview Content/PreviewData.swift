@@ -23,10 +23,10 @@ extension Exercise {
     ]
 }
 
-extension Set {
-    static let sample: [Set] = [
-        Set(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere"),
-        Set(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere"),
-        Set(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere")
+extension WorkoutSet {
+    static let sample: [WorkoutSet] = [
+        WorkoutSet(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere"),
+        WorkoutSet(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere"),
+        WorkoutSet(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere")
     ]
 }

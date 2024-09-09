@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct StronixApp: App {
     var container: ModelContainer = {
-        let schema = Schema([Exercise.self, Set.self, Workout.self, WorkoutExercise.self])
+        let schema = Schema([Exercise.self, WorkoutSet.self, Workout.self, WorkoutExercise.self])
         let config = ModelConfiguration(schema: schema)
         do {
             return try ModelContainer(for: schema, configurations: config)

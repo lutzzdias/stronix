@@ -14,7 +14,7 @@ struct AddExerciseSheetView: View {
     @Query private let allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
-    @State private var selectedExercises: Set = Set()
+    @State private var selectedExercises: Set<Exercise> = Set()
     
     var exercises: [Exercise] {
         guard !query.isEmpty else { return allExercises }
