@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     
     enum Tab {
         case home, archive, settings
@@ -40,6 +40,6 @@ struct ContentView: View {
 #Preview {
     let preview = Preview()
     
-    return ContentView()
+    return MainView()
         .modelContainer(preview.container)
 }

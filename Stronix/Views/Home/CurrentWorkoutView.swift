@@ -33,21 +33,9 @@ struct CurrentWorkoutView: View {
     }
     
     var body: some View {
-        // MARK: Timer
-        HStack {
-            HStack {
-                Image(systemName: "clock")
-                Text(workout?.start ?? Date.now, style: .timer)
-            }
-            
-            Spacer()
-            
-            // TODO: Add rest timer
-        }
-        .padding(.horizontal)
+        TimerView(startDate: workout?.start ?? Date.now)
         
         List {
-            
             // MARK: Title and description
             Section {
                 TextField("Name", text: workoutName)
