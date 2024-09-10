@@ -10,11 +10,15 @@ import SwiftData
 
 struct AddExerciseSheetView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) var dismiss
 
+    // TODO: Remove already added exercises from this list
     @Query private let allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     @State private var selectedExercises: Set<Exercise> = Set()
+    
+    let onAdd: (Set<Exercise>) -> Void
     
     var exercises: [Exercise] {
         guard !query.isEmpty else { return allExercises }
@@ -24,24 +28,24 @@ struct AddExerciseSheetView: View {
     }
     
     var body: some View {
+        // TODO: button for create exercise if search returns no items
         NavigationStack {
-            List {
-                ForEach(exercises) { exercise in
-                    Text(exercise.name)
-                }
+            List(exercises, id: \.self, selection: $selectedExercises) { exercise in
+                Text(exercise.name).tag(exercise.id)
             }
             .searchable(text: $query)
+            .environment(\.editMode, .constant(.active))
             .navigationTitle("Exercises")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem {
-                    Button {
-                        showCreateSheet.toggle()
-                    } label: {
-                        Image(systemName: "plus")
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Add") {
+                        onAdd(selectedExercises)
                     }
-                    .sheet(isPresented: $showCreateSheet) {
-                        ExerciseEditor(exercise: nil)
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
                     }
                 }
             }
@@ -52,6 +56,6 @@ struct AddExerciseSheetView: View {
 #Preview {
     let preview = Preview()
     
-    return AddExerciseSheetView()
+    return AddExerciseSheetView(onAdd: {_ in })
         .modelContainer(preview.container)
 }

@@ -75,7 +75,18 @@ struct CurrentWorkoutView: View {
             }
         }
         .sheet(isPresented: $isShowingExercisesSheet) {
-            AddExerciseSheetView()
+            AddExerciseSheetView(
+                onAdd: { selection in
+                Task { @MainActor in
+                    for exercise in selection {
+                        let we = WorkoutExercise(exercise: exercise)
+                        context.insert(we)
+                        workout?.exercises.append(we)
+                    }
+                }
+                
+                isShowingExercisesSheet = false
+            })
         }
         .onAppear {
             workout = Workout()
