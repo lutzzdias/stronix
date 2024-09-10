@@ -45,7 +45,7 @@ struct CurrentWorkoutView: View {
             // MARK: Exercises
             Section("Exercises") {
                 ForEach(workout?.exercises ?? []) { workoutExercise in
-                    VStack{
+                    NavigationLink(destination: WorkoutExerciseView(workoutExercise: workoutExercise)) {
                         Text(workoutExercise.exercise.name)
                     }
                 }
@@ -89,7 +89,7 @@ struct CurrentWorkoutView: View {
             })
         }
         .onAppear {
-            workout = Workout()
+            if (workout == nil) { workout = Workout()}
         }
     }
 }
