@@ -25,8 +25,8 @@ extension Exercise {
 
 extension WorkoutSet {
     static let sample: [WorkoutSet] = [
-        WorkoutSet(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere"),
-        WorkoutSet(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere"),
-        WorkoutSet(repetitions: 10, minTargetRepetitions: 6, maxTargetRepetitions: 8, weight: 22.5, tag: .failure, comment: "Felt pain somewhere")
+        WorkoutSet(repetitions: 10, weight: 22.5, minTargetRepetitions: 6, maxTargetRepetitions: 8, tag: .failure, comment: "Felt pain somewhere"),
+        WorkoutSet(repetitions: 10, weight: 22.5, minTargetRepetitions: 6, maxTargetRepetitions: 8, tag: .failure, comment: "Felt pain somewhere"),
+        WorkoutSet(repetitions: 10, weight: 22.5, minTargetRepetitions: 6, maxTargetRepetitions: 8, tag: .failure, comment: "Felt pain somewhere")
     ]
 }

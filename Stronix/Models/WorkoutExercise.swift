@@ -11,12 +11,14 @@ import SwiftData
 @Model
 class WorkoutExercise {
     @Attribute(.unique) var id: UUID
-    var comment: String?
+    var comment: String
     
+    var workout: Workout?
     var exercise: Exercise
+    @Relationship(deleteRule: .cascade)
     var sets: [WorkoutSet]
     
-    init(id: UUID = UUID(), comment: String? = nil, exercise: Exercise, sets: [WorkoutSet] = []) {
+    init(id: UUID = UUID(), comment: String = "", exercise: Exercise, sets: [WorkoutSet] = []) {
         self.id = id
         self.comment = comment
         self.exercise = exercise
