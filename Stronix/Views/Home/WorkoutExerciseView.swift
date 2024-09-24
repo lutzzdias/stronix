@@ -52,38 +52,50 @@ struct WorkoutExerciseView: View {
             // TODO: Fetch previous workoutSets for this exercise
         }
         
-        VStack(spacing: 24) {
-            HStack(spacing: 16) {
-                HStack {
-                    HStack {
-                        Text(String(describing: selectedSet?.repetitions))
-                        Text("kg")
-                            .foregroundStyle(.secondary)
-                    }
-                    
-                    Spacer()
-                    
-                    // TODO: Implement dragger
-                    Image(systemName: "line.horizontal.3")
-                }
-                
-                Divider().frame(height: 44)
-                
-                HStack {
-                    HStack {
-                        Text(String(describing: selectedSet?.repetitions))
-                        Text("reps")
-                            .foregroundStyle(.secondary)
-                    }
-                    
-                    Spacer()
-                    
-                    // TODO: Implement dragger
-                    Image(systemName: "line.horizontal.3")
+        // MARK: Set editor
+        if (selectedSet != nil) {
+            var weight: Binding<String> {
+                Binding<String> {
+                    String(describing: selectedSet!.weight)
+                } set: { weight in
+                    selectedSet!.weight = Double(weight) ?? 0
                 }
             }
             
-        }.padding([.leading, .trailing])
+            var reps: Binding<String> {
+                Binding<String> {
+                    String(describing: selectedSet!.repetitions)
+                } set: { reps in
+                    selectedSet!.repetitions = Int(reps) ?? 0
+                }
+            }
+            
+            VStack(spacing: 24) {
+                HStack(spacing: 16) {
+                    HStack {
+                        HStack {
+                            TextField("Weight", text: weight)
+                                .keyboardType(.decimalPad)
+                            Text("kg")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    
+                    Divider().frame(height: 44)
+                    
+                    HStack {
+                        HStack {
+                            TextField("Reps", text: reps)
+                                .keyboardType(.numberPad)
+                            Text("reps")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                
+            }
+            .padding(.horizontal)
+        }
     }
     
     func delete(at indexes: IndexSet) {
