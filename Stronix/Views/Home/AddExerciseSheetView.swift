@@ -13,7 +13,7 @@ struct AddExerciseSheetView: View {
     @Environment(\.dismiss) var dismiss
 
     // TODO: Remove already added exercises from this list
-    @Query private let allExercises: [Exercise]
+    @Query private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     @State private var selectedExercises: Set<Exercise> = Set()

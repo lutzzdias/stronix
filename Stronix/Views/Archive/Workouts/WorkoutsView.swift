@@ -13,7 +13,7 @@ import SwiftData
 struct WorkoutsView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Query private let allWorkouts: [Workout]
+    @Query private var allWorkouts: [Workout]
     @State private var query: String = ""
     
     var workouts: [Workout] {

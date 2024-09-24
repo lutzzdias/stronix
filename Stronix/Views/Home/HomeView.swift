@@ -10,7 +10,7 @@ import SwiftData
 
 struct HomeView: View {
     
-    @Query private let workouts: [Workout]
+    @Query private var workouts: [Workout]
     
     var body: some View {
         NavigationStack {

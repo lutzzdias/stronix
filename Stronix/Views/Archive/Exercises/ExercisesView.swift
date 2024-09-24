@@ -11,7 +11,7 @@ import SwiftData
 struct ExercisesView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Query private let allExercises: [Exercise]
+    @Query private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     
