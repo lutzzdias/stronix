@@ -19,6 +19,7 @@ struct HomeView: View {
                 NavigationLink("Start Workout") {
                     CurrentWorkoutView()
                 }
+                
                 .foregroundStyle(.white)
                 .listRowBackground(Color.blue)
             }

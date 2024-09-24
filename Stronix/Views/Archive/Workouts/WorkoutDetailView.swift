@@ -64,7 +64,7 @@ struct WorkoutDetailView: View {
                 DatePicker("Start", selection: .constant(workout.start))
                     .disabled(true)
                 // TODO: assert end is always set in this screen
-                DatePicker("Start", selection: .constant(workout.end ?? Date.now))
+                DatePicker("End", selection: .constant(workout.end ?? Date.now))
                     .disabled(true)
             }
             
