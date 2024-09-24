@@ -9,7 +9,15 @@ import Foundation
 
 extension Workout {
     static let sample: [Workout] = [
-        Workout(name: "name", comment: "pretty hard"),
+        Workout(
+            name: "name",
+            comment: "pretty hard",
+            exercises: [
+                WorkoutExercise(exercise: Exercise.sample.first!, sets: WorkoutSet.sample),
+                WorkoutExercise(exercise: Exercise.sample.last!, sets: WorkoutSet.sample),
+                WorkoutExercise(exercise: Exercise.sample.last!, sets: WorkoutSet.sample)
+            ]
+        ),
         Workout(name: "name2", comment: "pretty hard"),
         Workout(name: "name3", comment: "pretty hard")
     ]

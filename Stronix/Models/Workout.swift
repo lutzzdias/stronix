@@ -34,9 +34,9 @@ class Workout {
     let timerFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.hour, .minute] // Specify which units to show
+        formatter.unitsStyle = .abbreviated // Use abbreviated style for "h" and "m"
+        formatter.zeroFormattingBehavior = .dropAll // Drop zero units (e.g., "0h" or "0m")
         
         return formatter
     }()
@@ -61,9 +61,19 @@ class Workout {
         return dateFormatter.string(from: start)
     }
     
-    // TODO: number of sets completed
+    var numberOfSets: Int {
+        exercises.reduce(0) { result, workoutExercise in
+                result + workoutExercise.sets.count
+        }
+    }
     
-    // TODO: total weight lifted
+    var totalWeight: Double {
+        return exercises.reduce(0) { result, workoutExercise in
+            result + workoutExercise.sets.reduce(0) { result, set in
+                result + set.weight
+            }
+        }
+    }
     
     // TODO: validate nil data
 }
