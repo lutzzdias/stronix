@@ -69,8 +69,8 @@ class Workout {
     
     var totalWeight: Double {
         return exercises.reduce(0) { result, workoutExercise in
-            result + workoutExercise.sets.reduce(0) { result, set in
-                result + set.weight
+            result + workoutExercise.sets.reduce(0) { exerciseTotalWeight, set in
+                exerciseTotalWeight + (set.weight * Double(set.repetitions))
             }
         }
     }
