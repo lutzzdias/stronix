@@ -15,6 +15,8 @@ class Exercise {
     var desc: String?
     var equipment: String? // TODO: Create enum (barbell, dumbbell, machine, ...)
     var muscle: String? // TODO: Create enum (back, shoulders, legs, chest, arms, ...)
+    
+    @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise]?
 
     init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: String? = nil, muscle: String? = nil) {
         self.id = id

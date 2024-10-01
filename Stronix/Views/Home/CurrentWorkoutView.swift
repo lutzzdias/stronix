@@ -46,7 +46,7 @@ struct CurrentWorkoutView: View {
             Section("Exercises") {
                 ForEach(workout?.exercises ?? []) { workoutExercise in
                     NavigationLink(destination: WorkoutExerciseView(workoutExercise: workoutExercise)) {
-                        Text(workoutExercise.exercise.name)
+                        Text(workoutExercise.exercise?.name ?? "")
                     }
                 }
                 
@@ -81,6 +81,7 @@ struct CurrentWorkoutView: View {
                     for exercise in selection {
                         let we = WorkoutExercise(exercise: exercise)
                         context.insert(we)
+                        we.workout = workout
                         workout?.exercises.append(we)
                     }
                 }

@@ -70,7 +70,7 @@ struct WorkoutDetailView: View {
             
             ForEach(workout.exercises) { workoutExercise in
                 VStack(alignment: .leading) {
-                    Text(workoutExercise.exercise.name)
+                    Text(workoutExercise.exercise?.name ?? "")
                     
                     ForEach(workoutExercise.sets) { wset in
                         Text("\(String(format: "%g", wset.weight)) x \(wset.repetitions)")

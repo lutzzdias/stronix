@@ -13,10 +13,9 @@ class WorkoutExercise {
     @Attribute(.unique) var id: UUID
     var comment: String
     
-    var workout: Workout?
-    var exercise: Exercise
-    @Relationship(deleteRule: .cascade)
-    var sets: [WorkoutSet]
+    @Relationship var workout: Workout?
+    @Relationship(deleteRule: .nullify) var exercise: Exercise? // TODO: improve deletion logic
+    @Relationship(deleteRule: .cascade) var sets: [WorkoutSet]
     
     init(id: UUID = UUID(), comment: String = "", exercise: Exercise, sets: [WorkoutSet] = []) {
         self.id = id
