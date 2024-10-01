@@ -98,6 +98,7 @@ struct ExerciseEditor: View {
                 muscle: muscle
             )
             modelContext.insert(ex)
+            try? modelContext.save()
         }
     }
     

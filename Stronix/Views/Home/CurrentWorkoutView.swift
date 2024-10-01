@@ -39,7 +39,7 @@ struct CurrentWorkoutView: View {
             // MARK: Title and description
             Section {
                 TextField("Name", text: workoutName)
-                TextField("Description", text: workoutDesc)
+                TextField("Description", text: workoutDesc, axis: .vertical)
             }
             
             // MARK: Exercises
@@ -63,6 +63,7 @@ struct CurrentWorkoutView: View {
                     workout?.end = Date.now
                     context.insert(workout!)
                     workout = nil
+                    try? context.save()
                     dismiss()
                 }
             }

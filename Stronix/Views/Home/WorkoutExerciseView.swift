@@ -40,6 +40,7 @@ struct WorkoutExerciseView: View {
                         let workoutSet = WorkoutSet()
                         context.insert(workoutSet)
                         workoutExercise.sets.append(workoutSet)
+                        try? context.save()
                     }
                 } label: {
                     HStack {
