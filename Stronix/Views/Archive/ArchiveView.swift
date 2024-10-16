@@ -41,6 +41,9 @@ struct ArchiveView: View {
                             WorkoutsView()
                         }
                         .foregroundStyle(.blue)
+                    } else if (workouts.isEmpty) {
+                        Text("No workouts yet")
+                            .foregroundStyle(.secondary)
                     }
                 }
                 

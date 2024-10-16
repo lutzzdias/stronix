@@ -29,7 +29,6 @@ struct AddExerciseSheetView: View {
     }
     
     var body: some View {
-        // TODO: button for create exercise if search returns no items
         NavigationStack {
             List(selection: $selectedExercises){
                 ForEach(exercises, id: \.self) { exercise in
