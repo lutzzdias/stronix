@@ -48,7 +48,7 @@ struct CurrentWorkoutView: View {
                     NavigationLink(destination: WorkoutExerciseView(workoutExercise: workoutExercise)) {
                         Text(workoutExercise.exercise?.name ?? "")
                     }
-                }
+                }.onDelete(perform: deleteExercise)
                 
                 Button("Add exercise", systemImage: "plus") {
                     isShowingExercisesSheet = true
@@ -93,6 +93,13 @@ struct CurrentWorkoutView: View {
         }
         .onAppear {
             if (workout == nil) { workout = Workout()}
+        }
+    }
+    
+    func deleteExercise(at indexes: IndexSet) {
+        for index in indexes {
+            guard let exercise = workout?.workoutExercises[index] else { return }
+            context.delete(exercise)
         }
     }
 }
