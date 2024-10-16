@@ -49,7 +49,7 @@ struct Preview {
                 end: Date.now.addingTimeInterval(10)
             )
             
-            workout.exercises = [workoutExercise]
+            workout.workoutExercises = [workoutExercise]
             
             container.mainContext.insert(workout)
         }

@@ -68,7 +68,7 @@ struct WorkoutDetailView: View {
                     .disabled(true)
             }
             
-            ForEach(workout.exercises) { workoutExercise in
+            ForEach(workout.workoutExercises) { workoutExercise in
                 VStack(alignment: .leading) {
                     Text(workoutExercise.exercise?.name ?? "")
                     

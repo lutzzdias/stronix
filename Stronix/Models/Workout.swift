@@ -17,7 +17,7 @@ class Workout {
     var end: Date?
     
     @Relationship(deleteRule: .cascade)
-    var exercises: [WorkoutExercise]
+    var workoutExercises: [WorkoutExercise]
     // var routineId: UUID TODO: create routines
     
     init(name: String = "", comment: String = "", end: Date? = nil, exercises: [WorkoutExercise] = []) {
@@ -27,7 +27,17 @@ class Workout {
         self.name = name
         self.comment = comment
         self.end = end
-        self.exercises = exercises
+        self.workoutExercises = exercises
+    }
+    
+    var exercises: [Exercise] {
+        var exercises: [Exercise] = []
+        
+        for workoutExercise in workoutExercises {
+            exercises.append(workoutExercise.exercise!)
+        }
+        
+        return exercises
     }
     
     @Transient
@@ -62,13 +72,13 @@ class Workout {
     }
     
     var numberOfSets: Int {
-        exercises.reduce(0) { result, workoutExercise in
+        workoutExercises.reduce(0) { result, workoutExercise in
                 result + workoutExercise.sets.count
         }
     }
     
     var totalWeight: Double {
-        return exercises.reduce(0) { result, workoutExercise in
+        return workoutExercises.reduce(0) { result, workoutExercise in
             result + workoutExercise.sets.reduce(0) { exerciseTotalWeight, set in
                 exerciseTotalWeight + (set.weight * Double(set.repetitions))
             }

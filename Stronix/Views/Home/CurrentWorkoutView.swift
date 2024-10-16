@@ -44,7 +44,7 @@ struct CurrentWorkoutView: View {
             
             // MARK: Exercises
             Section("Exercises") {
-                ForEach(workout?.exercises ?? []) { workoutExercise in
+                ForEach(workout?.workoutExercises ?? []) { workoutExercise in
                     NavigationLink(destination: WorkoutExerciseView(workoutExercise: workoutExercise)) {
                         Text(workoutExercise.exercise?.name ?? "")
                     }
@@ -83,7 +83,7 @@ struct CurrentWorkoutView: View {
                         let we = WorkoutExercise(exercise: exercise)
                         context.insert(we)
                         we.workout = workout
-                        workout?.exercises.append(we)
+                        workout?.workoutExercises.append(we)
                     }
                 }
                 
