@@ -11,18 +11,19 @@ import SwiftData
 struct AddExerciseSheetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
-
-    // TODO: Remove already added exercises from this list
+    
     @Query private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     @State private var selectedExercises: Set<Exercise> = Set()
     
+    let addedExercises: Set<Exercise>
     let onAdd: (Set<Exercise>) -> Void
     
     var exercises: [Exercise] {
-        guard !query.isEmpty else { return allExercises }
-        return allExercises.filter { exercise in
+        let filteredExercises: [Exercise] = allExercises.filter { !addedExercises.contains($0) }
+        guard !query.isEmpty else { return filteredExercises }
+        return filteredExercises.filter { exercise in
             exercise.name.localizedCaseInsensitiveContains(query)
         }
     }
@@ -41,7 +42,7 @@ struct AddExerciseSheetView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         onAdd(selectedExercises)
-                    }
+                    }.disabled(selectedExercises.isEmpty)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
@@ -56,6 +57,6 @@ struct AddExerciseSheetView: View {
 #Preview {
     let preview = Preview()
     
-    return AddExerciseSheetView(onAdd: {_ in })
+    return AddExerciseSheetView(addedExercises: Set(), onAdd: {_ in })
         .modelContainer(preview.container)
 }

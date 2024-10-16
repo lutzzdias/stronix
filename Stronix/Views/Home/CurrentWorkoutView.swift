@@ -77,6 +77,7 @@ struct CurrentWorkoutView: View {
         }
         .sheet(isPresented: $isShowingExercisesSheet) {
             AddExerciseSheetView(
+                addedExercises: Set(workout?.exercises ?? []),
                 onAdd: { selection in
                 Task { @MainActor in
                     for exercise in selection {
