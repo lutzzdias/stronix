@@ -31,8 +31,19 @@ struct AddExerciseSheetView: View {
     var body: some View {
         // TODO: button for create exercise if search returns no items
         NavigationStack {
-            List(exercises, id: \.self, selection: $selectedExercises) { exercise in
-                Text(exercise.name).tag(exercise.id)
+            List(selection: $selectedExercises){
+                ForEach(exercises, id: \.self) { exercise in
+                    Text(exercise.name).tag(exercise.id)
+                }
+                
+                Button {
+                    showCreateSheet.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "plus")
+                        Text("Create new")
+                    }
+                }
             }
             .searchable(text: $query)
             .environment(\.editMode, .constant(.active))
@@ -49,6 +60,9 @@ struct AddExerciseSheetView: View {
                         dismiss()
                     }
                 }
+            }
+            .sheet(isPresented: $showCreateSheet) {
+                ExerciseEditor(exercise: nil)
             }
         }
     }
