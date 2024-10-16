@@ -21,8 +21,10 @@ struct WorkoutExerciseView: View {
             Section {
                 TextField("Comment", text: $workoutExercise.comment)
                 
+                // TODO: initialize empty and only show image when current/past set (iron like)
                 ForEach(Array(workoutExercise.sets.enumerated()), id: \.element.id) { index, workoutSet in
                     HStack {
+                        workoutSet.completed ? Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) : Image(systemName: "arrow.forward.circle").foregroundStyle(.blue)
                         Text("\(String(format: "%g", workoutSet.weight)) × \(workoutSet.repetitions)")
                         Spacer()
                         Text("\(index + 1)")
@@ -92,6 +94,12 @@ struct WorkoutExerciseView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
+                }
+                
+                Button("Complete set") {
+                    selectedSet?.completed = true
+                    // TODO: Select next if exists
+                    selectedSet = nil
                 }
                 
             }
