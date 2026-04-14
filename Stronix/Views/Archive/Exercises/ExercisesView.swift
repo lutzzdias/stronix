@@ -11,7 +11,7 @@ import SwiftData
 struct ExercisesView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Query private var allExercises: [Exercise]
+    @Query(filter: Exercise.activePredicate) private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     
@@ -53,8 +53,7 @@ struct ExercisesView: View {
     
     private func delete(at indexes: IndexSet) {
         for index in indexes {
-            let exercise = exercises[index]
-            modelContext.delete(exercise)
+            exercises[index].isArchived = true
         }
     }
 }

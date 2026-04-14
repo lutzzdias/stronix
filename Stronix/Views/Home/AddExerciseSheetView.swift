@@ -12,7 +12,7 @@ struct AddExerciseSheetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @Query private var allExercises: [Exercise]
+    @Query(filter: Exercise.activePredicate) private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     @State private var selectedExercises: Set<Exercise> = Set()

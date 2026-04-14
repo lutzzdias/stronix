@@ -15,6 +15,7 @@ class Exercise {
     var desc: String?
     var equipment: String? // TODO: Create enum (barbell, dumbbell, machine, ...)
     var muscle: String? // TODO: Create enum (back, shoulders, legs, chest, arms, ...)
+    var isArchived: Bool = false
     
     @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise]?
 
@@ -25,4 +26,8 @@ class Exercise {
         self.muscle = muscle
         self.equipment = equipment
     }
+}
+
+extension Exercise {
+    static let activePredicate = #Predicate<Exercise> { exercise in !exercise.isArchived }
 }

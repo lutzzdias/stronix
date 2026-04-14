@@ -12,7 +12,7 @@ struct ArchiveView: View {
     @Environment(\.modelContext) var context
     
     @Query(sort: \Workout.end) var workouts: [Workout]
-    @Query var exercises: [Exercise]
+    @Query(filter: Exercise.activePredicate) var exercises: [Exercise]
     
     @State private var showCreateSheet: Bool = false
     
@@ -99,8 +99,7 @@ struct ArchiveView: View {
     
     func deleteExercise(at indexes: IndexSet) {
         for index in indexes {
-            let exercise = exercises[index]
-            context.delete(exercise)
+            exercises[index].isArchived = true
         }
     }
 }

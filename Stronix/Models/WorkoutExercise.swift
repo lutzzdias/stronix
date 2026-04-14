@@ -15,7 +15,7 @@ class WorkoutExercise {
     var sortIndex: Int
     
     @Relationship var workout: Workout?
-    @Relationship(deleteRule: .nullify) var exercise: Exercise? // TODO: improve deletion logic
+    @Relationship(deleteRule: .noAction) var exercise: Exercise?
     @Relationship(deleteRule: .cascade) var sets: [WorkoutSet]
     
     init(id: UUID = UUID(), comment: String = "", exercise: Exercise, sets: [WorkoutSet] = [], sortIndex: Int = 0) {

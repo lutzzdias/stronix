@@ -115,6 +115,6 @@ struct WorkoutExerciseView: View {
     let workoutExercise = WorkoutExercise(exercise: Exercise(name: "Test"))
     preview.container.mainContext.insert(workoutExercise)
     
-    return WorkoutExerciseView(workoutExercise: workoutExercise)
+    return WorkoutExerciseView(workout: Workout(), workoutExercise: workoutExercise)
         .modelContainer(preview.container)
 }
