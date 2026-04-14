@@ -51,54 +51,10 @@ struct WorkoutExerciseView: View {
         }
         
         // MARK: Set editor
-        if (selectedSet != nil) {
-            var weight: Binding<String> {
-                Binding<String> {
-                    String(describing: selectedSet!.weight)
-                } set: { weight in
-                    selectedSet!.weight = Double(weight) ?? 0
-                }
+        if let selectedSet {
+            SetEditorView(set: selectedSet) {
+                self.selectedSet = nil
             }
-            
-            var reps: Binding<String> {
-                Binding<String> {
-                    String(describing: selectedSet!.repetitions)
-                } set: { reps in
-                    selectedSet!.repetitions = Int(reps) ?? 0
-                }
-            }
-            
-            VStack(spacing: 24) {
-                HStack(spacing: 16) {
-                    HStack {
-                        HStack {
-                            TextField("Weight", text: weight)
-                                .keyboardType(.decimalPad)
-                            Text("kg")
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    
-                    Divider().frame(height: 44)
-                    
-                    HStack {
-                        HStack {
-                            TextField("Reps", text: reps)
-                                .keyboardType(.numberPad)
-                            Text("reps")
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
-                
-                Button("Complete set") {
-                    selectedSet?.completed = true
-                    // TODO: Select next if exists
-                    selectedSet = nil
-                }
-                
-            }
-            .padding(.horizontal)
         }
     }
     

@@ -86,6 +86,6 @@ struct WorkoutDetailView: View {
 
 #Preview {
     NavigationStack {
-        WorkoutDetailView(workout: Workout.sample.first!)
+        WorkoutDetailView(workout: Workout.sample[0])
     }
 }

@@ -1,0 +1,42 @@
+//
+//  SetEditorView.swift
+//  Stronix
+//
+//  Created by Thiago Dias on 13/04/26.
+//
+
+import SwiftUI
+
+struct SetEditorView: View {
+    @Bindable var set: WorkoutSet
+    let onComplete: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 24) {
+            HStack(spacing: 16) {
+                HStack {
+                    TextField("Weight", value: $set.weight, format: .number)
+                        .keyboardType(.decimalPad)
+                    Text("kg")
+                        .foregroundStyle(.secondary)
+                }
+                
+                Divider()
+                    .frame(height: 44)
+                
+                HStack {
+                    TextField("Reps", value: $set.repetitions, format: .number)
+                        .keyboardType(.numberPad)
+                    Text("reps")
+                        .foregroundStyle(.secondary)
+                }
+            }
+            
+            Button("Complete set") {
+                set.completed = true
+                onComplete()
+            }
+        }
+        .padding(.horizontal)
+    }
+}

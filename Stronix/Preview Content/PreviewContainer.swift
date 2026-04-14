@@ -34,7 +34,7 @@ struct Preview {
                 container.mainContext.insert(exercise)
             }
 
-            let workoutExercise = WorkoutExercise(exercise: exercises.first!)
+            let workoutExercise = WorkoutExercise(exercise: exercises[0])
             
             for s in sets {
                 container.mainContext.insert(s)

@@ -13,9 +13,9 @@ extension Workout {
             name: "name",
             comment: "pretty hard",
             exercises: [
-                WorkoutExercise(exercise: Exercise.sample.first!, sets: WorkoutSet.sample),
-                WorkoutExercise(exercise: Exercise.sample.last!, sets: WorkoutSet.sample),
-                WorkoutExercise(exercise: Exercise.sample.last!, sets: WorkoutSet.sample)
+                WorkoutExercise(exercise: Exercise.sample[0], sets: WorkoutSet.sample),
+                WorkoutExercise(exercise: Exercise.sample[1], sets: WorkoutSet.sample),
+                WorkoutExercise(exercise: Exercise.sample[2], sets: WorkoutSet.sample)
             ]
         ),
         Workout(name: "name2", comment: "pretty hard"),
