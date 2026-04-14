@@ -72,8 +72,8 @@ struct WorkoutDetailView: View {
                 VStack(alignment: .leading) {
                     Text(workoutExercise.exercise?.name ?? "")
                     
-                    ForEach(workoutExercise.sortedSets) { wset in
-                        Text("\(String(format: "%g", wset.weight ?? 0)) x \(wset.repetitions ?? 0)")
+                    ForEach(workoutExercise.sortedSets) { workoutSet in
+                        Text("\(String(format: "%g", workoutSet.weight ?? 0)) x \(workoutSet.repetitions ?? 0)")
                             .foregroundStyle(.secondary)
                     }
                 }

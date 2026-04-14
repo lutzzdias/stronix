@@ -18,7 +18,7 @@ struct ExerciseEditor: View {
     }
     
     @State private var name: String = ""
-    @State private var description: String?
+    @State private var desc: String?
     @State private var equipment: String?
     @State private var muscle: String?
     
@@ -28,9 +28,9 @@ struct ExerciseEditor: View {
                 Section {
                     TextField("Name", text: $name)
                     TextField("Description", text: Binding(
-                        get: { description ?? ""},
-                        set: {  desc in
-                            description = desc
+                        get: { desc ?? ""},
+                        set: { value in
+                            desc = value
                         }
                     ), axis: .vertical)
                 }
@@ -39,8 +39,8 @@ struct ExerciseEditor: View {
                 Section("Equipment") {
                     TextField("Equipment", text: Binding(
                         get: { equipment ?? ""},
-                        set: {  eq in
-                            equipment = eq
+                        set: {  value in
+                            equipment = value
                         }
                     ))
                 }
@@ -49,8 +49,8 @@ struct ExerciseEditor: View {
                 Section("Muscles") {
                     TextField("Muscle", text: Binding(
                         get: { muscle ?? ""},
-                        set: {  musc in
-                            muscle = musc
+                        set: {  value in
+                            muscle = value
                         }
                     ))
                 }
@@ -76,7 +76,7 @@ struct ExerciseEditor: View {
             .onAppear {
                 if let exercise {
                     name = exercise.name
-                    description = exercise.desc
+                    desc = exercise.desc
                     equipment = exercise.equipment
                     muscle = exercise.muscle
                 }
@@ -87,17 +87,17 @@ struct ExerciseEditor: View {
     private func save() {
         if let exercise {
             exercise.name = name
-            exercise.desc = description
+            exercise.desc = desc
             exercise.equipment = equipment
             exercise.muscle = muscle
         } else {
-            let ex = Exercise(
+            let exercise = Exercise(
                 name: name,
-                desc: description,
+                desc: desc,
                 equipment: equipment,
                 muscle: muscle
             )
-            modelContext.insert(ex)
+            modelContext.insert(exercise)
             try? modelContext.save()
         }
     }
