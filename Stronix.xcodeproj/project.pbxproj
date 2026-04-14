@@ -17,6 +17,13 @@
 		49553D5D2C672A4400973C0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49553D5C2C672A4400973C0B /* Preview Assets.xcassets */; };
 		49752E552C7597E600111109 /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49752E542C7597E600111109 /* ExerciseDetailView.swift */; };
 		49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49752E562C75A06600111109 /* ExerciseEditor.swift */; };
+		498C9E1A2F8DE95900F871FB /* SortableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C492F8DDD3300BFB05C /* SortableTests.swift */; };
+		498C9E1B2F8DE96200F871FB /* AppFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */; };
+		498C9E1C2F8DE96700F871FB /* TagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C4B2F8DE13A00BFB05C /* TagTests.swift */; };
+		498C9E1D2F8DE97200F871FB /* WorkoutSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */; };
+		498C9E1E2F8DE97200F871FB /* ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */; };
+		498C9E1F2F8DE97200F871FB /* WorkoutExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C452F8DDD1300BFB05C /* WorkoutExerciseTests.swift */; };
+		498C9E202F8DE97200F871FB /* WorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C442F8DDD0A00BFB05C /* WorkoutTests.swift */; };
 		499F4C2C2F8DCB2500BFB05C /* Sortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C2B2F8DCB0B00BFB05C /* Sortable.swift */; };
 		499F4C2F2F8DCE6400BFB05C /* AppFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C2E2F8DCE6000BFB05C /* AppFormatter.swift */; };
 		499F4C312F8DD43F00BFB05C /* SetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C302F8DD43900BFB05C /* SetEditorView.swift */; };
@@ -35,6 +42,16 @@
 		49D9E69C2C90626500EF85A7 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9E69B2C90626500EF85A7 /* TimerView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		499F4C3A2F8DDCB500BFB05C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49553D492C672A4400973C0B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49553D502C672A4400973C0B;
+			remoteInfo = Stronix;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		490EF85A2C89647800E75ECD /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
 		490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -51,6 +68,14 @@
 		499F4C2B2F8DCB0B00BFB05C /* Sortable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sortable.swift; sourceTree = "<group>"; };
 		499F4C2E2F8DCE6000BFB05C /* AppFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFormatter.swift; sourceTree = "<group>"; };
 		499F4C302F8DD43900BFB05C /* SetEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEditorView.swift; sourceTree = "<group>"; };
+		499F4C362F8DDCB500BFB05C /* StronixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StronixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		499F4C442F8DDD0A00BFB05C /* WorkoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTests.swift; sourceTree = "<group>"; };
+		499F4C452F8DDD1300BFB05C /* WorkoutExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExerciseTests.swift; sourceTree = "<group>"; };
+		499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSetTests.swift; sourceTree = "<group>"; };
+		499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFormatterTests.swift; sourceTree = "<group>"; };
+		499F4C492F8DDD3300BFB05C /* SortableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableTests.swift; sourceTree = "<group>"; };
+		499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTests.swift; sourceTree = "<group>"; };
+		499F4C4B2F8DE13A00BFB05C /* TagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTests.swift; sourceTree = "<group>"; };
 		49D38DE22C6AA59500D84C14 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		49D38DE42C6AAC6B00D84C14 /* WorkoutSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSet.swift; sourceTree = "<group>"; };
 		49D38DE62C6AAF7500D84C14 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
@@ -68,6 +93,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		49553D4E2C672A4400973C0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		499F4C332F8DDCB500BFB05C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -110,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				49553D532C672A4400973C0B /* Stronix */,
+				499F4C412F8DDCF400BFB05C /* StronixTests */,
 				49553D522C672A4400973C0B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				49553D512C672A4400973C0B /* Stronix.app */,
+				499F4C362F8DDCB500BFB05C /* StronixTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,6 +203,36 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		499F4C412F8DDCF400BFB05C /* StronixTests */ = {
+			isa = PBXGroup;
+			children = (
+				499F4C472F8DDD2500BFB05C /* Utils */,
+				499F4C432F8DDCFA00BFB05C /* Models */,
+			);
+			path = StronixTests;
+			sourceTree = "<group>";
+		};
+		499F4C432F8DDCFA00BFB05C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				499F4C4B2F8DE13A00BFB05C /* TagTests.swift */,
+				499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */,
+				499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */,
+				499F4C452F8DDD1300BFB05C /* WorkoutExerciseTests.swift */,
+				499F4C442F8DDD0A00BFB05C /* WorkoutTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		499F4C472F8DDD2500BFB05C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				499F4C492F8DDD3300BFB05C /* SortableTests.swift */,
+				499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		49D38DE12C6AA57800D84C14 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +275,26 @@
 			productReference = 49553D512C672A4400973C0B /* Stronix.app */;
 			productType = "com.apple.product-type.application";
 		};
+		499F4C352F8DDCB500BFB05C /* StronixTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 499F4C3C2F8DDCB500BFB05C /* Build configuration list for PBXNativeTarget "StronixTests" */;
+			buildPhases = (
+				499F4C322F8DDCB500BFB05C /* Sources */,
+				499F4C332F8DDCB500BFB05C /* Frameworks */,
+				499F4C342F8DDCB500BFB05C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				499F4C3B2F8DDCB500BFB05C /* PBXTargetDependency */,
+			);
+			name = StronixTests;
+			packageProductDependencies = (
+			);
+			productName = StronixTests;
+			productReference = 499F4C362F8DDCB500BFB05C /* StronixTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,11 +302,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					49553D502C672A4400973C0B = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					499F4C352F8DDCB500BFB05C = {
+						CreatedOnToolsVersion = 26.4;
+						TestTargetID = 49553D502C672A4400973C0B;
 					};
 				};
 			};
@@ -240,6 +328,7 @@
 			projectRoot = "";
 			targets = (
 				49553D502C672A4400973C0B /* Stronix */,
+				499F4C352F8DDCB500BFB05C /* StronixTests */,
 			);
 		};
 /* End PBXProject section */
@@ -251,6 +340,13 @@
 			files = (
 				49553D5D2C672A4400973C0B /* Preview Assets.xcassets in Resources */,
 				49553D592C672A4400973C0B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		499F4C342F8DDCB500BFB05C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +384,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		499F4C322F8DDCB500BFB05C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				498C9E1B2F8DE96200F871FB /* AppFormatterTests.swift in Sources */,
+				498C9E1D2F8DE97200F871FB /* WorkoutSetTests.swift in Sources */,
+				498C9E1E2F8DE97200F871FB /* ExerciseTests.swift in Sources */,
+				498C9E1F2F8DE97200F871FB /* WorkoutExerciseTests.swift in Sources */,
+				498C9E202F8DE97200F871FB /* WorkoutTests.swift in Sources */,
+				498C9E1C2F8DE96700F871FB /* TagTests.swift in Sources */,
+				498C9E1A2F8DE95900F871FB /* SortableTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		499F4C3B2F8DDCB500BFB05C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49553D502C672A4400973C0B /* Stronix */;
+			targetProxy = 499F4C3A2F8DDCB500BFB05C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		49553D5E2C672A4400973C0B /* Debug */ = {
@@ -489,6 +607,55 @@
 			};
 			name = Release;
 		};
+		499F4C3D2F8DDCB500BFB05C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MRKVA8MLPY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lutzzdias.StronixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stronix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Stronix";
+			};
+			name = Debug;
+		};
+		499F4C3E2F8DDCB500BFB05C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MRKVA8MLPY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lutzzdias.StronixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stronix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Stronix";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,6 +673,15 @@
 			buildConfigurations = (
 				49553D612C672A4400973C0B /* Debug */,
 				49553D622C672A4400973C0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		499F4C3C2F8DDCB500BFB05C /* Build configuration list for PBXNativeTarget "StronixTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				499F4C3D2F8DDCB500BFB05C /* Debug */,
+				499F4C3E2F8DDCB500BFB05C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
