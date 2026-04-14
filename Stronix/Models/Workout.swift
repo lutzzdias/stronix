@@ -60,35 +60,9 @@ class Workout {
         ordered.reorder()
     }
     
-    @Transient
-    let timerFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        
-        formatter.allowedUnits = [.hour, .minute] // Specify which units to show
-        formatter.unitsStyle = .abbreviated // Use abbreviated style for "h" and "m"
-        formatter.zeroFormattingBehavior = .dropAll // Drop zero units (e.g., "0h" or "0m")
-        
-        return formatter
-    }()
-    
     var duration: TimeInterval {
         let e = end ?? max(start, Date.now)
         return e.timeIntervalSince(start)
-    }
-    
-    var durationStr: String {
-        timerFormatter.string(from: duration) ?? ""
-    }
-    
-    @Transient
-    private let dateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy 'at' HH:mm"
-        return formatter
-    }()
-    
-    var date: String {
-        return dateFormatter.string(from: start)
     }
     
     var numberOfSets: Int {

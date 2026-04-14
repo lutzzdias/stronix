@@ -25,7 +25,7 @@ struct WorkoutDetailView: View {
                 
                 // TODO: extract into subview
                 VStack {
-                    Text(workout.durationStr)
+                    Text(AppFormatter.duration(workout.duration))
                         .font(.title3)
                     
                     Text("Duration")

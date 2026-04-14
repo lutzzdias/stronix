@@ -25,12 +25,12 @@ struct ArchiveView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(workout.name)
-                                    Text(workout.date)
+                                    Text(AppFormatter.date(workout.start))
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
                                 Spacer()
-                                Text(workout.durationStr)
+                                Text(AppFormatter.duration(workout.duration))
                             }
                         }
                     }

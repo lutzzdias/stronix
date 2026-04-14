@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct WorkoutExerciseView: View {
+    let workout: Workout
     @Bindable var workoutExercise: WorkoutExercise
     @State var selectedSet: WorkoutSet? = nil
     
     var body: some View {
-        Text(workoutExercise.workout?.name ?? "")
-        TimerView(startDate: workoutExercise.workout?.start ?? Date.now)
+        Text(workout.name)
+        TimerView(startDate: workout.start)
         
         List {
             Section {
