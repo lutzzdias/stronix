@@ -73,7 +73,7 @@ struct WorkoutDetailView: View {
                     Text(workoutExercise.exercise?.name ?? "")
                     
                     ForEach(workoutExercise.sortedSets) { wset in
-                        Text("\(String(format: "%g", wset.weight)) x \(wset.repetitions)")
+                        Text("\(String(format: "%g", wset.weight ?? 0)) x \(wset.repetitions ?? 0)")
                             .foregroundStyle(.secondary)
                     }
                 }

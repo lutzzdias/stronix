@@ -24,7 +24,7 @@ struct WorkoutExerciseView: View {
                 ForEach(Array(workoutExercise.sortedSets.enumerated()), id: \.element.id) { index, workoutSet in
                     HStack {
                         workoutSet.completed ? Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) : Image(systemName: "arrow.forward.circle").foregroundStyle(.blue)
-                        Text("\(String(format: "%g", workoutSet.weight)) × \(workoutSet.repetitions)")
+                        Text("\(String(format: "%g", workoutSet.weight ?? 0)) × \(workoutSet.repetitions ?? 0)")
                         Spacer()
                         Text("\(index + 1)")
                             .foregroundStyle(.secondary)

@@ -150,11 +150,11 @@
 		4976B7972C764ADA00A818B5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				499F4C302F8DD43900BFB05C /* SetEditorView.swift */,
 				49D38DF12C6AC78A00D84C14 /* HomeView.swift */,
 				494057162C80099200C8A6BD /* CurrentWorkoutView.swift */,
 				49D9E6952C8F422B00EF85A7 /* AddExerciseSheetView.swift */,
 				49D9E6992C905ECC00EF85A7 /* WorkoutExerciseView.swift */,
+				499F4C302F8DD43900BFB05C /* SetEditorView.swift */,
 				49D9E69B2C90626500EF85A7 /* TimerView.swift */,
 			);
 			path = Home;

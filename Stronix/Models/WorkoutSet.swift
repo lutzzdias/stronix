@@ -11,8 +11,8 @@ import SwiftData
 @Model
 class WorkoutSet {
     @Attribute(.unique) var id: UUID
-    var repetitions: Int
-    var weight: Double
+    var repetitions: Int?
+    var weight: Double?
     var completed: Bool
     var minTargetRepetitions: Int?
     var maxTargetRepetitions: Int?
@@ -20,7 +20,7 @@ class WorkoutSet {
     var comment: String?
     var sortIndex: Int
     
-    init(id: UUID = UUID(), repetitions: Int = 0, weight: Double = 0, completed: Bool = false, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, tag: Tag? = nil, comment: String? = nil, sortIndex: Int = 0) {
+    init(id: UUID = UUID(), repetitions: Int? = nil, weight: Double? = nil, completed: Bool = false, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, tag: Tag? = nil, comment: String? = nil, sortIndex: Int = 0) {
         self.id = id
         self.repetitions = repetitions
         self.weight = weight
