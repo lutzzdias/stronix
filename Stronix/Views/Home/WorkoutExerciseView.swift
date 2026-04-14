@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct WorkoutExerciseView: View {
-    @Environment(\.modelContext) var context
-    
     @Bindable var workoutExercise: WorkoutExercise
     @State var selectedSet: WorkoutSet? = nil
     
@@ -38,11 +36,8 @@ struct WorkoutExerciseView: View {
                 .onDelete(perform: delete)
                 
                 Button {
-                    Task { @MainActor in
-                        let workoutSet = WorkoutSet()
-                        context.insert(workoutSet)
-                        workoutExercise.sets.append(workoutSet)
-                        try? context.save()
+                    Task {
+                        workoutExercise.sets.append(WorkoutSet())
                     }
                 } label: {
                     HStack {
@@ -111,7 +106,6 @@ struct WorkoutExerciseView: View {
         for index in indexes {
             let workoutSet = workoutExercise.sets.remove(at: index)
             if (workoutSet == selectedSet) { selectedSet = nil }
-            context.delete(workoutSet)
         }
     }
 }

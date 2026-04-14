@@ -60,10 +60,12 @@ struct CurrentWorkoutView: View {
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
-                    workout?.end = Date.now
-                    context.insert(workout!)
-                    workout = nil
+                    guard let workout else { return } // TODO: add logs
+                    workout.end = Date.now
+                    context.insert(workout)
                     try? context.save()
+                    
+                    self.workout = nil
                     dismiss()
                 }
             }
@@ -79,17 +81,14 @@ struct CurrentWorkoutView: View {
             AddExerciseSheetView(
                 addedExercises: Set(workout?.exercises ?? []),
                 onAdd: { selection in
-                Task { @MainActor in
                     for exercise in selection {
-                        let we = WorkoutExercise(exercise: exercise)
-                        context.insert(we)
-                        we.workout = workout
-                        workout?.workoutExercises.append(we)
+                        let workoutExercise = WorkoutExercise(exercise: exercise)
+                        workoutExercise.workout = workout
+                        workout?.workoutExercises.append(workoutExercise)
                     }
+                    isShowingExercisesSheet = false
                 }
-                
-                isShowingExercisesSheet = false
-            })
+            )
         }
         .onAppear {
             if (workout == nil) { workout = Workout()}
@@ -97,10 +96,7 @@ struct CurrentWorkoutView: View {
     }
     
     func deleteExercise(at indexes: IndexSet) {
-        for index in indexes {
-            guard let exercise = workout?.workoutExercises[index] else { return }
-            context.delete(exercise)
-        }
+        workout?.workoutExercises.remove(atOffsets: indexes)
     }
 }
 

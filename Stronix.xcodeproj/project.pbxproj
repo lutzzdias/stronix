@@ -156,9 +156,9 @@
 			isa = PBXGroup;
 			children = (
 				49D38DE22C6AA59500D84C14 /* Exercise.swift */,
-				49D38DE42C6AAC6B00D84C14 /* WorkoutSet.swift */,
 				49D38DE62C6AAF7500D84C14 /* Workout.swift */,
 				49D38DE82C6AB18100D84C14 /* WorkoutExercise.swift */,
+				49D38DE42C6AAC6B00D84C14 /* WorkoutSet.swift */,
 				49D38DEA2C6AB2EE00D84C14 /* Tag.swift */,
 			);
 			path = Models;
