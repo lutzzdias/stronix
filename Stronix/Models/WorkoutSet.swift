@@ -18,8 +18,9 @@ class WorkoutSet {
     var maxTargetRepetitions: Int?
     var tag: Tag?
     var comment: String?
+    var sortIndex: Int
     
-    init(id: UUID = UUID(), repetitions: Int = 0, weight: Double = 0, completed: Bool = false, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, tag: Tag? = nil, comment: String? = nil) {
+    init(id: UUID = UUID(), repetitions: Int = 0, weight: Double = 0, completed: Bool = false, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, tag: Tag? = nil, comment: String? = nil, sortIndex: Int = 0) {
         self.id = id
         self.repetitions = repetitions
         self.weight = weight
@@ -28,5 +29,8 @@ class WorkoutSet {
         self.maxTargetRepetitions = maxTargetRepetitions
         self.tag = tag
         self.comment = comment
+        self.sortIndex = sortIndex
     }
 }
+
+extension WorkoutSet: Sortable {}

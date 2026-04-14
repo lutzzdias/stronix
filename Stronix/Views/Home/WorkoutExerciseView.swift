@@ -20,7 +20,7 @@ struct WorkoutExerciseView: View {
                 TextField("Comment", text: $workoutExercise.comment)
                 
                 // TODO: initialize empty and only show image when current/past set (iron like)
-                ForEach(Array(workoutExercise.sets.enumerated()), id: \.element.id) { index, workoutSet in
+                ForEach(Array(workoutExercise.sortedSets.enumerated()), id: \.element.id) { index, workoutSet in
                     HStack {
                         workoutSet.completed ? Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) : Image(systemName: "arrow.forward.circle").foregroundStyle(.blue)
                         Text("\(String(format: "%g", workoutSet.weight)) × \(workoutSet.repetitions)")
@@ -33,12 +33,11 @@ struct WorkoutExerciseView: View {
                         else { selectedSet = workoutSet }
                     }
                 }
+                .onMove { source, destination in workoutExercise.moveSets(from: source, to: destination) }
                 .onDelete(perform: delete)
                 
                 Button {
-                    Task {
-                        workoutExercise.sets.append(WorkoutSet())
-                    }
+                    workoutExercise.appendSet(WorkoutSet())
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -103,9 +102,9 @@ struct WorkoutExerciseView: View {
     }
     
     func delete(at indexes: IndexSet) {
-        for index in indexes {
-            let workoutSet = workoutExercise.sets.remove(at: index)
-            if (workoutSet == selectedSet) { selectedSet = nil }
+        let removedSet = workoutExercise.removeSets(at: indexes)
+        if let selectedSet, removedSet.contains(where: {set in set.id == selectedSet.id }) {
+            self.selectedSet = nil
         }
     }
 }

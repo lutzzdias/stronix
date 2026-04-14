@@ -44,11 +44,13 @@ struct CurrentWorkoutView: View {
             
             // MARK: Exercises
             Section("Exercises") {
-                ForEach(workout?.workoutExercises ?? []) { workoutExercise in
+                ForEach(workout?.sortedExercises ?? []) { workoutExercise in
                     NavigationLink(destination: WorkoutExerciseView(workoutExercise: workoutExercise)) {
                         Text(workoutExercise.exercise?.name ?? "")
                     }
-                }.onDelete(perform: deleteExercise)
+                }
+                .onMove { source, destination in workout?.moveExercises(from: source, to: destination)}
+                .onDelete{ indexes in workout?.removeExercises(at: indexes)}
                 
                 Button("Add exercise", systemImage: "plus") {
                     isShowingExercisesSheet = true
@@ -82,9 +84,7 @@ struct CurrentWorkoutView: View {
                 addedExercises: Set(workout?.exercises ?? []),
                 onAdd: { selection in
                     for exercise in selection {
-                        let workoutExercise = WorkoutExercise(exercise: exercise)
-                        workoutExercise.workout = workout
-                        workout?.workoutExercises.append(workoutExercise)
+                        workout?.appendExercise(WorkoutExercise(exercise: exercise))
                     }
                     isShowingExercisesSheet = false
                 }
@@ -93,10 +93,6 @@ struct CurrentWorkoutView: View {
         .onAppear {
             if (workout == nil) { workout = Workout()}
         }
-    }
-    
-    func deleteExercise(at indexes: IndexSet) {
-        workout?.workoutExercises.remove(atOffsets: indexes)
     }
 }
 

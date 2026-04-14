@@ -31,13 +31,33 @@ class Workout {
     }
     
     var exercises: [Exercise] {
-        var exercises: [Exercise] = []
-        
-        for workoutExercise in workoutExercises {
-            exercises.append(workoutExercise.exercise!)
+        sortedExercises.compactMap { workoutExercise in workoutExercise.exercise }
+    }
+    
+    var sortedExercises: [WorkoutExercise] {
+        workoutExercises.sorted { left, right in left.sortIndex < right.sortIndex }
+    }
+    
+    func appendExercise(_ exercise: WorkoutExercise) {
+        exercise.sortIndex = workoutExercises.count
+        exercise.workout = self
+        workoutExercises.append(exercise)
+    }
+    
+    func removeExercises(at offsets: IndexSet) {
+        let sorted = sortedExercises
+        for index in offsets {
+            workoutExercises.removeAll { exercise in exercise.id == sorted[index].id }
         }
-        
-        return exercises
+        for (index, exercise) in sortedExercises.enumerated() {
+            exercise.sortIndex = index
+        }
+    }
+    
+    func moveExercises(from source: IndexSet, to destination: Int) {
+        var ordered = sortedExercises
+        ordered.move(fromOffsets: source, toOffset: destination)
+        ordered.reorder()
     }
     
     @Transient
