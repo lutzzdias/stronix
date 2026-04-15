@@ -39,6 +39,7 @@ struct WorkoutExerciseView: View {
                 
                 Button {
                     workoutExercise.appendSet(WorkoutSet())
+                    Log.persistence.debug("Set added to exercise: \(workoutExercise.exercise?.name ?? "unknown exercise")")
                 } label: {
                     HStack {
                         Image(systemName: "plus")

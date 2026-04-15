@@ -44,6 +44,7 @@ struct WorkoutsView: View {
         for index in indexes {
             let workout = workouts[index]
             modelContext.delete(workout)
+            Log.persistence.info("Workout deleted: \(workout.name)")
         }
     }
 }

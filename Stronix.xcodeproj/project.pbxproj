@@ -10,6 +10,8 @@
 		490EF85B2C89647800E75ECD /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85A2C89647800E75ECD /* WorkoutsView.swift */; };
 		490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */; };
 		490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85E2C89664800E75ECD /* ArchiveView.swift */; };
+		491564282F8F0890005CD2A9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491564272F8F0878005CD2A9 /* Log.swift */; };
+		4915642A2F8F0BDF005CD2A9 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */; };
 		494057172C80099200C8A6BD /* CurrentWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494057162C80099200C8A6BD /* CurrentWorkoutView.swift */; };
 		49553D552C672A4400973C0B /* StronixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D542C672A4400973C0B /* StronixApp.swift */; };
 		49553D572C672A4400973C0B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D562C672A4400973C0B /* MainView.swift */; };
@@ -56,6 +58,8 @@
 		490EF85A2C89647800E75ECD /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
 		490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		490EF85E2C89664800E75ECD /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
+		491564272F8F0878005CD2A9 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		494057162C80099200C8A6BD /* CurrentWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWorkoutView.swift; sourceTree = "<group>"; };
 		49553D512C672A4400973C0B /* Stronix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49553D542C672A4400973C0B /* StronixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StronixApp.swift; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 		499F4C2D2F8DCE0800BFB05C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */,
+				491564272F8F0878005CD2A9 /* Log.swift */,
 				499F4C2E2F8DCE6000BFB05C /* AppFormatter.swift */,
 				499F4C2B2F8DCB0B00BFB05C /* Sortable.swift */,
 			);
@@ -362,8 +368,10 @@
 				49D38DF42C6AC81700D84C14 /* ExercisesView.swift in Sources */,
 				49D9E69A2C905ECC00EF85A7 /* WorkoutExerciseView.swift in Sources */,
 				49D9E6982C8F489600EF85A7 /* PreviewData.swift in Sources */,
+				4915642A2F8F0BDF005CD2A9 /* ErrorHandler.swift in Sources */,
 				490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */,
 				494057172C80099200C8A6BD /* CurrentWorkoutView.swift in Sources */,
+				491564282F8F0890005CD2A9 /* Log.swift in Sources */,
 				49D38DE52C6AAC6B00D84C14 /* WorkoutSet.swift in Sources */,
 				49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */,
 				499F4C2F2F8DCE6400BFB05C /* AppFormatter.swift in Sources */,

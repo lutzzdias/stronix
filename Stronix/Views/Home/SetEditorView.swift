@@ -34,6 +34,7 @@ struct SetEditorView: View {
             
             Button("Complete set") {
                 set.completed = true
+                Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
                 onComplete()
             }
         }

@@ -12,6 +12,7 @@ struct CurrentWorkoutView: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
+    @Environment(ErrorHandler.self) var errorHandler
     
     @State private var workout: Workout = Workout()
     @State private var isShowingExercisesSheet = false
@@ -48,13 +49,22 @@ struct CurrentWorkoutView: View {
                 Button("Save") {
                     workout.end = Date.now
                     context.insert(workout)
-                    try? context.save()
+                    do {
+                        try context.save()
+                        Log.persistence.info("Workout saved: \(workout.name)")
+                    } catch {
+                        Log.persistence.error("Failed to save workout: \(error.localizedDescription)")
+                        errorHandler.show("Could not save your workout. Please try again.")
+                    }
                     dismiss()
                 }
             }
             
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") { dismiss() }
+                Button("Cancel") {
+                    Log.navigation.debug("Workout cancelled")
+                    dismiss()
+                }
             }
         }
         .sheet(isPresented: $isShowingExercisesSheet) {
@@ -63,6 +73,7 @@ struct CurrentWorkoutView: View {
                 onAdd: { selection in
                     for exercise in selection {
                         workout.appendExercise(WorkoutExercise(exercise: exercise))
+                        Log.persistence.debug("Exercise added to workout: \(exercise.name)")
                     }
                     isShowingExercisesSheet = false
                 }

@@ -94,12 +94,14 @@ struct ArchiveView: View {
         for index in indexes {
             let workout = workouts[index]
             context.delete(workout)
+            Log.persistence.info("Workout deleted: \(workout.name)")
         }
     }
     
     func deleteExercise(at indexes: IndexSet) {
         for index in indexes {
             exercises[index].isArchived = true
+            Log.persistence.info("Exercise archived: \(exercises[index].name)")
         }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ExerciseEditor: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
+    @Environment(ErrorHandler.self) var errorHandler
     
     let exercise: Exercise?
     
@@ -64,7 +65,7 @@ struct ExerciseEditor: View {
                     Button("Save") {
                         withAnimation {
                             save()
-                            dismiss()
+                            if errorHandler.message == nil { dismiss() }
                         }
                     }.disabled(isDisabled())
                 }
@@ -90,6 +91,7 @@ struct ExerciseEditor: View {
             exercise.desc = desc
             exercise.equipment = equipment
             exercise.muscle = muscle
+            Log.persistence.info("Exercise updated: \(name)")
         } else {
             let exercise = Exercise(
                 name: name,
@@ -98,7 +100,13 @@ struct ExerciseEditor: View {
                 muscle: muscle
             )
             modelContext.insert(exercise)
-            try? modelContext.save()
+            do {
+                try modelContext.save()
+                Log.persistence.info("Exercise created: \(name)")
+            } catch {
+                Log.persistence.error("Failed to save exercise: \(error.localizedDescription)")
+                errorHandler.show("Could not save the exercise. Please try again.")
+            }
         }
     }
     

@@ -54,6 +54,7 @@ struct ExercisesView: View {
     private func delete(at indexes: IndexSet) {
         for index in indexes {
             exercises[index].isArchived = true
+            Log.persistence.info("Exercise archived: \(exercises[index].name)")
         }
     }
 }

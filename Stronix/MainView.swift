@@ -34,6 +34,7 @@ struct MainView: View {
                 }
                 .tag(Tab.settings)
         }
+        .withErrorHandler()
     }
 }
 
