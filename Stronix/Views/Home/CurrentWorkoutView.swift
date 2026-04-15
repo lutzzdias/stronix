@@ -13,8 +13,9 @@ struct CurrentWorkoutView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     @Environment(ErrorHandler.self) var errorHandler
+    @Environment(RestTimer.self) var restTimer
     
-    @State private var workout: Workout = Workout()
+    @State var workout: Workout
     @State private var isShowingExercisesSheet = false
     
     var body: some View {
@@ -49,6 +50,7 @@ struct CurrentWorkoutView: View {
                 Button("Save") {
                     workout.end = Date.now
                     context.insert(workout)
+                    restTimer.stop()
                     do {
                         try context.save()
                         Log.persistence.info("Workout saved: \(workout.name)")
@@ -62,6 +64,7 @@ struct CurrentWorkoutView: View {
             
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
+                    restTimer.stop()
                     Log.navigation.debug("Workout cancelled")
                     dismiss()
                 }
@@ -86,7 +89,7 @@ struct CurrentWorkoutView: View {
     let preview = Preview()
     
     return NavigationStack {
-        CurrentWorkoutView()
+        CurrentWorkoutView(workout: Workout())
             .modelContainer(preview.container)
     }
 }

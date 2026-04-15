@@ -12,6 +12,8 @@
 		490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85E2C89664800E75ECD /* ArchiveView.swift */; };
 		491564282F8F0890005CD2A9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491564272F8F0878005CD2A9 /* Log.swift */; };
 		4915642A2F8F0BDF005CD2A9 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */; };
+		4915642C2F8F10AC005CD2A9 /* RestTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4915642B2F8F10A9005CD2A9 /* RestTimer.swift */; };
+		4915642E2F8F1166005CD2A9 /* RestTimerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4915642D2F8F1160005CD2A9 /* RestTimerSheet.swift */; };
 		494057172C80099200C8A6BD /* CurrentWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494057162C80099200C8A6BD /* CurrentWorkoutView.swift */; };
 		49553D552C672A4400973C0B /* StronixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D542C672A4400973C0B /* StronixApp.swift */; };
 		49553D572C672A4400973C0B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49553D562C672A4400973C0B /* MainView.swift */; };
@@ -60,6 +62,8 @@
 		490EF85E2C89664800E75ECD /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		491564272F8F0878005CD2A9 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		4915642B2F8F10A9005CD2A9 /* RestTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimer.swift; sourceTree = "<group>"; };
+		4915642D2F8F1160005CD2A9 /* RestTimerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerSheet.swift; sourceTree = "<group>"; };
 		494057162C80099200C8A6BD /* CurrentWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWorkoutView.swift; sourceTree = "<group>"; };
 		49553D512C672A4400973C0B /* Stronix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stronix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49553D542C672A4400973C0B /* StronixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StronixApp.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 		4976B7972C764ADA00A818B5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4915642D2F8F1160005CD2A9 /* RestTimerSheet.swift */,
 				49D38DF12C6AC78A00D84C14 /* HomeView.swift */,
 				494057162C80099200C8A6BD /* CurrentWorkoutView.swift */,
 				49D9E6952C8F422B00EF85A7 /* AddExerciseSheetView.swift */,
@@ -201,6 +206,7 @@
 		499F4C2D2F8DCE0800BFB05C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4915642B2F8F10A9005CD2A9 /* RestTimer.swift */,
 				491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */,
 				491564272F8F0878005CD2A9 /* Log.swift */,
 				499F4C2E2F8DCE6000BFB05C /* AppFormatter.swift */,
@@ -384,7 +390,9 @@
 				49553D552C672A4400973C0B /* StronixApp.swift in Sources */,
 				49D38DEB2C6AB2EE00D84C14 /* Tag.swift in Sources */,
 				49D38DE72C6AAF7500D84C14 /* Workout.swift in Sources */,
+				4915642C2F8F10AC005CD2A9 /* RestTimer.swift in Sources */,
 				49D38DF22C6AC78A00D84C14 /* HomeView.swift in Sources */,
+				4915642E2F8F1166005CD2A9 /* RestTimerSheet.swift in Sources */,
 				49D38DFA2C6ACA8700D84C14 /* SettingsView.swift in Sources */,
 				49D9E6962C8F422B00EF85A7 /* AddExerciseSheetView.swift in Sources */,
 				49D38DE32C6AA59500D84C14 /* Exercise.swift in Sources */,

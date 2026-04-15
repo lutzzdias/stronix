@@ -11,6 +11,7 @@ import SwiftData
 @main
 struct StronixApp: App {
     @State private var errorHandler = ErrorHandler()
+    @State private var restTimer = RestTimer()
     
     var container: ModelContainer = {
         let schema = Schema([Exercise.self, WorkoutSet.self, Workout.self, WorkoutExercise.self])
@@ -28,6 +29,7 @@ struct StronixApp: App {
         WindowGroup {
             MainView()
                 .environment(errorHandler)
+                .environment(restTimer)
         }
         .modelContainer(container)
     }

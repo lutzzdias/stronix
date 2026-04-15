@@ -16,6 +16,14 @@ enum AppFormatter {
         return formatter
     }()
     
+    private static let restTimerFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter
+    }()
+    
     private static let dateTime: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy 'at' HH:mm"
@@ -24,6 +32,10 @@ enum AppFormatter {
     
     static func duration(_ interval: TimeInterval) -> String {
         timer.string(from: interval) ?? ""
+    }
+    
+    static func restTimer(_ interval: TimeInterval) -> String {
+        restTimerFormatter.string(from: abs(interval.rounded(.up))) ?? "0:00"
     }
     
     static func date(_ date: Date) -> String {

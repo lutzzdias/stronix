@@ -9,21 +9,24 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    
     @Query private var workouts: [Workout]
+    
+    @State private var activeWorkout: Workout?
     
     var body: some View {
         NavigationStack {
             List {
                 
-                NavigationLink("Start Workout") {
-                    CurrentWorkoutView()
+                Button("Start Workout") {
+                    activeWorkout = Workout()
                 }
-                
                 .foregroundStyle(.white)
                 .listRowBackground(Color.blue)
             }
             .navigationTitle("Home")
+            .navigationDestination(item: $activeWorkout) { workout in
+                CurrentWorkoutView(workout: workout)
+            }
         }
     }
 }

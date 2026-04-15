@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SetEditorView: View {
+    @Environment(RestTimer.self) var restTimer
+    
     @Bindable var set: WorkoutSet
     let onComplete: () -> Void
     
@@ -34,6 +36,7 @@ struct SetEditorView: View {
             
             Button("Complete set") {
                 set.completed = true
+                restTimer.begin(duration: RestTimer.presets[0]) // TODO: get from config
                 Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
                 onComplete()
             }
