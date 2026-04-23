@@ -36,8 +36,29 @@ struct WorkoutExerciseView: View {
                             Image(systemName: "arrow.forward.circle").foregroundStyle(.blue)
                                 .opacity(selectedSet == workoutSet ? 1 : 0)
                         }
-                        Text("\(String(format: "%g", workoutSet.weight ?? 0)) × \(workoutSet.repetitions ?? 0)")
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(String(format: "%g", workoutSet.weight ?? 0)) × \(workoutSet.repetitions ?? 0)")
+                            if let comment = workoutSet.comment, !comment.isEmpty {
+                                Text(comment)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .italic()
+                            }
+                        }
                         Spacer()
+                        if let rpe = workoutSet.rpe {
+                            Text(rpe.label)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        if let tag = workoutSet.tag {
+                            Text(tag.shortLabel)
+                                .font(.caption2).bold()
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
+                                .background(.secondary, in: .capsule)
+                        }
                         Text("\(index + 1)")
                             .foregroundStyle(.secondary)
                     }

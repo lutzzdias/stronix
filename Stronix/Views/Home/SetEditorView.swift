@@ -14,6 +14,8 @@ struct SetEditorView: View {
     @Bindable var set: WorkoutSet
     let onComplete: (WorkoutSet?) -> Void
     
+    @State private var isShowingDetails = false
+    
     var body: some View {
         VStack(spacing: 24) {
             HStack(spacing: 16) {
@@ -35,13 +37,25 @@ struct SetEditorView: View {
                 }
             }
             
-            Button("Complete set") {
-                set.completed = true
-                restTimer.begin(duration: defaultRestDuration)
-                Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
-                onComplete(nil)
+            HStack {
+                Button("Complete set") {
+                    set.completed = true
+                    restTimer.begin(duration: defaultRestDuration)
+                    Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
+                    onComplete(nil)
+                }
+                
+                Spacer()
+                
+                Button { isShowingDetails = true } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .font(.title3)
+                }
             }
         }
         .padding(.horizontal)
+        .sheet(isPresented: $isShowingDetails) {
+            SetDetailsSheet(set: set)
+        }
     }
 }

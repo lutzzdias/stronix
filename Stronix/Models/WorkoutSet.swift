@@ -18,9 +18,10 @@ class WorkoutSet {
     var maxTargetRepetitions: Int?
     var tag: Tag?
     var comment: String?
+    var rpe: RPE?
     var sortIndex: Int
     
-    init(id: UUID = UUID(), repetitions: Int? = nil, weight: Double? = nil, completed: Bool = false, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, tag: Tag? = nil, comment: String? = nil, sortIndex: Int = 0) {
+    init(id: UUID = UUID(), repetitions: Int? = nil, weight: Double? = nil, completed: Bool = false, minTargetRepetitions: Int? = nil, maxTargetRepetitions: Int? = nil, tag: Tag? = nil, comment: String? = nil, rpe: RPE? = nil, sortIndex: Int = 0) {
         self.id = id
         self.repetitions = repetitions
         self.weight = weight
@@ -29,6 +30,7 @@ class WorkoutSet {
         self.maxTargetRepetitions = maxTargetRepetitions
         self.tag = tag
         self.comment = comment
+        self.rpe = rpe
         self.sortIndex = sortIndex
     }
 }
