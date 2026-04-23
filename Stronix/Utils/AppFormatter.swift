@@ -30,6 +30,12 @@ enum AppFormatter {
         return formatter
     }()
     
+    private static let shortDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
+    
     static func duration(_ interval: TimeInterval) -> String {
         timer.string(from: interval) ?? ""
     }
@@ -40,5 +46,9 @@ enum AppFormatter {
     
     static func date(_ date: Date) -> String {
         dateTime.string(from: date)
+    }
+    
+    static func shortDate(_ date: Date) -> String {
+        shortDate.string(from: date)
     }
 }

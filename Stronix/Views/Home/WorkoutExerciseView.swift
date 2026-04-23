@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WorkoutExerciseView: View {
+    @Environment(\.modelContext) var modelContext
+    
     let workout: Workout
     @Bindable var workoutExercise: WorkoutExercise
     @State var selectedSet: WorkoutSet? = nil
+    
+    /// Past completed workouts containing the same exercise, most recent first (max 3).
+    /// Loaded once in .task to avoid fetching on every body evaluation.
+    @State private var exerciseHistory: [(id: UUID, date: Date, sets: [WorkoutSet])] = []
     
     var body: some View {
         Text(workout.name)
@@ -48,13 +55,57 @@ struct WorkoutExerciseView: View {
                 }
             }
             
-            // TODO: Fetch previous workoutSets for this exercise
+            // MARK: Exercise history (last 3 completed workouts)
+            if !exerciseHistory.isEmpty {
+                Section {
+                    ForEach(exerciseHistory, id: \.id) { entry in
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(AppFormatter.shortDate(entry.date))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            
+                            ForEach(entry.sets) { set in
+                                Text("\(String(format: "%g", set.weight ?? 0)) × \(set.repetitions ?? 0)")
+                                    .font(.caption)
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("History")
+                }
+            }
+        }
+        .task { loadHistory() }
+        .onAppear {
+            // Only pre-fill the first set from history on page load
+            if let firstSet = workoutExercise.sortedSets.first,
+               firstSet.weight == nil && firstSet.repetitions == nil,
+               let values = workoutExercise.autoFillValues(for: firstSet, using: modelContext) {
+                firstSet.weight = values.weight
+                firstSet.repetitions = values.reps
+            }
+            // Auto-select first uncompleted set
+            if selectedSet == nil {
+                selectedSet = workoutExercise.sortedSets.first { !$0.completed }
+            }
+        }
+        .onChange(of: selectedSet) {
+            // Auto-fill the newly selected set (from previous set or history)
+            guard let set = selectedSet,
+                  set.weight == nil && set.repetitions == nil,
+                  let values = workoutExercise.autoFillValues(for: set, using: modelContext) else { return }
+            set.weight = values.weight
+            set.repetitions = values.reps
         }
         
         // MARK: Set editor
         if let selectedSet {
-            SetEditorView(set: selectedSet) {
-                self.selectedSet = nil
+            SetEditorView(
+                set: selectedSet
+            ) { _ in
+                // Advance to the next uncompleted set
+                self.selectedSet = workoutExercise.sortedSets.first { !$0.completed }
             }
         }
     }
@@ -64,6 +115,13 @@ struct WorkoutExerciseView: View {
         if let selectedSet, removedSet.contains(where: {set in set.id == selectedSet.id }) {
             self.selectedSet = nil
         }
+    }
+    
+    private func loadHistory() {
+        guard let exerciseId = workoutExercise.exercise?.id else { return }
+        exerciseHistory = WorkoutExercise.fetchHistory(for: exerciseId, excluding: workout.id, using: modelContext)
+            .prefix(3)
+            .map { (id: $0.id, date: $0.workout?.start ?? .distantPast, sets: $0.sortedSets) }
     }
 }
 

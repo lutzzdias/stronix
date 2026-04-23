@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SetEditorView: View {
     @Environment(RestTimer.self) var restTimer
+    @AppStorage("defaultRestDuration") private var defaultRestDuration: Double = 90
     
     @Bindable var set: WorkoutSet
-    let onComplete: () -> Void
+    let onComplete: (WorkoutSet?) -> Void
     
     var body: some View {
         VStack(spacing: 24) {
@@ -36,9 +37,9 @@ struct SetEditorView: View {
             
             Button("Complete set") {
                 set.completed = true
-                restTimer.begin(duration: RestTimer.presets[0]) // TODO: get from config
+                restTimer.begin(duration: defaultRestDuration)
                 Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
-                onComplete()
+                onComplete(nil)
             }
         }
         .padding(.horizontal)
