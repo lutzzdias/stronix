@@ -17,6 +17,7 @@ struct CurrentWorkoutView: View {
     
     @State var workout: Workout
     @State private var isShowingExercisesSheet = false
+    @State private var isShowingSummary = false
     
     var body: some View {
         TimerView(startDate: workout.start)
@@ -47,18 +48,10 @@ struct CurrentWorkoutView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    workout.end = Date.now
-                    context.insert(workout)
-                    restTimer.stop()
-                    do {
-                        try context.save()
-                        Log.persistence.info("Workout saved: \(workout.name)")
-                    } catch {
-                        Log.persistence.error("Failed to save workout: \(error.localizedDescription)")
-                        errorHandler.show("Could not save your workout. Please try again.")
-                    }
-                    dismiss()
+                Button("Finish") {
+                    workout.finish()
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    isShowingSummary = true
                 }
             }
             
@@ -81,6 +74,21 @@ struct CurrentWorkoutView: View {
                     isShowingExercisesSheet = false
                 }
             )
+        }
+        .sheet(isPresented: $isShowingSummary) {
+            WorkoutSummarySheet(workout: workout) {
+                context.insert(workout)
+                restTimer.stop()
+                do {
+                    try context.save()
+                    Log.persistence.info("Workout saved: \(workout.name)")
+                } catch {
+                    Log.persistence.error("Failed to save workout: \(error.localizedDescription)")
+                    errorHandler.show("Could not save your workout. Please try again.")
+                }
+                isShowingSummary = false
+                dismiss()
+            }
         }
     }
 }

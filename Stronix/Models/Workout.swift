@@ -79,5 +79,41 @@ class Workout {
         }
     }
     
+    /// Finalizes the workout by removing uncompleted sets and empty exercises, then stamps the end time.
+    func finish() {
+        for exercise in workoutExercises {
+            // Remove sets that were never completed
+            let uncompleted = exercise.sortedSets.enumerated()
+                .filter { !$0.element.completed }
+                .map { $0.offset }
+            if !uncompleted.isEmpty {
+                _ = exercise.removeSets(at: IndexSet(uncompleted))
+            }
+        }
+        // Remove exercises left with zero sets after cleanup
+        workoutExercises.removeAll { $0.sets.isEmpty }
+        sortedExercises.reorder()
+        end = Date.now
+    }
+    
+    /// Plain text summary suitable for sharing.
+    var shareText: String {
+        var lines: [String] = []
+        lines.append(AppFormatter.date(start))
+        lines.append("Duration: \(AppFormatter.duration(duration))")
+        lines.append("Total weight: \(String(format: "%g", totalWeight)) kg")
+        lines.append("")
+        for exercise in sortedExercises {
+            lines.append(exercise.exercise?.name ?? "Unknown")
+            for set in exercise.sortedSets {
+                let w = String(format: "%g", set.weight ?? 0)
+                let r = set.repetitions ?? 0
+                lines.append("  \(w) kg × \(r)")
+            }
+            lines.append("")
+        }
+        return lines.joined(separator: "\n")
+    }
+    
     // TODO: validate nil data
 }
