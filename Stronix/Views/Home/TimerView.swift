@@ -45,6 +45,7 @@ struct TimerView: View {
         .sheet(isPresented: $showRestTimerSheet) {
             RestTimerSheet()
         }
+        .sensoryFeedback(.success, trigger: restTimer.expired)
     }
 }
 
