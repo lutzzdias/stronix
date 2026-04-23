@@ -45,7 +45,14 @@ struct WorkoutExerciseView: View {
                 .onDelete(perform: delete)
                 
                 Button {
-                    workoutExercise.appendSet(WorkoutSet())
+                    let newSet = WorkoutSet()
+                    workoutExercise.appendSet(newSet)
+                    // Pre-fill from history or previous set
+                    if let values = workoutExercise.autoFillValues(for: newSet, using: modelContext) {
+                        newSet.weight = values.weight
+                        newSet.repetitions = values.reps
+                    }
+                    selectedSet = newSet
                     Log.persistence.debug("Set added to exercise: \(workoutExercise.exercise?.name ?? "unknown exercise")")
                 } label: {
                     HStack {

@@ -49,8 +49,6 @@ struct CurrentWorkoutView: View {
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Finish") {
-                    workout.finish()
-                    UINotificationFeedbackGenerator().notificationOccurred(.success)
                     isShowingSummary = true
                 }
             }
@@ -76,7 +74,8 @@ struct CurrentWorkoutView: View {
             )
         }
         .sheet(isPresented: $isShowingSummary) {
-            WorkoutSummarySheet(workout: workout) {
+            WorkoutSummarySheet(workout: workout, onSave: {
+                workout.finish()
                 context.insert(workout)
                 restTimer.stop()
                 do {
@@ -88,7 +87,9 @@ struct CurrentWorkoutView: View {
                 }
                 isShowingSummary = false
                 dismiss()
-            }
+            }, onCancel: {
+                isShowingSummary = false
+            })
         }
     }
 }
