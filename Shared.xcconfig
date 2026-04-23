@@ -1,0 +1,8 @@
+// Shared build settings for Stronix.
+// Per-developer overrides (team, bundle ID) come from Local.xcconfig.
+
+#include? "Local.xcconfig"
+
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = $(STRONIX_TEAM_ID)
+PRODUCT_BUNDLE_IDENTIFIER = $(STRONIX_BUNDLE_PREFIX).$(TARGET_NAME)

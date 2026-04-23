@@ -31,6 +31,7 @@
 		499F4C2C2F8DCB2500BFB05C /* Sortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C2B2F8DCB0B00BFB05C /* Sortable.swift */; };
 		499F4C2F2F8DCE6400BFB05C /* AppFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C2E2F8DCE6000BFB05C /* AppFormatter.swift */; };
 		499F4C312F8DD43F00BFB05C /* SetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C302F8DD43900BFB05C /* SetEditorView.swift */; };
+		49A7B3022FA0E44000C1D5F7 /* WorkoutSummarySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A7B3012FA0E44000C1D5F7 /* WorkoutSummarySheet.swift */; };
 		49D38DE32C6AA59500D84C14 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D38DE22C6AA59500D84C14 /* Exercise.swift */; };
 		49D38DE52C6AAC6B00D84C14 /* WorkoutSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D38DE42C6AAC6B00D84C14 /* WorkoutSet.swift */; };
 		49D38DE72C6AAF7500D84C14 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D38DE62C6AAF7500D84C14 /* Workout.swift */; };
@@ -84,6 +85,9 @@
 		499F4C492F8DDD3300BFB05C /* SortableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableTests.swift; sourceTree = "<group>"; };
 		499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTests.swift; sourceTree = "<group>"; };
 		499F4C4B2F8DE13A00BFB05C /* TagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTests.swift; sourceTree = "<group>"; };
+		49A7B3012FA0E44000C1D5F7 /* WorkoutSummarySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummarySheet.swift; sourceTree = "<group>"; };
+		49B0CA012FB0000000000001 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		49B0CA012FB0000000000002 /* Local.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.example.xcconfig; sourceTree = "<group>"; };
 		49D38DE22C6AA59500D84C14 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		49D38DE42C6AAC6B00D84C14 /* WorkoutSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSet.swift; sourceTree = "<group>"; };
 		49D38DE62C6AAF7500D84C14 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 		49553D482C672A4400973C0B = {
 			isa = PBXGroup;
 			children = (
+				49B0CA012FB0000000000001 /* Shared.xcconfig */,
+				49B0CA012FB0000000000002 /* Local.example.xcconfig */,
 				49553D532C672A4400973C0B /* Stronix */,
 				499F4C412F8DDCF400BFB05C /* StronixTests */,
 				49553D522C672A4400973C0B /* Products */,
@@ -193,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				4915642D2F8F1160005CD2A9 /* RestTimerSheet.swift */,
+				49A7B3012FA0E44000C1D5F7 /* WorkoutSummarySheet.swift */,
 				49D38DF12C6AC78A00D84C14 /* HomeView.swift */,
 				494057162C80099200C8A6BD /* CurrentWorkoutView.swift */,
 				49D9E6952C8F422B00EF85A7 /* AddExerciseSheetView.swift */,
@@ -393,6 +400,7 @@
 				4915642C2F8F10AC005CD2A9 /* RestTimer.swift in Sources */,
 				49D38DF22C6AC78A00D84C14 /* HomeView.swift in Sources */,
 				4915642E2F8F1166005CD2A9 /* RestTimerSheet.swift in Sources */,
+				49A7B3022FA0E44000C1D5F7 /* WorkoutSummarySheet.swift in Sources */,
 				49D38DFA2C6ACA8700D84C14 /* SettingsView.swift in Sources */,
 				49D9E6962C8F422B00EF85A7 /* AddExerciseSheetView.swift in Sources */,
 				49D38DE32C6AA59500D84C14 /* Exercise.swift in Sources */,
@@ -427,6 +435,7 @@
 /* Begin XCBuildConfiguration section */
 		49553D5E2C672A4400973C0B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -461,7 +470,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MRKVA8MLPY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -491,6 +499,7 @@
 		};
 		49553D5F2C672A4400973C0B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -525,7 +534,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MRKVA8MLPY;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -547,11 +555,11 @@
 		};
 		49553D612C672A4400973C0B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Stronix/Stronix.entitlements;
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Stronix/Preview Content\"";
@@ -574,7 +582,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lutzzdias.Stronix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -586,11 +593,11 @@
 		};
 		49553D622C672A4400973C0B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Stronix/Stronix.entitlements;
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Stronix/Preview Content\"";
@@ -613,7 +620,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lutzzdias.Stronix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -625,16 +631,14 @@
 		};
 		499F4C3D2F8DDCB500BFB05C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MRKVA8MLPY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lutzzdias.StronixTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -649,16 +653,14 @@
 		};
 		499F4C3E2F8DDCB500BFB05C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MRKVA8MLPY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lutzzdias.StronixTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;

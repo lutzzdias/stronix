@@ -1,0 +1,20 @@
+# Per-developer signing config
+Local.xcconfig
+
+# Xcode
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Build
+build/
+DerivedData/
+
+# Dependencies
+.build/
+
+# OS
+.DS_Store
+
+# Scratchpad (AI agent working files)
+.agents/

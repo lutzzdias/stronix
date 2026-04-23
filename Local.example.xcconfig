@@ -1,0 +1,8 @@
+// Copy this file to Local.xcconfig and fill in your values.
+// Local.xcconfig is gitignored — it will NOT be committed.
+
+// Your Apple Developer Team ID (find it at https://developer.apple.com/account → Membership Details)
+STRONIX_TEAM_ID = YOUR_TEAM_ID_HERE
+
+// Your bundle identifier prefix (e.g., com.yourname)
+STRONIX_BUNDLE_PREFIX = com.yourname
