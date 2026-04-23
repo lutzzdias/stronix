@@ -30,12 +30,18 @@ struct WorkoutExerciseView: View {
                 // TODO: initialize empty and only show image when current/past set (iron like)
                 ForEach(Array(workoutExercise.sortedSets.enumerated()), id: \.element.id) { index, workoutSet in
                     HStack {
-                        workoutSet.completed ? Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) : Image(systemName: "arrow.forward.circle").foregroundStyle(.blue)
+                        if workoutSet.completed {
+                            Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                        } else {
+                            Image(systemName: "arrow.forward.circle").foregroundStyle(.blue)
+                                .opacity(selectedSet == workoutSet ? 1 : 0)
+                        }
                         Text("\(String(format: "%g", workoutSet.weight ?? 0)) × \(workoutSet.repetitions ?? 0)")
                         Spacer()
                         Text("\(index + 1)")
                             .foregroundStyle(.secondary)
                     }
+                    .alignmentGuide(.listRowSeparatorLeading) { dimensions in dimensions[.leading] }
                     .onTapGesture {
                         if (selectedSet == workoutSet) { selectedSet = nil }
                         else { selectedSet = workoutSet }

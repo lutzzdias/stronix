@@ -46,9 +46,11 @@ struct CurrentWorkoutView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        .onAppear { Log.workout.info("Workout started") }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Finish") {
+                    Log.workout.info("Summary generated")
                     isShowingSummary = true
                 }
             }
@@ -56,7 +58,7 @@ struct CurrentWorkoutView: View {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
                     restTimer.stop()
-                    Log.navigation.debug("Workout cancelled")
+                    Log.workout.info("Workout cancelled")
                     dismiss()
                 }
             }
@@ -80,7 +82,7 @@ struct CurrentWorkoutView: View {
                 restTimer.stop()
                 do {
                     try context.save()
-                    Log.persistence.info("Workout saved: \(workout.name)")
+                    Log.workout.info("Workout saved: \(workout.name)")
                 } catch {
                     Log.persistence.error("Failed to save workout: \(error.localizedDescription)")
                     errorHandler.show("Could not save your workout. Please try again.")
@@ -88,6 +90,7 @@ struct CurrentWorkoutView: View {
                 isShowingSummary = false
                 dismiss()
             }, onCancel: {
+                Log.workout.info("Summary cancelled")
                 isShowingSummary = false
             })
         }

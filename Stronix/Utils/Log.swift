@@ -10,4 +10,5 @@ import OSLog
 enum Log {
     static let persistence = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Stronix", category: "Persistence")
     static let navigation = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Stronix", category: "Navigation")
+    static let workout = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Stronix", category: "Workout")
 }
