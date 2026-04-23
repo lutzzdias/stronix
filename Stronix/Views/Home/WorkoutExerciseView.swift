@@ -111,13 +111,14 @@ struct WorkoutExerciseView: View {
             }
         }
         .task { loadHistory() }
+        .scrollDismissesKeyboard(.immediately)
         .onAppear {
             // Only pre-fill the first set from history on page load
             if let firstSet = workoutExercise.sortedSets.first,
-               firstSet.weight == nil && firstSet.repetitions == nil,
+               firstSet.weight == nil || firstSet.repetitions == nil,
                let values = workoutExercise.autoFillValues(for: firstSet, using: modelContext) {
-                firstSet.weight = values.weight
-                firstSet.repetitions = values.reps
+                if firstSet.weight == nil { firstSet.weight = values.weight }
+                if firstSet.repetitions == nil { firstSet.repetitions = values.reps }
             }
             // Auto-select first uncompleted set
             if selectedSet == nil {
@@ -127,10 +128,10 @@ struct WorkoutExerciseView: View {
         .onChange(of: selectedSet) {
             // Auto-fill the newly selected set (from previous set or history)
             guard let set = selectedSet,
-                  set.weight == nil && set.repetitions == nil,
+                  set.weight == nil || set.repetitions == nil,
                   let values = workoutExercise.autoFillValues(for: set, using: modelContext) else { return }
-            set.weight = values.weight
-            set.repetitions = values.reps
+            if set.weight == nil { set.weight = values.weight }
+            if set.repetitions == nil { set.repetitions = values.reps }
         }
         
         // MARK: Set editor

@@ -19,41 +19,46 @@ struct SetEditorView: View {
     var body: some View {
         VStack(spacing: 24) {
             HStack(spacing: 16) {
-                HStack {
-                    TextField("Weight", value: $set.weight, format: .number)
-                        .keyboardType(.decimalPad)
-                    Text("kg")
-                        .foregroundStyle(.secondary)
-                }
+                Dragger(
+                    unit: "kg",
+                    value: $set.weight,
+                    step: 2.5
+                )
                 
                 Divider()
                     .frame(height: 44)
                 
-                HStack {
-                    TextField("Reps", value: $set.repetitions, format: .number)
-                        .keyboardType(.numberPad)
-                    Text("reps")
-                        .foregroundStyle(.secondary)
-                }
+                Dragger(
+                    unit: "reps",
+                    value: Binding(
+                        get: { set.repetitions.map(Double.init) },
+                        set: { set.repetitions = $0.map(Int.init) }
+                    ),
+                    step: 1,
+                    intOnly: true
+                )
             }
             
             HStack {
-                Button("Complete set") {
+                Button {
                     set.completed = true
                     restTimer.begin(duration: defaultRestDuration)
                     Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
                     onComplete(nil)
+                } label: {
+                    Text("Complete set").frame(maxWidth: .infinity).padding(.vertical, 4)
                 }
-                
-                Spacer()
+                .buttonStyle(.borderedProminent)
                 
                 Button { isShowingDetails = true } label: {
-                    Image(systemName: "ellipsis.circle")
+                    Image(systemName: "tag")
                         .font(.title3)
+                        .padding(.horizontal)
                 }
             }
         }
-        .padding(.horizontal)
+        .padding()
+        .background(Color(.secondarySystemGroupedBackground))
         .sheet(isPresented: $isShowingDetails) {
             SetDetailsSheet(set: set)
         }
