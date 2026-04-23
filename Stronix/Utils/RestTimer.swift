@@ -111,8 +111,13 @@ class RestTimer {
         
         self.start = Date(timeIntervalSince1970: startEpoch)
         self.duration = savedDuration
-        // If timer already expired, mark haptic as fired so it doesn't fire late
-        hapticFired = remainingTime <= 0
+        
+        // Don't restore expired timers
+        if remainingTime <= 0 {
+            stop()
+            return
+        }
+        
         startTicking()
     }
     
