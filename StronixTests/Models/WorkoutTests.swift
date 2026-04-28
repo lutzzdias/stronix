@@ -195,4 +195,46 @@ struct WorkoutTests {
 
         #expect(workout.totalWeight == 0)
     }
+
+    // MARK: - hasCompletedSets
+
+    @Test func hasCompletedSetsIsFalseWhenNoExercises() {
+        let workout = Workout()
+        #expect(workout.hasCompletedSets == false)
+    }
+
+    @Test func hasCompletedSetsIsFalseWhenExerciseHasNoSets() {
+        let workoutExercise = WorkoutExercise(exercise: makeExercise())
+        let workout = Workout(exercises: [workoutExercise])
+
+        #expect(workout.hasCompletedSets == false)
+    }
+
+    @Test func hasCompletedSetsIsFalseWhenAllSetsAreUncompleted() {
+        let set1 = WorkoutSet(repetitions: 10, weight: 20, completed: false)
+        let set2 = WorkoutSet(repetitions: 8, weight: 25, completed: false)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [set1, set2])
+        let workout = Workout(exercises: [workoutExercise])
+
+        #expect(workout.hasCompletedSets == false)
+    }
+
+    @Test func hasCompletedSetsIsTrueWhenAnySetIsCompleted() {
+        let set1 = WorkoutSet(repetitions: 10, weight: 20, completed: false)
+        let set2 = WorkoutSet(repetitions: 8, weight: 25, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [set1, set2])
+        let workout = Workout(exercises: [workoutExercise])
+
+        #expect(workout.hasCompletedSets == true)
+    }
+
+    @Test func hasCompletedSetsIsTrueWhenOnlyOneExerciseHasCompletedSet() {
+        let uncompletedSet = WorkoutSet(completed: false)
+        let completedSet = WorkoutSet(completed: true)
+        let exerciseWithoutCompleted = WorkoutExercise(exercise: makeExercise(name: "A"), sets: [uncompletedSet])
+        let exerciseWithCompleted = WorkoutExercise(exercise: makeExercise(name: "B"), sets: [completedSet])
+        let workout = Workout(exercises: [exerciseWithoutCompleted, exerciseWithCompleted])
+
+        #expect(workout.hasCompletedSets == true)
+    }
 }

@@ -14,7 +14,9 @@ struct ExercisesView: View {
     @Query(filter: Exercise.activePredicate) private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
-    
+    @State private var pendingArchive: Exercise?
+    @State private var isShowingArchiveConfirm = false
+
     var exercises: [Exercise] {
         guard !query.isEmpty else { return allExercises }
         return allExercises.filter { exercise in
@@ -29,7 +31,13 @@ struct ExercisesView: View {
                     NavigationLink(value: exercise) {
                         Text(exercise.name)
                     }
-                }.onDelete(perform: delete)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button("Archive", role: .destructive) {
+                            pendingArchive = exercise
+                            isShowingArchiveConfirm = true
+                        }
+                    }
+                }
             }
             .searchable(text: $query)
             .navigationTitle("Exercises")
@@ -48,13 +56,15 @@ struct ExercisesView: View {
                     }
                 }
             }
-        }
-    }
-    
-    private func delete(at indexes: IndexSet) {
-        for index in indexes {
-            exercises[index].isArchived = true
-            Log.persistence.info("Exercise archived: \(exercises[index].name)")
+            .alert("Archive exercise?", isPresented: $isShowingArchiveConfirm, presenting: pendingArchive) { exercise in
+                Button("Archive", role: .destructive) {
+                    exercise.isArchived = true
+                    Log.persistence.info("Exercise archived: \(exercise.name)")
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: { _ in
+                Text("You can still view it in past workouts.")
+            }
         }
     }
 }

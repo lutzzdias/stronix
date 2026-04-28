@@ -82,8 +82,8 @@
 
 **Acceptance criteria:**
 - Tapping "Cancel" discards the workout without persisting to SwiftData
-- No confirmation dialog is shown before cancellation
-- TODO: add confirmation dialog when the workout has ≥1 completed set (see US-38)
+- When the workout has at least one completed set, a confirmation dialog is shown before discarding (see US-38)
+- When the workout has zero completed sets, it is discarded immediately with no confirmation
 
 #### US-06: Finish a Workout and View Summary
 
@@ -157,10 +157,9 @@
 **User story:** As a lifter, I want to delete a past workout, so that I can remove incorrect entries.
 
 **Acceptance criteria:**
-- Swipe-to-delete on a workout in the history list deletes the workout from SwiftData
+- Trailing swipe on a workout in the history list reveals a red "Delete" button
+- Tapping Delete shows a confirmation dialog (see US-38); confirming deletes the workout from SwiftData
 - Deletion cascades to all associated `WorkoutExercise` and `WorkoutSet` records
-- No confirmation dialog is shown before deletion
-- TODO: add confirmation dialog before deletion (see US-38)
 
 ### Exercises & Sets
 
@@ -200,7 +199,8 @@
 **User story:** As a lifter, I want to archive an exercise I no longer use, so that it does not clutter my list.
 
 **Acceptance criteria:**
-- Swipe-to-archive on an exercise sets `isArchived = true` (soft delete)
+- Trailing swipe on an exercise reveals a red "Archive" button
+- Tapping Archive shows a confirmation dialog (see US-38); confirming sets `isArchived = true` (soft delete)
 - Archived exercises do not appear in the active exercise list
 - Archiving does not affect existing `WorkoutExercise` references (`noAction` delete rule on exercise side, `nullify` on back-reference)
 - Historical workout data referencing the archived exercise remains intact
@@ -514,16 +514,17 @@
 
 #### US-38: Destructive Action Confirmations
 
-**Status:** Planned
+**Status:** Implemented
 
 **User story:** As a lifter, I want confirmation before destructive actions, so that I do not accidentally lose data.
 
 **Acceptance criteria:**
-- A `.confirmationDialog` is shown before cancelling a workout with ≥1 completed set
-- A `.confirmationDialog` is shown before deleting a workout from history
-- A `.confirmationDialog` is shown before archiving an exercise
-- Confirmation dialogs use a red-tinted destructive button
-- Cancelling a workout with zero completed sets does not require confirmation
+- An `.alert` is shown before cancelling a workout that has at least one completed set
+- Cancelling a workout with zero completed sets dismisses immediately with no confirmation
+- An `.alert` is shown before deleting a workout from the history list (in both `WorkoutsView` and `ArchiveView`)
+- An `.alert` is shown before archiving an exercise (in both `ExercisesView` and `ArchiveView`)
+- Destructive actions use SwiftUI's `role: .destructive` button, which renders in red
+- Deletion and archive rows are revealed via trailing swipe (`.swipeActions`, `allowsFullSwipe: false`) so the row stays in place until the user confirms
 
 #### US-39: Repeat Workout from History
 
@@ -1008,12 +1009,12 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-29: Configure Default Rest Duration~~
 - ~~US-30: Persist Data with SwiftData~~
 - ~~US-31: Cascade Deletes and Relationship Integrity~~
+- ~~US-38: Destructive Action Confirmations~~
 
 ### Planned Waves
 
 | Wave | Items | Theme | Status |
 |---|---|---|---|
-| Wave 1 | US-38: Destructive Action Confirmations | Safety & polish | Planned |
 | Wave 1 | US-41: Flow-Optimized Set Completion Toolbar | In-workout friction | Planned |
 | Wave 1 | US-56: Haptic and Sound Micro-Rewards | Delight | Planned |
 | Wave 1 | US-57: Dragger Boundary Haptics | Delight | Planned |

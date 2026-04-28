@@ -18,6 +18,13 @@ struct CurrentWorkoutView: View {
     @State var workout: Workout
     @State private var isShowingExercisesSheet = false
     @State private var isShowingSummary = false
+    @State private var isShowingCancelConfirm = false
+
+    private func discard() {
+        restTimer.stop()
+        Log.workout.info("Workout cancelled")
+        dismiss()
+    }
     
     var body: some View {
         TimerView(startDate: workout.start)
@@ -57,11 +64,19 @@ struct CurrentWorkoutView: View {
             
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
-                    restTimer.stop()
-                    Log.workout.info("Workout cancelled")
-                    dismiss()
+                    if workout.hasCompletedSets {
+                        isShowingCancelConfirm = true
+                    } else {
+                        discard()
+                    }
                 }
             }
+        }
+        .alert("Cancel workout?", isPresented: $isShowingCancelConfirm) {
+            Button("Discard", role: .destructive) { discard() }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Completed sets will be discarded.")
         }
         .sheet(isPresented: $isShowingExercisesSheet) {
             AddExerciseSheetView(

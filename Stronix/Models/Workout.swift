@@ -78,6 +78,14 @@ class Workout {
             }
         }
     }
+
+    /// `true` if any exercise in the workout has at least one completed set.
+    /// Used to decide whether cancelling the workout should prompt for confirmation.
+    var hasCompletedSets: Bool {
+        workoutExercises.contains { exercise in
+            exercise.sets.contains(where: \.completed)
+        }
+    }
     
     /// Finalizes the workout by removing uncompleted sets and empty exercises, then stamps the end time.
     func finish() {

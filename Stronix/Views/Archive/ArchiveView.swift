@@ -15,7 +15,11 @@ struct ArchiveView: View {
     @Query(filter: Exercise.activePredicate) var exercises: [Exercise]
     
     @State private var showCreateSheet: Bool = false
-    
+    @State private var pendingWorkoutDeletion: Workout?
+    @State private var isShowingWorkoutDeleteConfirm = false
+    @State private var pendingExerciseArchive: Exercise?
+    @State private var isShowingExerciseArchiveConfirm = false
+
     var body: some View {
         NavigationStack {
             List {
@@ -33,9 +37,14 @@ struct ArchiveView: View {
                                 Text(AppFormatter.duration(workout.duration))
                             }
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button("Delete", role: .destructive) {
+                                pendingWorkoutDeletion = workout
+                                isShowingWorkoutDeleteConfirm = true
+                            }
+                        }
                     }
-                    .onDelete(perform: deleteWorkout)
-                    
+
                     if (workouts.count > 5) {
                         NavigationLink("See all") {
                             WorkoutsView()
@@ -70,9 +79,14 @@ struct ArchiveView: View {
                                 }
                             }
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button("Archive", role: .destructive) {
+                                pendingExerciseArchive = exercise
+                                isShowingExerciseArchiveConfirm = true
+                            }
+                        }
                     }
-                    .onDelete(perform: deleteExercise)
-                    
+
                     if (exercises.count > 5) {
                         NavigationLink("See all") {
                             ExercisesView()
@@ -87,21 +101,24 @@ struct ArchiveView: View {
             .sheet(isPresented: $showCreateSheet) {
                 ExerciseEditor(exercise: nil)
             }
-        }
-    }
-    
-    func deleteWorkout(at indexes: IndexSet) {
-        for index in indexes {
-            let workout = workouts[index]
-            context.delete(workout)
-            Log.persistence.info("Workout deleted: \(workout.name)")
-        }
-    }
-    
-    func deleteExercise(at indexes: IndexSet) {
-        for index in indexes {
-            exercises[index].isArchived = true
-            Log.persistence.info("Exercise archived: \(exercises[index].name)")
+            .alert("Delete workout?", isPresented: $isShowingWorkoutDeleteConfirm, presenting: pendingWorkoutDeletion) { workout in
+                Button("Delete", role: .destructive) {
+                    context.delete(workout)
+                    Log.persistence.info("Workout deleted: \(workout.name)")
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: { _ in
+                Text("This action cannot be undone.")
+            }
+            .alert("Archive exercise?", isPresented: $isShowingExerciseArchiveConfirm, presenting: pendingExerciseArchive) { exercise in
+                Button("Archive", role: .destructive) {
+                    exercise.isArchived = true
+                    Log.persistence.info("Exercise archived: \(exercise.name)")
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: { _ in
+                Text("You can still view it in past workouts.")
+            }
         }
     }
 }

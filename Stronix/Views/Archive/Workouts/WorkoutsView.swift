@@ -15,7 +15,9 @@ struct WorkoutsView: View {
 
     @Query private var allWorkouts: [Workout]
     @State private var query: String = ""
-    
+    @State private var pendingDeletion: Workout?
+    @State private var isShowingDeleteConfirm = false
+
     var workouts: [Workout] {
         guard !query.isEmpty else { return allWorkouts }
         return allWorkouts.filter { workout in
@@ -30,21 +32,28 @@ struct WorkoutsView: View {
                     NavigationLink(value: workout) {
                         Text(workout.name)
                     }
-                }.onDelete(perform: delete)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button("Delete", role: .destructive) {
+                            pendingDeletion = workout
+                            isShowingDeleteConfirm = true
+                        }
+                    }
+                }
             }
             .searchable(text: $query)
             .navigationTitle("Workouts")
             .navigationDestination(for: Workout.self) { workout in
                 WorkoutDetailView(workout: workout)
             }
-        }
-    }
-    
-    private func delete(at indexes: IndexSet) {
-        for index in indexes {
-            let workout = workouts[index]
-            modelContext.delete(workout)
-            Log.persistence.info("Workout deleted: \(workout.name)")
+            .alert("Delete workout?", isPresented: $isShowingDeleteConfirm, presenting: pendingDeletion) { workout in
+                Button("Delete", role: .destructive) {
+                    modelContext.delete(workout)
+                    Log.persistence.info("Workout deleted: \(workout.name)")
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: { _ in
+                Text("This action cannot be undone.")
+            }
         }
     }
 }
