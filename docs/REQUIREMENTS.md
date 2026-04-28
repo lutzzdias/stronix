@@ -949,6 +949,33 @@
 - The app remains responsive (< 100ms for any SwiftData query) with 500+ workouts in the database
 - If exercise illustrations are bundled (US-34), decoded images are cached via `NSCache` with a configurable memory limit
 
+## Bugs
+
+Known unintended behavior. Each bug follows the template: id, title, status (Open / Fixed), description, reproduction steps, and suspected cause (when known).
+
+#### BUG-01: Archive History row flickers during swipe-to-delete confirmation
+
+**Status:** Open
+
+**Description:** When swiping a workout row in the Archive tab's History section and tapping Delete, the row disappears, the confirmation alert appears, the row briefly reappears under the alert, then disappears again once the alert is dismissed. The actual deletion only happens when the user confirms, as intended, but the intermediate visual state is jarring.
+
+**Reproduction steps:**
+1. Open the Archive tab (must contain at least one workout in the History section)
+2. Swipe left on a workout row until the red Delete button appears
+3. Tap Delete
+4. Observe: row vanishes, alert appears, row flickers back in, then vanishes again
+
+**Affected screens:**
+- `ArchiveView` (Archive tab, History section) — confirmed
+
+**Not affected:**
+- `WorkoutsView` (the "See all" workouts screen) — same pattern works cleanly
+- `ExercisesView` — soft-delete archive works cleanly after the fix that decoupled the alert's `isPresented` binding from the `pendingArchive` optional
+
+**Suspected cause:** Interaction between `.swipeActions` and the `ForEach(workouts.prefix(5))` source in `ArchiveView`. The `prefix(5)` slice may produce a new identity on each render, causing SwiftUI to reconcile the row tree while the swipe gesture is active. A proposed fix is to materialize and explicitly identify the slice (e.g., `ForEach(Array(workouts.prefix(5)), id: \.id)`). Not yet verified. Further investigation may need Instruments (SwiftUI template) to observe the render graph during the gesture.
+
+**Workaround:** None — the deletion still works correctly, only the animation is affected.
+
 ## Non-Functional Requirements
 
 - **NFR-01** — Platform: The app targets iOS 17.5 or later, built with Xcode 15.4+ using Swift 5 and SwiftUI.
@@ -1050,6 +1077,10 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 | Wave 3 | US-52: iCloud Sync via CloudKit | Data sync | Planned |
 | Wave 3 | US-66: Accessibility Test Infrastructure | Infrastructure | Planned |
 | Wave 3 | US-67: Performance — Query Optimization | Infrastructure | Planned |
+
+### Known Bugs
+
+- BUG-01: Archive History row flickers during swipe-to-delete confirmation — Open
 
 ### Future NFRs
 
