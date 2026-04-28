@@ -22,6 +22,7 @@ struct ExerciseEditor: View {
     @State private var desc: String?
     @State private var equipment: String?
     @State private var muscle: String?
+    @State private var isDuplicate: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -81,28 +82,37 @@ struct ExerciseEditor: View {
                     equipment = exercise.equipment
                     muscle = exercise.muscle
                 }
+                checkDuplicate(name)
+            }
+            .onChange(of: name) { _, newValue in
+                checkDuplicate(newValue)
             }
         }
     }
     
     private func save() {
+        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+        let trimmedDesc = desc?.trimmingCharacters(in: .whitespaces)
+        let trimmedEquipment = equipment?.trimmingCharacters(in: .whitespaces)
+        let trimmedMuscle = muscle?.trimmingCharacters(in: .whitespaces)
+
         if let exercise {
-            exercise.name = name
-            exercise.desc = desc
-            exercise.equipment = equipment
-            exercise.muscle = muscle
-            Log.persistence.info("Exercise updated: \(name)")
+            exercise.name = trimmedName
+            exercise.desc = trimmedDesc
+            exercise.equipment = trimmedEquipment
+            exercise.muscle = trimmedMuscle
+            Log.persistence.info("Exercise updated: \(trimmedName)")
         } else {
             let exercise = Exercise(
-                name: name,
-                desc: desc,
-                equipment: equipment,
-                muscle: muscle
+                name: trimmedName,
+                desc: trimmedDesc,
+                equipment: trimmedEquipment,
+                muscle: trimmedMuscle
             )
             modelContext.insert(exercise)
             do {
                 try modelContext.save()
-                Log.persistence.info("Exercise created: \(name)")
+                Log.persistence.info("Exercise created: \(trimmedName)")
             } catch {
                 Log.persistence.error("Failed to save exercise: \(error.localizedDescription)")
                 errorHandler.show("Could not save the exercise. Please try again.")
@@ -111,8 +121,22 @@ struct ExerciseEditor: View {
     }
     
     private func isDisabled() -> Bool {
-        // TODO: check if there already exists an exercise with the same name
-        return name.isEmpty
+        return name.trimmingCharacters(in: .whitespaces).isEmpty || isDuplicate
+    }
+
+    private func checkDuplicate(_ value: String) {
+        let trimmed = value.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else {
+            isDuplicate = false
+            return
+        }
+        do {
+            isDuplicate = try Exercise.isDuplicateName(trimmed, excludingID: exercise?.id, in: modelContext)
+        } catch {
+            // Fail open: transient SwiftData errors shouldn't lock the user out of creating exercises.
+            Log.persistence.error("Failed to check duplicate exercise name: \(error.localizedDescription)")
+            isDuplicate = false
+        }
     }
 }
 

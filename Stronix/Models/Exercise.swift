@@ -30,4 +30,21 @@ class Exercise {
 
 extension Exercise {
     static let activePredicate = #Predicate<Exercise> { exercise in !exercise.isArchived }
+
+    /// Checks whether `name` is already taken by another non-archived exercise.
+    /// - Parameters:
+    ///   - name: The proposed exercise name.
+    ///   - excludingID: When editing, pass the current exercise's `id` so it doesn't match itself.
+    ///   - context: The `ModelContext` used to query existing exercises.
+    /// - Returns: `true` if a non-archived exercise with the same name (case-insensitive, trimmed) exists.
+    static func isDuplicateName(_ name: String, excludingID: UUID? = nil, in context: ModelContext) throws -> Bool {
+        var descriptor = FetchDescriptor<Exercise>(predicate: activePredicate)
+        descriptor.propertiesToFetch = [\.name, \.id]
+        let exercises = try context.fetch(descriptor)
+        let trimmed = name.trimmingCharacters(in: .whitespaces).lowercased()
+        return exercises.contains { exercise in
+            exercise.name.trimmingCharacters(in: .whitespaces).lowercased() == trimmed
+                && exercise.id != excludingID
+        }
+    }
 }

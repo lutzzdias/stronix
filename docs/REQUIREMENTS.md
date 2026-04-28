@@ -175,11 +175,11 @@
 - A create button is available in the toolbar and inline in `ExercisesView`
 - `ExerciseEditor` is presented as a form sheet with name (required), description, equipment, and muscle fields
 - A user-facing error alert is shown if the exercise save fails
-- Exercise name can be empty — no validation beyond the "required" label in the form
-- No duplicate exercise name check is enforced
+- The Save button is disabled when the trimmed name is empty OR matches a non-archived exercise's name (case-insensitive, whitespace-trimmed)
+- Archived exercises with the same name do not trigger the duplicate check; editing an exercise without changing its name keeps Save enabled
+- Leading and trailing whitespace are trimmed from name, description, equipment, and muscle before saving
 - TODO: equipment field should become a picker (see US-33)
 - TODO: muscle group field should become a picker allowing multiple selections (see US-32)
-- TODO: add duplicate name validation
 
 #### US-13: Edit an Exercise
 
@@ -191,6 +191,7 @@
 - `ExerciseDetailView` displays name, description, muscle, and equipment with an edit button
 - The edit button opens `ExerciseEditor` in edit mode, pre-populated with current values
 - Changes are persisted to SwiftData on save
+- Same duplicate-name and whitespace-trimming rules as US-12 apply when saving edits
 
 #### US-14: Archive an Exercise
 
