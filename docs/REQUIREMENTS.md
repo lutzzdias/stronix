@@ -559,16 +559,16 @@
 
 #### US-41: Flow-Optimized Set Completion Toolbar
 
-**Status:** Planned
+**Status:** Implemented
 
-**User story:** As a lifter, I want a keyboard toolbar that lets me flow from weight to reps to completion, so that I can log sets faster.
+**User story:** As a lifter, I want a keyboard toolbar that lets me flow between weight and reps, so that I can log sets faster.
 
 **Acceptance criteria:**
 - An accessory toolbar appears above the system keyboard whenever either Dragger `TextField` is focused (`.toolbar { ToolbarItemGroup(placement: .keyboard) }`)
-- The toolbar includes directional buttons ("← Weight" / "Reps →") to move focus between weight and reps fields
-- The toolbar includes a prominent "✓ Complete" button that marks the current set as completed, starts the rest timer, and advances to the next uncompleted set
-- The keyboard is dismissed after completing a set
-- Requires lifting `@FocusState` from `Dragger` internals to the parent `SetEditorView`
+- The toolbar includes directional buttons ("← Weight" / "Reps →") to move focus between weight and reps fields; the button for the currently focused field is disabled
+- The toolbar includes a "Done" button that dismisses the keyboard without completing the set
+- Completing the set remains the responsibility of the main "Complete set" button in the editor, keeping the keyboard toolbar focused on navigation only
+- Implementation lifts `@FocusState` from `Dragger` internals to the parent `SetEditorView`; `Dragger` is now generic over a `FocusValue: Hashable` and accepts a `FocusState<FocusValue?>.Binding`
 - TODO: verify toolbar height does not obscure content on iPhone SE-sized devices
 
 #### US-42: Sticky Timer Banner Across Workout Navigation
@@ -1037,6 +1037,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-30: Persist Data with SwiftData~~
 - ~~US-31: Cascade Deletes and Relationship Integrity~~
 - ~~US-38: Destructive Action Confirmations~~
+- ~~US-41: Flow-Optimized Set Completion Toolbar~~
 - ~~US-56: Haptic and Sound Micro-Rewards on Set Completion~~
 - ~~US-57: Dragger Boundary Haptics~~
 
@@ -1044,7 +1045,6 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 
 | Wave | Items | Theme | Status |
 |---|---|---|---|
-| Wave 1 | US-41: Flow-Optimized Set Completion Toolbar | In-workout friction | Planned |
 | Wave 1 | US-33: Structured Equipment Enum | Data model | Planned |
 | Wave 1 | US-42: Sticky Timer Banner | In-workout friction | Planned |
 | Wave 1 | US-53: Accessibility Audit and VoiceOver | Accessibility | Planned |

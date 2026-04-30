@@ -7,18 +7,24 @@ import SwiftUI
 
 /// A number input that supports both keyboard typing and vertical drag to adjust.
 /// Drag the handle icon to adjust. Tap the value to edit via keyboard.
-struct Dragger: View {
+///
+/// The control is generic over a `FocusValue` so the parent view can manage
+/// keyboard focus across multiple Draggers (e.g. to drive a `.toolbar(placement: .keyboard)`
+/// accessory bar). Pass a `FocusState<Value?>.Binding` and the specific
+/// enum case this Dragger represents.
+struct Dragger<FocusValue: Hashable>: View {
     let unit: String
     @Binding var value: Double?
     var step: Double = 1
     var intOnly: Bool = false
+    var focus: FocusState<FocusValue?>.Binding
+    var focusValue: FocusValue
     
     @State private var lastTranslation: Double = 0
     @State private var isDragging = false
     @State private var dragOffset: CGFloat = 0
     @State private var boundaryHitCount: Int = 0
     @State private var didHitBoundaryThisDrag = false
-    @FocusState private var isFocused: Bool
     
     private let pointsPerStep: Double = 10
     private let maxHandleOffset: CGFloat = 3
@@ -28,7 +34,7 @@ struct Dragger: View {
             HStack(spacing: 4) {
                 TextField("–", value: $value, format: intOnly ? .number.precision(.fractionLength(0)) : .number)
                     .keyboardType(intOnly ? .numberPad : .decimalPad)
-                    .focused($isFocused)
+                    .focused(focus, equals: focusValue)
                     .fixedSize()
                 
                 Text(unit)
@@ -45,7 +51,7 @@ struct Dragger: View {
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gesture in
-                            isFocused = false
+                            focus.wrappedValue = nil
                             isDragging = true
                             
                             // Animate handle in drag direction, capped
@@ -56,7 +62,7 @@ struct Dragger: View {
                             let steps = (delta / pointsPerStep).rounded(.towardZero)
                             if steps != 0 {
                                 lastTranslation += steps * pointsPerStep
-                                let result = Dragger.step(
+                                let result = DraggerStepper.step(
                                     from: value ?? 0,
                                     steps: steps,
                                     step: step
@@ -84,12 +90,13 @@ struct Dragger: View {
 
 // MARK: - Step math
 
-extension Dragger {
-    /// Pure helper that applies a signed step delta to `current` and clamps the
-    /// result at the minimum boundary (0).
-    ///
-    /// Extracted from the drag gesture handler so the boundary detection
-    /// logic can be unit-tested without driving SwiftUI gestures.
+/// Pure helpers for `Dragger`'s per-step math.
+///
+/// Extracted to a non-generic namespace so the boundary-detection logic
+/// can be unit-tested without committing to a specific `FocusValue` type.
+enum DraggerStepper {
+    /// Applies a signed step delta to `current` and clamps the result at
+    /// the minimum boundary (0).
     ///
     /// - Parameters:
     ///   - current: The current value before applying the step.
