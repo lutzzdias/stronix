@@ -787,7 +787,7 @@
 
 #### US-56: Haptic and Sound Micro-Rewards on Set Completion
 
-**Status:** Planned
+**Status:** Implemented
 
 **User story:** As a lifter, I want satisfying feedback when I complete a set, so that the app reinforces my workout habit.
 
@@ -800,7 +800,7 @@
 
 #### US-57: Dragger Boundary Haptics
 
-**Status:** Planned
+**Status:** Implemented
 
 **User story:** As a lifter, I want to feel a haptic when the Dragger hits its minimum value, so that I know I have reached the boundary.
 
@@ -997,7 +997,7 @@ Known unintended behavior. Each bug follows the template: id, title, status (Ope
 - **NFR-17** — Error Handling: A centralized `ErrorHandler` (`@Observable`) displays user-facing error alerts, injected into the SwiftUI environment at the app root via `.withErrorHandler()` on `MainView`.
 - **NFR-18** — Error Handling: Save failures in exercise creation/editing trigger an error alert; `ModelContainer` creation failure is a `fatalError`.
 - **NFR-19** — Testing: The app uses the Swift Testing framework (`import Testing`) for unit tests.
-- **NFR-20** — Testing: 7 test files with ~35 tests cover model logic (init, computed properties, sorting, append, remove, move), formatters, and `Sortable`; auto-fill logic, `RestTimer`, `Workout.finish()`, `Workout.shareText`, `RPE` labels, `Tag.shortLabel`, all views, `ErrorHandler`, and integration tests are not covered.
+- **NFR-20** — Testing: 9 test files with ~49 tests cover model logic (init, computed properties, sorting, append, remove, move), formatters, `Sortable`, `SoundEffects` enabled-flag gating, and `Dragger` step math with floor clamping; auto-fill logic, `RestTimer`, `Workout.finish()`, `Workout.shareText`, `RPE` labels, `Tag.shortLabel`, all views, `ErrorHandler`, and integration tests are not covered.
 
 ## Roadmap
 
@@ -1037,14 +1037,14 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-30: Persist Data with SwiftData~~
 - ~~US-31: Cascade Deletes and Relationship Integrity~~
 - ~~US-38: Destructive Action Confirmations~~
+- ~~US-56: Haptic and Sound Micro-Rewards on Set Completion~~
+- ~~US-57: Dragger Boundary Haptics~~
 
 ### Planned Waves
 
 | Wave | Items | Theme | Status |
 |---|---|---|---|
 | Wave 1 | US-41: Flow-Optimized Set Completion Toolbar | In-workout friction | Planned |
-| Wave 1 | US-56: Haptic and Sound Micro-Rewards | Delight | Planned |
-| Wave 1 | US-57: Dragger Boundary Haptics | Delight | Planned |
 | Wave 1 | US-33: Structured Equipment Enum | Data model | Planned |
 | Wave 1 | US-42: Sticky Timer Banner | In-workout friction | Planned |
 | Wave 1 | US-53: Accessibility Audit and VoiceOver | Accessibility | Planned |

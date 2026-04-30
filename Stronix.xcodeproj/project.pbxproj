@@ -11,6 +11,7 @@
 		490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */; };
 		490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85E2C89664800E75ECD /* ArchiveView.swift */; };
 		491564282F8F0890005CD2A9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491564272F8F0878005CD2A9 /* Log.swift */; };
+		49F056012FC0000000000001 /* SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F056002FC0000000000002 /* SoundEffects.swift */; };
 		4915642A2F8F0BDF005CD2A9 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */; };
 		4915642C2F8F10AC005CD2A9 /* RestTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4915642B2F8F10A9005CD2A9 /* RestTimer.swift */; };
 		4915642E2F8F1166005CD2A9 /* RestTimerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4915642D2F8F1160005CD2A9 /* RestTimerSheet.swift */; };
@@ -23,6 +24,8 @@
 		49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49752E562C75A06600111109 /* ExerciseEditor.swift */; };
 		498C9E1A2F8DE95900F871FB /* SortableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C492F8DDD3300BFB05C /* SortableTests.swift */; };
 		498C9E1B2F8DE96200F871FB /* AppFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */; };
+		49F056112FC0000000000011 /* SoundEffectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F056102FC0000000000010 /* SoundEffectsTests.swift */; };
+		49F056212FC0000000000021 /* DraggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F056202FC0000000000020 /* DraggerTests.swift */; };
 		498C9E1C2F8DE96700F871FB /* TagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C4B2F8DE13A00BFB05C /* TagTests.swift */; };
 		498C9E1D2F8DE97200F871FB /* WorkoutSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */; };
 		498C9E1E2F8DE97200F871FB /* ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */; };
@@ -65,6 +68,7 @@
 		490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		490EF85E2C89664800E75ECD /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		491564272F8F0878005CD2A9 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		49F056002FC0000000000002 /* SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffects.swift; sourceTree = "<group>"; };
 		491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		4915642B2F8F10A9005CD2A9 /* RestTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimer.swift; sourceTree = "<group>"; };
 		4915642D2F8F1160005CD2A9 /* RestTimerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerSheet.swift; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 		499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSetTests.swift; sourceTree = "<group>"; };
 		499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFormatterTests.swift; sourceTree = "<group>"; };
 		499F4C492F8DDD3300BFB05C /* SortableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableTests.swift; sourceTree = "<group>"; };
+		49F056102FC0000000000010 /* SoundEffectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectsTests.swift; sourceTree = "<group>"; };
+		49F056202FC0000000000020 /* DraggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggerTests.swift; sourceTree = "<group>"; };
 		499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTests.swift; sourceTree = "<group>"; };
 		499F4C4B2F8DE13A00BFB05C /* TagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTests.swift; sourceTree = "<group>"; };
 		49A7B3012FA0E44000C1D5F7 /* WorkoutSummarySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummarySheet.swift; sourceTree = "<group>"; };
@@ -226,6 +232,7 @@
 				491564272F8F0878005CD2A9 /* Log.swift */,
 				499F4C2E2F8DCE6000BFB05C /* AppFormatter.swift */,
 				499F4C2B2F8DCB0B00BFB05C /* Sortable.swift */,
+				49F056002FC0000000000002 /* SoundEffects.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -256,6 +263,8 @@
 			children = (
 				499F4C492F8DDD3300BFB05C /* SortableTests.swift */,
 				499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */,
+				49F056102FC0000000000010 /* SoundEffectsTests.swift */,
+				49F056202FC0000000000020 /* DraggerTests.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -394,6 +403,7 @@
 				490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */,
 				494057172C80099200C8A6BD /* CurrentWorkoutView.swift in Sources */,
 				491564282F8F0890005CD2A9 /* Log.swift in Sources */,
+				49F056012FC0000000000001 /* SoundEffects.swift in Sources */,
 				49D38DE52C6AAC6B00D84C14 /* WorkoutSet.swift in Sources */,
 				49752E572C75A06600111109 /* ExerciseEditor.swift in Sources */,
 				499F4C2F2F8DCE6400BFB05C /* AppFormatter.swift in Sources */,
@@ -431,6 +441,8 @@
 				498C9E202F8DE97200F871FB /* WorkoutTests.swift in Sources */,
 				498C9E1C2F8DE96700F871FB /* TagTests.swift in Sources */,
 				498C9E1A2F8DE95900F871FB /* SortableTests.swift in Sources */,
+				49F056112FC0000000000011 /* SoundEffectsTests.swift in Sources */,
+				49F056212FC0000000000021 /* DraggerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

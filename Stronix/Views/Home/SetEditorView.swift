@@ -15,6 +15,7 @@ struct SetEditorView: View {
     let onComplete: (WorkoutSet?) -> Void
     
     @State private var isShowingDetails = false
+    @State private var completionCount = 0
     
     var body: some View {
         VStack(spacing: 24) {
@@ -43,6 +44,8 @@ struct SetEditorView: View {
                 Button {
                     set.completed = true
                     restTimer.begin(duration: defaultRestDuration)
+                    completionCount += 1
+                    SoundEffects.playTink()
                     Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
                     onComplete(nil)
                 } label: {
@@ -59,6 +62,7 @@ struct SetEditorView: View {
         }
         .padding()
         .background(Color(.secondarySystemGroupedBackground))
+        .sensoryFeedback(.success, trigger: completionCount)
         .sheet(isPresented: $isShowingDetails) {
             SetDetailsSheet(set: set)
         }

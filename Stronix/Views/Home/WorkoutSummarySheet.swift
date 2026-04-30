@@ -15,6 +15,8 @@ struct WorkoutSummarySheet: View {
     let shareText: String
     let exercises: [(name: String, sets: [(weight: String, reps: Int)])]
     
+    @State private var saveCount = 0
+    
     init(workout: Workout, onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
         self.onSave = onSave
         self.onCancel = onCancel
@@ -74,12 +76,17 @@ struct WorkoutSummarySheet: View {
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(action: onSave) {
+                    Button {
+                        saveCount += 1
+                        onSave()
+                    } label: {
                         Image(systemName: "checkmark")
                     }
                 }
             }
             .interactiveDismissDisabled()
+            .sensoryFeedback(.success, trigger: saveCount)
+            .sensoryFeedback(.impact(weight: .heavy), trigger: saveCount)
         }
     }
     
