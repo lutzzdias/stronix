@@ -27,8 +27,6 @@ struct CurrentWorkoutView: View {
     }
     
     var body: some View {
-        TimerView(startDate: workout.start)
-        
         List {
             // MARK: Title and description
             Section {
@@ -50,6 +48,9 @@ struct CurrentWorkoutView: View {
                     isShowingExercisesSheet = true
                 }
             }
+        }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            TimerView(startDate: workout.start)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()

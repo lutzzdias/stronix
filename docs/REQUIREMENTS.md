@@ -573,7 +573,7 @@
 
 #### US-42: Sticky Timer Banner Across Workout Navigation
 
-**Status:** Planned
+**Status:** Implemented
 
 **User story:** As a lifter, I want the timer banner to remain visible when navigating between exercises, so that I never lose sight of my rest countdown.
 
@@ -581,9 +581,10 @@
 - The timer banner remains visible when navigating from the workout exercise list into an individual exercise view
 - The banner shows both elapsed workout time and rest timer countdown
 - The banner is tappable to open the rest timer sheet from any depth in the navigation stack
-- The banner does not interfere with the navigation bar or list scroll behavior
-- Implementation uses `.safeAreaInset(edge: .top)` on the `NavigationStack` in `CurrentWorkoutView`; the duplicate `TimerView` in `WorkoutExerciseView` is removed
-- TODO: verify `.safeAreaInset` propagates to pushed views in `NavigationStack`
+- The banner sits below the navigation bar (not above it) and does not interfere with list scroll behavior
+- Implementation attaches `.safeAreaInset(edge: .top, spacing: 0)` to the `List` in both `CurrentWorkoutView` and `WorkoutExerciseView` with an identical `TimerView` as its content; the previously-inline `TimerView` above each `List` is removed
+- `TimerView` applies `.background(.bar)` plus a bottom `Divider` overlay so it reads as a banner rather than transparently overlaying scrolled list content
+- TODO: verify `.safeAreaInset` timing during the navigation push does not produce a visible banner flicker on older devices
 
 #### US-43: Actionable Rest Timer Notifications
 
@@ -1038,6 +1039,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-31: Cascade Deletes and Relationship Integrity~~
 - ~~US-38: Destructive Action Confirmations~~
 - ~~US-41: Flow-Optimized Set Completion Toolbar~~
+- ~~US-42: Sticky Timer Banner Across Workout Navigation~~
 - ~~US-56: Haptic and Sound Micro-Rewards on Set Completion~~
 - ~~US-57: Dragger Boundary Haptics~~
 
@@ -1046,7 +1048,6 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 | Wave | Items | Theme | Status |
 |---|---|---|---|
 | Wave 1 | US-33: Structured Equipment Enum | Data model | Planned |
-| Wave 1 | US-42: Sticky Timer Banner | In-workout friction | Planned |
 | Wave 1 | US-53: Accessibility Audit and VoiceOver | Accessibility | Planned |
 | Wave 1 | US-37: Editable Workout History | Workout enhancements | Planned |
 | Wave 1 | US-61: Security and Privacy Hardening | Infrastructure | Planned |

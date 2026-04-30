@@ -41,7 +41,11 @@ struct TimerView: View {
             .buttonStyle(.plain)
         }
         .padding(.horizontal)
-        .padding(.vertical, 6)
+        .padding(.vertical, 12)
+        .background(.bar)
+        .overlay(alignment: .bottom) {
+            Divider()
+        }
         .sheet(isPresented: $showRestTimerSheet) {
             RestTimerSheet()
         }
