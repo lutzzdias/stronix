@@ -7,11 +7,8 @@ import Testing
 @testable import Stronix
 
 /// Tests for `DraggerStepper.step(from:steps:step:)` — the pure per-step math
-/// extracted from the Dragger drag gesture.
-///
-/// The gesture itself (SwiftUI `DragGesture`) is not covered here. These
-/// tests lock down the boundary detection used to drive US-57's
-/// once-per-drag error haptic.
+/// extracted from the Dragger drag gesture. The gesture itself
+/// (SwiftUI `DragGesture`) is not covered here.
 struct DraggerTests {
     
     // MARK: - positive stepping

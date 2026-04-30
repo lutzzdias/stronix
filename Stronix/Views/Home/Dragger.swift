@@ -67,7 +67,6 @@ struct Dragger<FocusValue: Hashable>: View {
                                     steps: steps,
                                     step: step
                                 )
-                                // Fire boundary haptic once per drag when we hit the floor
                                 if result.didHitFloor && !didHitBoundaryThisDrag {
                                     didHitBoundaryThisDrag = true
                                     boundaryHitCount += 1
