@@ -19,6 +19,7 @@ struct CurrentWorkoutView: View {
     @State private var isShowingExercisesSheet = false
     @State private var isShowingSummary = false
     @State private var isShowingCancelConfirm = false
+    @FocusState private var isTextFieldFocused: Bool
 
     private func discard() {
         restTimer.stop()
@@ -31,7 +32,9 @@ struct CurrentWorkoutView: View {
             // MARK: Title and description
             Section {
                 TextField("Name", text: $workout.name)
+                    .focused($isTextFieldFocused)
                 TextField("Description", text: $workout.comment, axis: .vertical)
+                    .focused($isTextFieldFocused)
             }
             
             // MARK: Exercises
@@ -54,6 +57,7 @@ struct CurrentWorkoutView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        .scrollDismissesKeyboard(.immediately)
         .onAppear { Log.workout.info("Workout started") }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
@@ -70,6 +74,16 @@ struct CurrentWorkoutView: View {
                     } else {
                         discard()
                     }
+                }
+            }
+            
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    isTextFieldFocused = false
+                } label: {
+                    Image(systemName: "checkmark")
+                        .fontWeight(.semibold)
                 }
             }
         }
