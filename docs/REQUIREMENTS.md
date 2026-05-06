@@ -50,6 +50,8 @@
 - Workout name defaults to an empty string (no validation enforced)
 - Workout comment defaults to an empty string
 - Both fields accept free-text input and persist to the `Workout` model
+- Scrolling the list dismisses the keyboard immediately (`.scrollDismissesKeyboard(.immediately)`)
+- While either field is focused, a checkmark button appears in the keyboard accessory toolbar; tapping it clears focus and dismisses the keyboard
 
 #### US-03: Add Exercises to a Workout
 
