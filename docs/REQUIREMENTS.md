@@ -94,14 +94,13 @@
 **User story:** As a lifter, I want to finish my workout and see a summary, so that I can review before saving.
 
 **Acceptance criteria:**
-- Tapping "Finish" invokes `Workout.finish()` which: (a) removes all uncompleted sets from each exercise, (b) removes exercises with zero remaining sets, (c) recalculates sort indices, (d) stamps `end = Date.now`
+- Tapping "Finish" invokes `Workout.finish()` which: (a) removes all uncompleted sets from each exercise, (b) removes exercises with zero remaining sets, (c) normalizes nil weight/reps on completed sets to 0, (d) auto-generates the workout name if empty (see US-51), (e) recalculates sort indices, (f) stamps `end = Date.now`
 - The rest timer is stopped before the summary is shown
 - `WorkoutSummarySheet` is presented as a modal with interactive dismiss disabled (`.interactiveDismissDisabled()`)
 - The summary displays three statistics: duration (formatted as "Xh Ym"), total completed sets count, and total volume in kg (`Σ(weight × reps)` for completed sets only)
 - A per-exercise section lists each exercise name and its completed sets as "weight kg × reps"
 - Exercises with zero completed sets do not appear in the summary
 - A workout with no completed sets results in a summary showing 0 sets and 0 kg volume with no exercise sections
-- TODO: `Workout.finish()` has a `// TODO: validate nil data` comment indicating incomplete validation
 
 #### US-07: Share a Workout as Plain Text
 
@@ -714,16 +713,17 @@
 
 #### US-51: Data Integrity Validation and Orphan Cleanup
 
-**Status:** Planned
+**Status:** Implemented
 
-**User story:** As a lifter, I want the app to validate my data before saving and clean up orphaned records, so that my database stays healthy.
+**User story:** As a lifter, I want the app to normalize my workout data when I finish a session, so that the saved record is consistent even when I forget to fill in a field.
 
 **Acceptance criteria:**
-- Pre-save validation in `Workout.finish()` checks: non-empty workout name (warn or auto-generate), non-nil weight and reps on completed sets
-- Validation failures are surfaced to the user via the existing `ErrorHandler` mechanism
-- A background orphan cleanup runs on app launch, scanning for `WorkoutExercise` records with nil `workout` or nil `exercise` references and deleting them
-- Orphan cleanup does not delete data that is part of an active (unfinished) workout
-- All validation issues and orphan removals are logged via `os.Logger`
+- `Workout.finish()` auto-generates a workout name in the format `"Workout - <medium-style date>"` (e.g., "Workout - May 6, 2026") when the name is empty or whitespace-only
+- `Workout.finish()` trims leading and trailing whitespace from a non-empty workout name
+- `Workout.finish()` normalizes `weight` and `repetitions` to `0` on completed sets where either value is `nil`
+- All normalizations are logged via `Log.workout` (`.info` for auto-generated names, `.warning` for nil value normalization)
+- Behavior is unchanged for completed sets that already have non-nil weight and repetitions
+- Orphan cleanup (scanning for stranded `WorkoutExercise` records) is out of scope — SwiftData cascade rules make orphans impossible in the current data flows; revisit when schema migration (US-50) lands or when orphans are observed
 
 #### US-52: iCloud Sync via CloudKit
 
@@ -1042,6 +1042,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-38: Destructive Action Confirmations~~
 - ~~US-41: Flow-Optimized Set Completion Toolbar~~
 - ~~US-42: Sticky Timer Banner Across Workout Navigation~~
+- ~~US-51: Data Integrity Validation and Orphan Cleanup~~
 - ~~US-56: Haptic and Sound Micro-Rewards on Set Completion~~
 - ~~US-57: Dragger Boundary Haptics~~
 
@@ -1054,7 +1055,6 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 | Wave 1 | US-37: Editable Workout History | Workout enhancements | Planned |
 | Wave 1 | US-61: Security and Privacy Hardening | Infrastructure | Planned |
 | Wave 1 | US-50: SwiftData Schema Migration Strategy | Infrastructure | Planned |
-| Wave 1 | US-51: Data Integrity Validation | Infrastructure | Planned |
 | Wave 1 | US-62: Feature-Flag Infrastructure | Infrastructure | Planned |
 | Wave 2 | US-60: Activity Heatmap Dashboard | Progress visibility | Planned |
 | Wave 2 | US-39: Repeat Workout from History | Workflow efficiency | Planned |

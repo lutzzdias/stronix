@@ -87,20 +87,42 @@ class Workout {
         }
     }
     
-    /// Finalizes the workout by removing uncompleted sets and empty exercises, then stamps the end time.
+    /// Finalizes the workout by removing uncompleted sets and empty exercises, normalizing
+    /// missing data on completed sets, and stamping the end time.
     func finish() {
+        // Remove uncompleted sets and normalize nil weight/reps on completed sets
         for exercise in workoutExercises {
-            // Remove sets that were never completed
             let uncompleted = exercise.sortedSets.enumerated()
                 .filter { !$0.element.completed }
                 .map { $0.offset }
             if !uncompleted.isEmpty {
                 _ = exercise.removeSets(at: IndexSet(uncompleted))
             }
+
+            for set in exercise.sets where set.completed {
+                if set.weight == nil {
+                    set.weight = 0
+                    Log.workout.warning("Normalized nil weight to 0 on completed set \(set.id)")
+                }
+                if set.repetitions == nil {
+                    set.repetitions = 0
+                    Log.workout.warning("Normalized nil repetitions to 0 on completed set \(set.id)")
+                }
+            }
         }
         // Remove exercises left with zero sets after cleanup
         workoutExercises.removeAll { $0.sets.isEmpty }
         sortedExercises.reorder()
+
+        // Auto-generate a name if the user left it empty
+        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+        if trimmedName.isEmpty {
+            name = "Workout - \(AppFormatter.shortDate(start))"
+            Log.workout.info("Auto-generated workout name: \(self.name)")
+        } else if trimmedName != name {
+            name = trimmedName
+        }
+
         end = Date.now
     }
     
@@ -122,6 +144,4 @@ class Workout {
         }
         return lines.joined(separator: "\n")
     }
-    
-    // TODO: validate nil data
 }

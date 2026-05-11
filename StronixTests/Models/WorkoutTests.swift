@@ -237,4 +237,109 @@ struct WorkoutTests {
 
         #expect(workout.hasCompletedSets == true)
     }
+
+    // MARK: - finish
+
+    @Test func finishStampsEndTime() {
+        let workout = Workout()
+        #expect(workout.end == nil)
+        workout.finish()
+        #expect(workout.end != nil)
+    }
+
+    @Test func finishRemovesUncompletedSets() {
+        let uncompletedSet = WorkoutSet(repetitions: 10, weight: 20, completed: false)
+        let completedSet = WorkoutSet(repetitions: 8, weight: 25, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [uncompletedSet, completedSet])
+        let workout = Workout(exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(workoutExercise.sets.count == 1)
+        #expect(workoutExercise.sets.first?.completed == true)
+    }
+
+    @Test func finishRemovesExercisesWithNoCompletedSets() {
+        let uncompletedSet = WorkoutSet(completed: false)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [uncompletedSet])
+        let workout = Workout(exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(workout.workoutExercises.isEmpty)
+    }
+
+    @Test func finishNormalizesNilWeightOnCompletedSetToZero() {
+        let completedSet = WorkoutSet(repetitions: 10, weight: nil, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(completedSet.weight == 0)
+        #expect(completedSet.repetitions == 10)
+    }
+
+    @Test func finishNormalizesNilRepetitionsOnCompletedSetToZero() {
+        let completedSet = WorkoutSet(repetitions: nil, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(completedSet.repetitions == 0)
+        #expect(completedSet.weight == 20)
+    }
+
+    @Test func finishLeavesCompletedSetValuesUnchangedWhenAlreadyFilled() {
+        let completedSet = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(completedSet.weight == 20)
+        #expect(completedSet.repetitions == 10)
+    }
+
+    @Test func finishAutoGeneratesNameWhenEmpty() {
+        let completedSet = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(name: "", exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(workout.name.hasPrefix("Workout - "))
+        #expect(workout.name.count > "Workout - ".count)
+    }
+
+    @Test func finishAutoGeneratesNameWhenWhitespaceOnly() {
+        let completedSet = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(name: "   ", exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(workout.name.hasPrefix("Workout - "))
+    }
+
+    @Test func finishPreservesNonEmptyName() {
+        let completedSet = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(name: "Push Day", exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(workout.name == "Push Day")
+    }
+
+    @Test func finishTrimsWhitespaceFromName() {
+        let completedSet = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [completedSet])
+        let workout = Workout(name: "  Leg Day  ", exercises: [workoutExercise])
+
+        workout.finish()
+
+        #expect(workout.name == "Leg Day")
+    }
 }
