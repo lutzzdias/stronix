@@ -51,13 +51,22 @@ struct SetEditorView: View {
             }
             
             HStack {
-                Button {
-                    completeSet()
-                } label: {
-                    Text("Complete set").frame(maxWidth: .infinity).padding(.vertical, 4)
+                if set.completed {
+                    Button {
+                        uncompleteSet()
+                    } label: {
+                        Text("Uncomplete set").frame(maxWidth: .infinity).padding(.vertical, 4)
+                    }
+                    .buttonStyle(.bordered)
+                } else {
+                    Button {
+                        completeSet()
+                    } label: {
+                        Text("Complete set").frame(maxWidth: .infinity).padding(.vertical, 4)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-                .buttonStyle(.borderedProminent)
-                
+
                 Button { isShowingDetails = true } label: {
                     Image(systemName: "tag")
                         .font(.title3)
@@ -109,6 +118,13 @@ struct SetEditorView: View {
         focusedField = nil
         Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
         onComplete(nil)
+    }
+
+    /// Reverts the set to uncompleted state.
+    private func uncompleteSet() {
+        set.completed = false
+        focusedField = nil
+        Log.persistence.debug("Set uncompleted: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
     }
 }
 
