@@ -26,12 +26,7 @@ struct ExerciseDetailView: View {
             }
             
             if let equipment = exercise.equipment {
-                HStack {
-                    Text("Equipment")
-                    Spacer()
-                    Text(equipment)
-                        .foregroundStyle(.secondary)
-                }
+                Label(equipment.name, systemImage: equipment.icon)
             }
             
             // TODO: Show most recent weight and reps (workoutExercise relation) with an option to see entire history

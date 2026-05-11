@@ -14,11 +14,12 @@ struct StronixApp: App {
     @State private var restTimer = RestTimer()
     
     var container: ModelContainer = {
-        let schema = Schema([Exercise.self, WorkoutSet.self, Workout.self, WorkoutExercise.self])
+        let schema = Schema([Exercise.self, WorkoutSet.self, Workout.self, WorkoutExercise.self, Equipment.self])
         let config = ModelConfiguration(schema: schema)
         do {
             let container = try ModelContainer(for: schema, configurations: config)
             Log.persistence.info("ModelContainer created successfully")
+            EquipmentSeeder.seedIfNeeded(context: container.mainContext)
             return container
         } catch {
             fatalError("Could not create ModelContainer: \(error)")

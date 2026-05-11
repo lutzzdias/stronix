@@ -13,13 +13,13 @@ class Exercise {
     @Attribute(.unique) var id: UUID
     var name: String
     var desc: String?
-    var equipment: String? // TODO: Create enum (barbell, dumbbell, machine, ...)
+    @Relationship var equipment: Equipment?
     var muscle: String? // TODO: Create enum (back, shoulders, legs, chest, arms, ...)
     var isArchived: Bool = false
     
     @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise]?
 
-    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: String? = nil, muscle: String? = nil) {
+    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: Equipment? = nil, muscle: String? = nil) {
         self.id = id
         self.name = name
         self.desc = desc

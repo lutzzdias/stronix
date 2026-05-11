@@ -23,11 +23,19 @@ extension Workout {
     ]
 }
 
+extension Equipment {
+    static let sample: [Equipment] = [
+        Equipment(name: "Barbell", icon: "figure.strengthtraining.traditional"),
+        Equipment(name: "Dumbbell", icon: "dumbbell.fill"),
+        Equipment(name: "Machine", icon: "gearshape.fill"),
+    ]
+}
+
 extension Exercise {
     static let sample: [Exercise] = [
-        Exercise(name: "Pulldown", desc: "Very similar to the pullup", equipment: "Machine", muscle: "Lats"),
-        Exercise(name: "Incline Bench Press", desc: "The best exercise ever", equipment: "Dumbbell", muscle: "Chest"),
-        Exercise(name: "Hammer Curls", desc: "The best ego exercise", equipment: "Dumbbell", muscle: "Biceps")
+        Exercise(name: "Pulldown", desc: "Very similar to the pullup", muscle: "Lats"),
+        Exercise(name: "Incline Bench Press", desc: "The best exercise ever", muscle: "Chest"),
+        Exercise(name: "Hammer Curls", desc: "The best ego exercise", muscle: "Biceps"),
     ]
 }
 

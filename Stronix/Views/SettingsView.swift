@@ -20,6 +20,12 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                Section("Equipment") {
+                    NavigationLink("Manage Equipment") {
+                        EquipmentListView()
+                    }
+                }
+
                 Section("Rest Timer") {
                     Picker("Default Duration", selection: $defaultRestDuration) {
                         ForEach(Self.durationOptions, id: \.self) { seconds in

@@ -6,21 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ExerciseEditor: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     @Environment(ErrorHandler.self) var errorHandler
     
+    @Query(sort: \Equipment.name) private var allEquipment: [Equipment]
+
     let exercise: Exercise?
-    
+
     private var editorTitle: String {
         exercise == nil ? "Add Exercise" : "Edit Exercise"
     }
-    
+
     @State private var name: String = ""
     @State private var desc: String?
-    @State private var equipment: String?
+    @State private var equipment: Equipment?
     @State private var muscle: String?
     @State private var isDuplicate: Bool = false
     
@@ -37,14 +40,13 @@ struct ExerciseEditor: View {
                     ), axis: .vertical)
                 }
                 
-                // TODO: change to picker
                 Section("Equipment") {
-                    TextField("Equipment", text: Binding(
-                        get: { equipment ?? ""},
-                        set: {  value in
-                            equipment = value
+                    Picker("Equipment", selection: $equipment) {
+                        Text("None").tag(Equipment?.none)
+                        ForEach(allEquipment) { eq in
+                            Label(eq.name, systemImage: eq.icon).tag(Equipment?.some(eq))
                         }
-                    ))
+                    }
                 }
                 
                 // TODO: change to picker and allow more than 1 muscle
@@ -93,20 +95,19 @@ struct ExerciseEditor: View {
     private func save() {
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
         let trimmedDesc = desc?.trimmingCharacters(in: .whitespaces)
-        let trimmedEquipment = equipment?.trimmingCharacters(in: .whitespaces)
         let trimmedMuscle = muscle?.trimmingCharacters(in: .whitespaces)
 
         if let exercise {
             exercise.name = trimmedName
             exercise.desc = trimmedDesc
-            exercise.equipment = trimmedEquipment
+            exercise.equipment = equipment
             exercise.muscle = trimmedMuscle
             Log.persistence.info("Exercise updated: \(trimmedName)")
         } else {
             let exercise = Exercise(
                 name: trimmedName,
                 desc: trimmedDesc,
-                equipment: trimmedEquipment,
+                equipment: equipment,
                 muscle: trimmedMuscle
             )
             modelContext.insert(exercise)

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49EQ00012FE1000000000001 /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00012FE1000000000002 /* Equipment.swift */; };
+		49EQ00022FE1000000000001 /* EquipmentSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00022FE1000000000002 /* EquipmentSeeder.swift */; };
+		49EQ00032FE1000000000001 /* EquipmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00032FE1000000000002 /* EquipmentListView.swift */; };
+		49EQ00042FE1000000000001 /* EquipmentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00042FE1000000000002 /* EquipmentEditor.swift */; };
 		490EF85B2C89647800E75ECD /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85A2C89647800E75ECD /* WorkoutsView.swift */; };
 		490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */; };
 		490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85E2C89664800E75ECD /* ArchiveView.swift */; };
@@ -65,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49EQ00012FE1000000000002 /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
+		49EQ00022FE1000000000002 /* EquipmentSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSeeder.swift; sourceTree = "<group>"; };
+		49EQ00032FE1000000000002 /* EquipmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListView.swift; sourceTree = "<group>"; };
+		49EQ00042FE1000000000002 /* EquipmentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentEditor.swift; sourceTree = "<group>"; };
 		490EF85A2C89647800E75ECD /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
 		490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		490EF85E2C89664800E75ECD /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
@@ -229,6 +237,7 @@
 		499F4C2D2F8DCE0800BFB05C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49EQ00022FE1000000000002 /* EquipmentSeeder.swift */,
 				4915642B2F8F10A9005CD2A9 /* RestTimer.swift */,
 				491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */,
 				491564272F8F0878005CD2A9 /* Log.swift */,
@@ -274,6 +283,7 @@
 		49D38DE12C6AA57800D84C14 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				49EQ00012FE1000000000002 /* Equipment.swift */,
 				49D38DE22C6AA59500D84C14 /* Exercise.swift */,
 				49D38DE62C6AAF7500D84C14 /* Workout.swift */,
 				49D38DE82C6AB18100D84C14 /* WorkoutExercise.swift */,
@@ -285,11 +295,21 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		49EQ00052FE1000000000005 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				49EQ00032FE1000000000002 /* EquipmentListView.swift */,
+				49EQ00042FE1000000000002 /* EquipmentEditor.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		49D38DF02C6AC77F00D84C14 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				4976B7972C764ADA00A818B5 /* Home */,
 				4937D0D32C758D7500734480 /* Archive */,
+				49EQ00052FE1000000000005 /* Settings */,
 				49D38DF92C6ACA8700D84C14 /* SettingsView.swift */,
 			);
 			path = Views;
@@ -430,6 +450,10 @@
 				49D38DFA2C6ACA8700D84C14 /* SettingsView.swift in Sources */,
 				49D9E6962C8F422B00EF85A7 /* AddExerciseSheetView.swift in Sources */,
 				49D38DE32C6AA59500D84C14 /* Exercise.swift in Sources */,
+				49EQ00012FE1000000000001 /* Equipment.swift in Sources */,
+				49EQ00022FE1000000000001 /* EquipmentSeeder.swift in Sources */,
+				49EQ00032FE1000000000001 /* EquipmentListView.swift in Sources */,
+				49EQ00042FE1000000000001 /* EquipmentEditor.swift in Sources */,
 				49D38DE92C6AB18100D84C14 /* WorkoutExercise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
