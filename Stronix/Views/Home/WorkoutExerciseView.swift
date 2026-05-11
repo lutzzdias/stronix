@@ -10,9 +10,10 @@ import SwiftData
 
 struct WorkoutExerciseView: View {
     @Environment(\.modelContext) var modelContext
-    
+
     let workout: Workout
     @Bindable var workoutExercise: WorkoutExercise
+    var mode: WorkoutMode = .active
     @State var selectedSet: WorkoutSet? = nil
     
     /// Past completed workouts containing the same exercise, most recent first (max 3).
@@ -123,7 +124,9 @@ struct WorkoutExerciseView: View {
         .task { loadHistory() }
         .scrollDismissesKeyboard(.immediately)
         .safeAreaInset(edge: .top, spacing: 0) {
-            TimerView(startDate: workout.start)
+            if mode == .active {
+                TimerView(startDate: workout.start)
+            }
         }
         .onAppear {
             // Only pre-fill the first set from history on page load

@@ -25,7 +25,7 @@ struct HomeView: View {
             }
             .navigationTitle("Home")
             .navigationDestination(item: $activeWorkout) { workout in
-                CurrentWorkoutView(workout: workout)
+                WorkoutEditorView(mode: .active, workout: workout)
             }
         }
     }
