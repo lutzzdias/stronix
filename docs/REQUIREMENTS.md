@@ -442,18 +442,26 @@
 - Existing free-text values that match enum cases auto-migrate; non-matching values become nil
 - TODO: define the one-time migration helper for non-matching free-text values
 
-#### US-33: Structured Equipment Enum
+#### US-33: User-Managed Equipment Catalog
 
-**Status:** Planned
+**Status:** Implemented
 
-**User story:** As a lifter, I want equipment types to be structured options, so that the app can provide equipment-aware defaults.
+**User story:** As a lifter, I want to manage my own equipment types, so that I can categorize exercises with the gear I actually use.
 
 **Acceptance criteria:**
-- An `Equipment` enum is defined with cases: barbell, dumbbell, machine, cable, bodyweight, other
-- `Exercise.equipment` migrates from `String?` to `Equipment?`
-- `ExerciseEditor` uses a `Picker` for equipment selection
-- The Dragger step size adapts based on equipment: 2.5 for barbell, 1.0 for dumbbell, 5.0 for machine
-- TODO: define step sizes for cable, bodyweight, and other equipment types
+- `Equipment` is a SwiftData `@Model` with `id: UUID` (unique), `name: String`, and `icon: String` (SF Symbol name)
+- `Exercise.equipment` is a `@Relationship` to `Equipment?` (replaces the previous free-text `String?` field)
+- `Equipment` → `Exercise` uses `deleteRule: .nullify`; deleting an equipment type clears it from associated exercises
+- On first app launch (when no equipment exists), 5 defaults are seeded: Barbell, Dumbbell, Machine, Cable, Bodyweight
+- Seeding uses a count-based check (`fetchCount == 0`), not a UserDefaults flag
+- Settings includes an "Equipment" section with a NavigationLink to `EquipmentListView`
+- `EquipmentListView` displays all equipment sorted by name with icon and name labels
+- Equipment can be created via a toolbar add (+) button, edited by tapping a row, and deleted via swipe-to-delete with a confirmation alert
+- `EquipmentEditor` presents a form with a name field (required) and a curated SF Symbol icon picker (LazyVGrid, 10 icons)
+- The Save button is disabled when the trimmed name is empty or matches an existing equipment name (case-insensitive)
+- `ExerciseEditor` uses a `Picker` for equipment selection populated from `@Query(sort: \Equipment.name)`; a "None" option allows clearing the selection
+- `ExerciseDetailView` displays equipment as a `Label` with icon and name when set
+- The user can delete all seeded defaults and create custom equipment; deleted defaults are not re-seeded
 
 #### US-34: Exercise Illustration System
 
@@ -501,17 +509,21 @@
 
 #### US-37: Editable Workout History
 
-**Status:** Planned
+**Status:** Implemented
 
 **User story:** As a lifter, I want to edit a completed workout's details, so that I can fix mistakes after saving.
 
 **Acceptance criteria:**
-- `WorkoutDetailView` supports an edit mode toggle (toolbar "Edit" / "Done")
-- In edit mode, workout name and comment become `TextField`s
-- In edit mode, start and end times become enabled `DatePicker`s
-- Changes auto-save to SwiftData (no explicit save button)
-- TODO: define whether individual set weight/reps values are editable in this view
-- TODO: define undo/cancel-edit behavior (copy-on-write pattern vs. auto-save)
+- `WorkoutDetailView` displays a read-only summary with an "Edit" toolbar button
+- Tapping "Edit" navigates to `WorkoutEditorView(mode: .editing)`, the same unified view used for active workouts
+- In edit mode, workout name and comment are editable `TextField`s
+- In edit mode, start and end times are enabled `DatePicker`s
+- In edit mode, exercises can be added, reordered, and deleted (same UI as active workout)
+- In edit mode, sets can be edited via the same `SetEditorView` (Dragger controls for weight/reps)
+- Transaction handling: `modelContext.autosaveEnabled = false` on enter; "Save" calls `context.save()` and dismisses; "Cancel" calls `context.rollback()` and dismisses — no changes are persisted until Save
+- The nav back button is hidden; Cancel serves as the back action
+- `WorkoutEditorView` is shared between active mode (new workout) and editing mode (historical workout) via a `WorkoutMode` enum
+- `WorkoutExerciseView` conditionally shows the timer banner only in active mode
 
 #### US-38: Destructive Action Confirmations
 
@@ -1042,6 +1054,8 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-38: Destructive Action Confirmations~~
 - ~~US-41: Flow-Optimized Set Completion Toolbar~~
 - ~~US-42: Sticky Timer Banner Across Workout Navigation~~
+- ~~US-33: User-Managed Equipment Catalog~~
+- ~~US-37: Editable Workout History~~
 - ~~US-51: Data Integrity Validation and Orphan Cleanup~~
 - ~~US-56: Haptic and Sound Micro-Rewards on Set Completion~~
 - ~~US-57: Dragger Boundary Haptics~~
@@ -1050,9 +1064,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 
 | Wave | Items | Theme | Status |
 |---|---|---|---|
-| Wave 1 | US-33: Structured Equipment Enum | Data model | Planned |
 | Wave 1 | US-53: Accessibility Audit and VoiceOver | Accessibility | Planned |
-| Wave 1 | US-37: Editable Workout History | Workout enhancements | Planned |
 | Wave 1 | US-61: Security and Privacy Hardening | Infrastructure | Planned |
 | Wave 1 | US-50: SwiftData Schema Migration Strategy | Infrastructure | Planned |
 | Wave 1 | US-62: Feature-Flag Infrastructure | Infrastructure | Planned |
