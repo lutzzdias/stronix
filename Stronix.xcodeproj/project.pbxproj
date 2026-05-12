@@ -34,6 +34,10 @@
 		498C9E1B2F8DE96200F871FB /* AppFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */; };
 		49F056112FC0000000000011 /* SoundEffectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F056102FC0000000000010 /* SoundEffectsTests.swift */; };
 		49F056212FC0000000000021 /* DraggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F056202FC0000000000020 /* DraggerTests.swift */; };
+		49TE00012FE3000000000011 /* EquipmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49TE00012FE3000000000010 /* EquipmentTests.swift */; };
+		49TE00022FE3000000000011 /* MuscleGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49TE00022FE3000000000010 /* MuscleGroupTests.swift */; };
+		49TE00032FE3000000000011 /* EquipmentSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49TE00032FE3000000000010 /* EquipmentSeederTests.swift */; };
+		49TE00042FE3000000000011 /* MuscleGroupSeederTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49TE00042FE3000000000010 /* MuscleGroupSeederTests.swift */; };
 		498C9E1C2F8DE96700F871FB /* TagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C4B2F8DE13A00BFB05C /* TagTests.swift */; };
 		498C9E1D2F8DE97200F871FB /* WorkoutSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */; };
 		498C9E1E2F8DE97200F871FB /* ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */; };
@@ -109,6 +113,10 @@
 		499F4C492F8DDD3300BFB05C /* SortableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableTests.swift; sourceTree = "<group>"; };
 		49F056102FC0000000000010 /* SoundEffectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectsTests.swift; sourceTree = "<group>"; };
 		49F056202FC0000000000020 /* DraggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggerTests.swift; sourceTree = "<group>"; };
+		49TE00012FE3000000000010 /* EquipmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTests.swift; sourceTree = "<group>"; };
+		49TE00022FE3000000000010 /* MuscleGroupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupTests.swift; sourceTree = "<group>"; };
+		49TE00032FE3000000000010 /* EquipmentSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSeederTests.swift; sourceTree = "<group>"; };
+		49TE00042FE3000000000010 /* MuscleGroupSeederTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupSeederTests.swift; sourceTree = "<group>"; };
 		499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTests.swift; sourceTree = "<group>"; };
 		499F4C4B2F8DE13A00BFB05C /* TagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTests.swift; sourceTree = "<group>"; };
 		49A7B3012FA0E44000C1D5F7 /* WorkoutSummarySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummarySheet.swift; sourceTree = "<group>"; };
@@ -269,6 +277,8 @@
 		499F4C432F8DDCFA00BFB05C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				49TE00012FE3000000000010 /* EquipmentTests.swift */,
+				49TE00022FE3000000000010 /* MuscleGroupTests.swift */,
 				499F4C4B2F8DE13A00BFB05C /* TagTests.swift */,
 				499F4C4A2F8DE04800BFB05C /* ExerciseTests.swift */,
 				499F4C462F8DDD1C00BFB05C /* WorkoutSetTests.swift */,
@@ -281,6 +291,8 @@
 		499F4C472F8DDD2500BFB05C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49TE00032FE3000000000010 /* EquipmentSeederTests.swift */,
+				49TE00042FE3000000000010 /* MuscleGroupSeederTests.swift */,
 				499F4C492F8DDD3300BFB05C /* SortableTests.swift */,
 				499F4C482F8DDD2A00BFB05C /* AppFormatterTests.swift */,
 				49F056102FC0000000000010 /* SoundEffectsTests.swift */,
@@ -487,6 +499,10 @@
 				498C9E1A2F8DE95900F871FB /* SortableTests.swift in Sources */,
 				49F056112FC0000000000011 /* SoundEffectsTests.swift in Sources */,
 				49F056212FC0000000000021 /* DraggerTests.swift in Sources */,
+				49TE00012FE3000000000011 /* EquipmentTests.swift in Sources */,
+				49TE00022FE3000000000011 /* MuscleGroupTests.swift in Sources */,
+				49TE00032FE3000000000011 /* EquipmentSeederTests.swift in Sources */,
+				49TE00042FE3000000000011 /* MuscleGroupSeederTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,14 +718,14 @@
 			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -724,14 +740,14 @@
 			baseConfigurationReference = 49B0CA012FB0000000000001 /* Shared.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;

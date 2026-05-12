@@ -12,11 +12,9 @@ import Foundation
 /// Uses an isolated `UserDefaults(suiteName:)` so tests do not mutate the
 /// app's persistent defaults. Each test clears the suite before asserting.
 struct SoundEffectsTests {
-    private static let suiteName = "com.stronix.tests.SoundEffects"
-    
     private func makeIsolatedDefaults() -> UserDefaults {
-        let defaults = UserDefaults(suiteName: Self.suiteName)!
-        defaults.removePersistentDomain(forName: Self.suiteName)
+        let suiteName = "com.stronix.tests.SoundEffects.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
         return defaults
     }
     

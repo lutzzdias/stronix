@@ -14,27 +14,36 @@ struct ExerciseTests {
     @Test
     func initDefaults() {
         let exercise = Exercise(name: "Test")
-        
+
         #expect(exercise.name == "Test")
         #expect(exercise.desc == nil)
         #expect(exercise.equipment == nil)
-        #expect(exercise.muscle == nil)
+        #expect(exercise.primaryMuscles.isEmpty)
+        #expect(exercise.secondaryMuscles.isEmpty)
         #expect(exercise.isArchived == false)
     }
-    
+
     @Test
     func initWithAllValues() {
+        let equipment = Equipment(name: "Barbell", icon: "figure.strengthtraining.traditional")
+        let chest = MuscleGroup(name: "Chest")
+        let triceps = MuscleGroup(name: "Triceps")
+
         let exercise = Exercise(
             name: "Test",
             desc: "Description",
-            equipment: "Equipment",
-            muscle: "Muscle",
+            equipment: equipment,
+            primaryMuscles: [chest],
+            secondaryMuscles: [triceps]
         )
-        
+
         #expect(exercise.name == "Test")
         #expect(exercise.desc == "Description")
-        #expect(exercise.equipment == "Equipment")
-        #expect(exercise.muscle == "Muscle")
+        #expect(exercise.equipment === equipment)
+        #expect(exercise.primaryMuscles.count == 1)
+        #expect(exercise.primaryMuscles.first?.name == "Chest")
+        #expect(exercise.secondaryMuscles.count == 1)
+        #expect(exercise.secondaryMuscles.first?.name == "Triceps")
         #expect(exercise.isArchived == false)
     }
     
@@ -52,7 +61,8 @@ struct ExerciseTests {
 struct ExerciseDuplicateNameTests {
     private func makeContext() throws -> ModelContext {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Exercise.self, configurations: config)
+        let schema = Schema([Exercise.self, Equipment.self, MuscleGroup.self, Workout.self, WorkoutExercise.self, WorkoutSet.self])
+        let container = try ModelContainer(for: schema, configurations: config)
         return ModelContext(container)
     }
 
