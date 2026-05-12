@@ -16,11 +16,20 @@ struct ExerciseDetailView: View {
         List {
             if let desc = exercise.desc { Text(desc) }
             
-            if let muscle = exercise.muscle {
+            if !exercise.primaryMuscles.isEmpty {
                 HStack {
-                    Text("Muscle")
+                    Text("Primary")
                     Spacer()
-                    Text(muscle)
+                    Text(exercise.primaryMuscles.map(\.name).joined(separator: ", "))
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            if !exercise.secondaryMuscles.isEmpty {
+                HStack {
+                    Text("Secondary")
+                    Spacer()
+                    Text(exercise.secondaryMuscles.map(\.name).joined(separator: ", "))
                         .foregroundStyle(.secondary)
                 }
             }

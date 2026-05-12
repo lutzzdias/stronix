@@ -31,11 +31,19 @@ extension Equipment {
     ]
 }
 
+extension MuscleGroup {
+    static let sample: [MuscleGroup] = [
+        MuscleGroup(name: "Back"),
+        MuscleGroup(name: "Chest"),
+        MuscleGroup(name: "Arms"),
+    ]
+}
+
 extension Exercise {
     static let sample: [Exercise] = [
-        Exercise(name: "Pulldown", desc: "Very similar to the pullup", muscle: "Lats"),
-        Exercise(name: "Incline Bench Press", desc: "The best exercise ever", muscle: "Chest"),
-        Exercise(name: "Hammer Curls", desc: "The best ego exercise", muscle: "Biceps"),
+        Exercise(name: "Pulldown", desc: "Very similar to the pullup"),
+        Exercise(name: "Incline Bench Press", desc: "The best exercise ever"),
+        Exercise(name: "Hammer Curls", desc: "The best ego exercise"),
     ]
 }
 

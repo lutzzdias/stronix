@@ -11,6 +11,10 @@
 		49EQ00022FE1000000000001 /* EquipmentSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00022FE1000000000002 /* EquipmentSeeder.swift */; };
 		49EQ00032FE1000000000001 /* EquipmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00032FE1000000000002 /* EquipmentListView.swift */; };
 		49EQ00042FE1000000000001 /* EquipmentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EQ00042FE1000000000002 /* EquipmentEditor.swift */; };
+		49MG00012FE2000000000001 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49MG00012FE2000000000002 /* MuscleGroup.swift */; };
+		49MG00022FE2000000000001 /* MuscleGroupSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49MG00022FE2000000000002 /* MuscleGroupSeeder.swift */; };
+		49MG00032FE2000000000001 /* MuscleGroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49MG00032FE2000000000002 /* MuscleGroupListView.swift */; };
+		49MG00042FE2000000000001 /* MuscleGroupEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49MG00042FE2000000000002 /* MuscleGroupEditor.swift */; };
 		490EF85B2C89647800E75ECD /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85A2C89647800E75ECD /* WorkoutsView.swift */; };
 		490EF85D2C8965BE00E75ECD /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */; };
 		490EF85F2C89664800E75ECD /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EF85E2C89664800E75ECD /* ArchiveView.swift */; };
@@ -73,6 +77,10 @@
 		49EQ00022FE1000000000002 /* EquipmentSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentSeeder.swift; sourceTree = "<group>"; };
 		49EQ00032FE1000000000002 /* EquipmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListView.swift; sourceTree = "<group>"; };
 		49EQ00042FE1000000000002 /* EquipmentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentEditor.swift; sourceTree = "<group>"; };
+		49MG00012FE2000000000002 /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
+		49MG00022FE2000000000002 /* MuscleGroupSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupSeeder.swift; sourceTree = "<group>"; };
+		49MG00032FE2000000000002 /* MuscleGroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupListView.swift; sourceTree = "<group>"; };
+		49MG00042FE2000000000002 /* MuscleGroupEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupEditor.swift; sourceTree = "<group>"; };
 		490EF85A2C89647800E75ECD /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
 		490EF85C2C8965BE00E75ECD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		490EF85E2C89664800E75ECD /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
@@ -238,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				49EQ00022FE1000000000002 /* EquipmentSeeder.swift */,
+				49MG00022FE2000000000002 /* MuscleGroupSeeder.swift */,
 				4915642B2F8F10A9005CD2A9 /* RestTimer.swift */,
 				491564292F8F0BDC005CD2A9 /* ErrorHandler.swift */,
 				491564272F8F0878005CD2A9 /* Log.swift */,
@@ -284,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				49EQ00012FE1000000000002 /* Equipment.swift */,
+				49MG00012FE2000000000002 /* MuscleGroup.swift */,
 				49D38DE22C6AA59500D84C14 /* Exercise.swift */,
 				49D38DE62C6AAF7500D84C14 /* Workout.swift */,
 				49D38DE82C6AB18100D84C14 /* WorkoutExercise.swift */,
@@ -300,6 +310,8 @@
 			children = (
 				49EQ00032FE1000000000002 /* EquipmentListView.swift */,
 				49EQ00042FE1000000000002 /* EquipmentEditor.swift */,
+				49MG00032FE2000000000002 /* MuscleGroupListView.swift */,
+				49MG00042FE2000000000002 /* MuscleGroupEditor.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -454,6 +466,10 @@
 				49EQ00022FE1000000000001 /* EquipmentSeeder.swift in Sources */,
 				49EQ00032FE1000000000001 /* EquipmentListView.swift in Sources */,
 				49EQ00042FE1000000000001 /* EquipmentEditor.swift in Sources */,
+				49MG00012FE2000000000001 /* MuscleGroup.swift in Sources */,
+				49MG00022FE2000000000001 /* MuscleGroupSeeder.swift in Sources */,
+				49MG00032FE2000000000001 /* MuscleGroupListView.swift in Sources */,
+				49MG00042FE2000000000001 /* MuscleGroupEditor.swift in Sources */,
 				49D38DE92C6AB18100D84C14 /* WorkoutExercise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

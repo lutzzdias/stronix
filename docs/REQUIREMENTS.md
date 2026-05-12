@@ -1064,10 +1064,6 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 
 | Wave | Items | Theme | Status |
 |---|---|---|---|
-| Wave 1 | US-53: Accessibility Audit and VoiceOver | Accessibility | Planned |
-| Wave 1 | US-61: Security and Privacy Hardening | Infrastructure | Planned |
-| Wave 1 | US-50: SwiftData Schema Migration Strategy | Infrastructure | Planned |
-| Wave 1 | US-62: Feature-Flag Infrastructure | Infrastructure | Planned |
 | Wave 2 | US-60: Activity Heatmap Dashboard | Progress visibility | Planned |
 | Wave 2 | US-39: Repeat Workout from History | Workflow efficiency | Planned |
 | Wave 2 | US-55: Weight Unit Setting | Internationalization | Planned |
@@ -1092,6 +1088,10 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 | Wave 3 | US-52: iCloud Sync via CloudKit | Data sync | Planned |
 | Wave 3 | US-66: Accessibility Test Infrastructure | Infrastructure | Planned |
 | Wave 3 | US-67: Performance — Query Optimization | Infrastructure | Planned |
+| Wave 3 | US-50: SwiftData Schema Migration Strategy | Infrastructure | Planned |
+| Wave 3 | US-61: Security and Privacy Hardening | Infrastructure | Planned |
+| Unplanned | US-53: Accessibility Audit and VoiceOver | Accessibility | Planned |
+| Unplanned | US-62: Feature-Flag Infrastructure | Infrastructure | Planned |
 
 ### Known Bugs
 

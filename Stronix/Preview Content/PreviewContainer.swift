@@ -12,7 +12,7 @@ struct Preview {
     let container: ModelContainer
     
     init() {
-        let models: [any PersistentModel.Type] = [Exercise.self, WorkoutSet.self, WorkoutExercise.self, Workout.self, Equipment.self]
+        let models: [any PersistentModel.Type] = [Exercise.self, WorkoutSet.self, WorkoutExercise.self, Workout.self, Equipment.self, MuscleGroup.self]
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let schema = Schema(models)
         

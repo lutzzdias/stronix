@@ -26,6 +26,12 @@ struct SettingsView: View {
                     }
                 }
 
+                Section("Muscles") {
+                    NavigationLink("Manage Muscles") {
+                        MuscleGroupListView()
+                    }
+                }
+
                 Section("Rest Timer") {
                     Picker("Default Duration", selection: $defaultRestDuration) {
                         ForEach(Self.durationOptions, id: \.self) { seconds in

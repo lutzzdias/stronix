@@ -73,7 +73,7 @@ struct ArchiveView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(exercise.name)
-                                    Text(exercise.muscle ?? "all")
+                                    Text(exercise.primaryMuscles.map(\.name).joined(separator: ", "))
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }

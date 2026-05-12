@@ -14,17 +14,19 @@ class Exercise {
     var name: String
     var desc: String?
     @Relationship var equipment: Equipment?
-    var muscle: String? // TODO: Create enum (back, shoulders, legs, chest, arms, ...)
+    @Relationship(inverse: \MuscleGroup.primaryExercises) var primaryMuscles: [MuscleGroup]
+    @Relationship(inverse: \MuscleGroup.secondaryExercises) var secondaryMuscles: [MuscleGroup]
     var isArchived: Bool = false
-    
+
     @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise]?
 
-    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: Equipment? = nil, muscle: String? = nil) {
+    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: Equipment? = nil, primaryMuscles: [MuscleGroup] = [], secondaryMuscles: [MuscleGroup] = []) {
         self.id = id
         self.name = name
         self.desc = desc
-        self.muscle = muscle
         self.equipment = equipment
+        self.primaryMuscles = primaryMuscles
+        self.secondaryMuscles = secondaryMuscles
     }
 }
 

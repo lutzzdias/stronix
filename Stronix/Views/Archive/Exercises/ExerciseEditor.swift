@@ -14,6 +14,7 @@ struct ExerciseEditor: View {
     @Environment(ErrorHandler.self) var errorHandler
     
     @Query(sort: \Equipment.name) private var allEquipment: [Equipment]
+    @Query(sort: \MuscleGroup.name) private var allMuscleGroups: [MuscleGroup]
 
     let exercise: Exercise?
 
@@ -24,7 +25,8 @@ struct ExerciseEditor: View {
     @State private var name: String = ""
     @State private var desc: String?
     @State private var equipment: Equipment?
-    @State private var muscle: String?
+    @State private var primaryMuscles: Set<MuscleGroup> = []
+    @State private var secondaryMuscles: Set<MuscleGroup> = []
     @State private var isDuplicate: Bool = false
     
     var body: some View {
@@ -49,14 +51,48 @@ struct ExerciseEditor: View {
                     }
                 }
                 
-                // TODO: change to picker and allow more than 1 muscle
-                Section("Muscles") {
-                    TextField("Muscle", text: Binding(
-                        get: { muscle ?? ""},
-                        set: {  value in
-                            muscle = value
+                Section("Primary Muscles") {
+                    ForEach(allMuscleGroups, id: \.self) { group in
+                        Button {
+                            if primaryMuscles.contains(group) {
+                                primaryMuscles.remove(group)
+                            } else {
+                                primaryMuscles.insert(group)
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: primaryMuscles.contains(group) ? "checkmark.circle.fill" : "circle")
+                                    .foregroundStyle(primaryMuscles.contains(group) ? .blue : .gray.opacity(0.4))
+                                    .imageScale(.large)
+                                Text(group.name)
+                                Spacer()
+                            }
+                            .contentShape(Rectangle())
                         }
-                    ))
+                        .buttonStyle(.plain)
+                    }
+                }
+
+                Section("Secondary Muscles") {
+                    ForEach(allMuscleGroups, id: \.self) { group in
+                        Button {
+                            if secondaryMuscles.contains(group) {
+                                secondaryMuscles.remove(group)
+                            } else {
+                                secondaryMuscles.insert(group)
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: secondaryMuscles.contains(group) ? "checkmark.circle.fill" : "circle")
+                                    .foregroundStyle(secondaryMuscles.contains(group) ? .blue : .gray.opacity(0.4))
+                                    .imageScale(.large)
+                                Text(group.name)
+                                Spacer()
+                            }
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
             .toolbar {
@@ -82,7 +118,8 @@ struct ExerciseEditor: View {
                     name = exercise.name
                     desc = exercise.desc
                     equipment = exercise.equipment
-                    muscle = exercise.muscle
+                    primaryMuscles = Set(exercise.primaryMuscles)
+                    secondaryMuscles = Set(exercise.secondaryMuscles)
                 }
                 checkDuplicate(name)
             }
@@ -95,20 +132,20 @@ struct ExerciseEditor: View {
     private func save() {
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
         let trimmedDesc = desc?.trimmingCharacters(in: .whitespaces)
-        let trimmedMuscle = muscle?.trimmingCharacters(in: .whitespaces)
-
         if let exercise {
             exercise.name = trimmedName
             exercise.desc = trimmedDesc
             exercise.equipment = equipment
-            exercise.muscle = trimmedMuscle
+            exercise.primaryMuscles = Array(primaryMuscles)
+            exercise.secondaryMuscles = Array(secondaryMuscles)
             Log.persistence.info("Exercise updated: \(trimmedName)")
         } else {
             let exercise = Exercise(
                 name: trimmedName,
                 desc: trimmedDesc,
                 equipment: equipment,
-                muscle: trimmedMuscle
+                primaryMuscles: Array(primaryMuscles),
+                secondaryMuscles: Array(secondaryMuscles)
             )
             modelContext.insert(exercise)
             do {
