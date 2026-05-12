@@ -427,20 +427,27 @@
 
 ### Exercises & Catalog Enhancements (Planned)
 
-#### US-32: Structured Muscle Group Enum with Color System
+#### US-32: User-Managed Muscle Catalog
 
-**Status:** Planned
+**Status:** Implemented
 
-**User story:** As a lifter, I want muscle groups to be structured options with color coding, so that I can filter and visually identify exercises by muscle.
+**User story:** As a lifter, I want to manage my own muscle types and assign primary and secondary muscles to exercises, so that I can categorize exercises by the muscles they target.
 
 **Acceptance criteria:**
-- A `MuscleGroup` enum is defined with cases: chest, back, shoulders, arms, legs, core, fullBody, other
-- Each `MuscleGroup` has an associated `Color` and SF Symbol icon
-- `Exercise.muscle` migrates from `String?` to `MuscleGroup?` via SwiftData lightweight migration
-- `ExerciseEditor` uses a `Picker` for muscle group selection instead of a `TextField`
-- The exercise list groups exercises by muscle group with colored section headers
-- Existing free-text values that match enum cases auto-migrate; non-matching values become nil
-- TODO: define the one-time migration helper for non-matching free-text values
+- `MuscleGroup` is a SwiftData `@Model` with `id: UUID` (unique), `name: String`, and `desc: String?` (optional description)
+- `Exercise` has two many-to-many relationships: `primaryMuscles: [MuscleGroup]` and `secondaryMuscles: [MuscleGroup]`
+- `MuscleGroup` has inverse relationships `primaryExercises: [Exercise]` and `secondaryExercises: [Exercise]` with `deleteRule: .nullify`
+- On first app launch (when no muscles exist), 6 defaults are seeded: Chest, Back, Shoulders, Arms, Legs, Core
+- Seeding uses a count-based check (`fetchCount == 0`)
+- Settings includes a "Muscles" section with a NavigationLink to `MuscleGroupListView`
+- `MuscleGroupListView` displays all muscles sorted by name, supports tap-to-edit, swipe-to-delete with confirmation alert, and toolbar add button
+- `MuscleGroupEditor` presents a form with a name field (required) and an optional multiline description field
+- The Save button is disabled when the trimmed name is empty or matches an existing muscle name (case-insensitive)
+- `ExerciseEditor` displays two multi-select sections ("Primary Muscles" and "Secondary Muscles") using circle checkmarks for selection, matching the visual pattern of the exercise selection list
+- Each muscle can be independently selected as primary, secondary, or both for a given exercise
+- `ExerciseDetailView` displays primary and secondary muscles as comma-separated names
+- The Archive tab exercise list shows the primary muscles for each exercise
+- The user can delete all seeded defaults and create custom muscles; deleted defaults are not re-seeded
 
 #### US-33: User-Managed Equipment Catalog
 
@@ -1054,6 +1061,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-38: Destructive Action Confirmations~~
 - ~~US-41: Flow-Optimized Set Completion Toolbar~~
 - ~~US-42: Sticky Timer Banner Across Workout Navigation~~
+- ~~US-32: User-Managed Muscle Catalog~~
 - ~~US-33: User-Managed Equipment Catalog~~
 - ~~US-37: Editable Workout History~~
 - ~~US-51: Data Integrity Validation and Orphan Cleanup~~
@@ -1068,7 +1076,6 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 | Wave 2 | US-39: Repeat Workout from History | Workflow efficiency | Planned |
 | Wave 2 | US-55: Weight Unit Setting | Internationalization | Planned |
 | Wave 2 | US-43: Actionable Rest Timer Notifications | In-workout friction | Planned |
-| Wave 2 | US-32: Structured Muscle Group Enum | Data model | Planned |
 | Wave 2 | US-36: Median Set Count Auto-Creation | Workflow efficiency | Planned |
 | Wave 2 | US-45: Home Screen Widget | Platform reach | Planned |
 | Wave 2 | US-54: Localization Foundation | Internationalization | Planned |
