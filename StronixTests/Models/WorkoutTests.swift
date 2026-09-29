@@ -169,31 +169,62 @@ struct WorkoutTests {
         #expect(workout.numberOfSets == 2)
     }
 
-    // MARK: - totalWeight
+    // MARK: - totalVolume
 
-    @Test func totalWeightEmpty() {
+    // These use completed sets so they hold regardless of which sets
+    // `countsTowardVolume` admits.
+
+    @Test func totalVolumeEmpty() {
         let workout = Workout()
-        #expect(workout.totalWeight == 0)
+        #expect(workout.totalVolume == 0)
     }
 
-    @Test func totalWeightCalculates() {
-        let set1 = WorkoutSet(repetitions: 10, weight: 20)
-        let set2 = WorkoutSet(repetitions: 8, weight: 25)
+    @Test func totalVolumeCalculates() {
+        let set1 = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let set2 = WorkoutSet(repetitions: 8, weight: 25, completed: true)
         let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [set1, set2])
         let workout = Workout(exercises: [workoutExercise])
 
         // (20 * 10) + (25 * 8) = 200 + 200 = 400
-        #expect(workout.totalWeight == 400)
+        #expect(workout.totalVolume == 400)
     }
 
-    @Test func totalWeightWithNilValues() {
-        let set1 = WorkoutSet()
-        let set2 = WorkoutSet(repetitions: 10, weight: nil)
-        let set3 = WorkoutSet(repetitions: nil, weight: 20)
+    @Test func totalVolumeWithNilValues() {
+        let set1 = WorkoutSet(completed: true)
+        let set2 = WorkoutSet(repetitions: 10, weight: nil, completed: true)
+        let set3 = WorkoutSet(repetitions: nil, weight: 20, completed: true)
         let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [set1, set2, set3])
         let workout = Workout(exercises: [workoutExercise])
 
-        #expect(workout.totalWeight == 0)
+        #expect(workout.totalVolume == 0)
+    }
+
+    @Test func totalVolumeExcludesUncompletedSets() {
+        let done = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let planned = WorkoutSet(repetitions: 10, weight: 100, completed: false)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [done, planned])
+        let workout = Workout(exercises: [workoutExercise])
+
+        // Only the completed set counts: 20 × 10 = 200, not 1200.
+        #expect(workout.totalVolume == 200)
+    }
+
+    @Test func totalVolumeIsZeroWhenNothingCompleted() {
+        let planned = WorkoutSet(repetitions: 10, weight: 20, completed: false)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [planned])
+        let workout = Workout(exercises: [workoutExercise])
+
+        #expect(workout.totalVolume == 0)
+    }
+
+    @Test func totalVolumeIncludesWarmUpSets() {
+        let warmUp = WorkoutSet(repetitions: 10, weight: 20, completed: true, tag: .warmUp)
+        let working = WorkoutSet(repetitions: 5, weight: 40, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [warmUp, working])
+        let workout = Workout(exercises: [workoutExercise])
+
+        // (20 × 10) + (40 × 5) = 400 — warm-ups are not excluded.
+        #expect(workout.totalVolume == 400)
     }
 
     // MARK: - hasCompletedSets
@@ -357,15 +388,15 @@ struct WorkoutTests {
 
         #expect(text.contains("Bench Press"))
         #expect(text.contains("20 kg × 10"))
-        // totalWeight is volume: 20 × 10 = 200
-        #expect(text.contains("Total weight: 200 kg"))
+        // Volume is load × reps: 20 × 10 = 200
+        #expect(text.contains("Volume: 200 kg"))
     }
 
     @Test func shareTextInPounds() {
         let text = makeShareableWorkout().shareText(in: .pounds)
 
         #expect(text.contains("44 lbs × 10"))
-        #expect(text.contains("Total weight: 441 lbs"))
+        #expect(text.contains("Volume: 441 lbs"))
         #expect(!text.contains("kg"))
     }
 

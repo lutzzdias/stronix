@@ -8,14 +8,16 @@
 import Foundation
 
 enum AppFormatter {
-    private static let timer: DateComponentsFormatter = {
+    // Cached formatters. Each is suffixed `Formatter` so it cannot shadow the
+    // same-named `static func` that exposes it.
+    private static let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .abbreviated
         formatter.zeroFormattingBehavior = .dropAll
         return formatter
     }()
-    
+
     private static let restTimerFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.minute, .second]
@@ -23,33 +25,33 @@ enum AppFormatter {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
-    
-    private static let dateTime: DateFormatter = {
+
+    private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy 'at' HH:mm"
         return formatter
     }()
-    
-    private static let shortDate: DateFormatter = {
+
+    private static let shortDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }()
-    
+
     static func duration(_ interval: TimeInterval) -> String {
-        timer.string(from: interval) ?? ""
+        durationFormatter.string(from: interval) ?? ""
     }
-    
+
     static func restTimer(_ interval: TimeInterval) -> String {
         restTimerFormatter.string(from: abs(interval.rounded(.up))) ?? "0:00"
     }
-    
+
     static func date(_ date: Date) -> String {
-        dateTime.string(from: date)
+        dateFormatter.string(from: date)
     }
-    
+
     static func shortDate(_ date: Date) -> String {
-        shortDate.string(from: date)
+        shortDateFormatter.string(from: date)
     }
 
     /// Formats a stored kilogram value in `unit`, without a unit label.

@@ -50,6 +50,8 @@
 		49A7B3022FA0E44000C1D5F7 /* WorkoutSummarySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A7B3012FA0E44000C1D5F7 /* WorkoutSummarySheet.swift */; };
 		49B0CA032FB0000000000003 /* RPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0CA042FB0000000000004 /* RPE.swift */; };
 		49B0CB012FB0000000000001 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0CB022FB0000000000002 /* WeightUnit.swift */; };
+		49B0CC032FB0000000000003 /* UniquelyNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0CC042FB0000000000004 /* UniquelyNamed.swift */; };
+		49B0CC012FB0000000000001 /* StronixSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0CC022FB0000000000002 /* StronixSchema.swift */; };
 		49F0CAFE2FD0000000000001 /* WorkoutMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F0CAFE2FD0000000000002 /* WorkoutMode.swift */; };
 		49B0CA052FB0000000000005 /* SetDetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0CA062FB0000000000006 /* SetDetailsSheet.swift */; };
 		49B0CA072FB0000000000007 /* Dragger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0CA082FB0000000000008 /* Dragger.swift */; };
@@ -127,6 +129,8 @@
 		49B0CA012FB0000000000002 /* Local.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.example.xcconfig; sourceTree = "<group>"; };
 		49B0CA042FB0000000000004 /* RPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPE.swift; sourceTree = "<group>"; };
 		49B0CB022FB0000000000002 /* WeightUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
+		49B0CC042FB0000000000004 /* UniquelyNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniquelyNamed.swift; sourceTree = "<group>"; };
+		49B0CC022FB0000000000002 /* StronixSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StronixSchema.swift; sourceTree = "<group>"; };
 		49F0CAFE2FD0000000000002 /* WorkoutMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutMode.swift; sourceTree = "<group>"; };
 		49B0CA062FB0000000000006 /* SetDetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailsSheet.swift; sourceTree = "<group>"; };
 		49B0CA082FB0000000000008 /* Dragger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragger.swift; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 				49D38DEA2C6AB2EE00D84C14 /* Tag.swift */,
 				49B0CA042FB0000000000004 /* RPE.swift */,
 				49B0CB022FB0000000000002 /* WeightUnit.swift */,
+				49B0CC042FB0000000000004 /* UniquelyNamed.swift */,
+				49B0CC022FB0000000000002 /* StronixSchema.swift */,
 				49F0CAFE2FD0000000000002 /* WorkoutMode.swift */,
 			);
 			path = Models;
@@ -472,6 +478,8 @@
 				49D38DEB2C6AB2EE00D84C14 /* Tag.swift in Sources */,
 				49B0CA032FB0000000000003 /* RPE.swift in Sources */,
 				49B0CB012FB0000000000001 /* WeightUnit.swift in Sources */,
+				49B0CC032FB0000000000003 /* UniquelyNamed.swift in Sources */,
+				49B0CC012FB0000000000001 /* StronixSchema.swift in Sources */,
 				49D38DE72C6AAF7500D84C14 /* Workout.swift in Sources */,
 				49F0CAFE2FD0000000000001 /* WorkoutMode.swift in Sources */,
 				4915642C2F8F10AC005CD2A9 /* RestTimer.swift in Sources */,

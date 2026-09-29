@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     /// Default rest timer duration in seconds, persisted via UserDefaults
-    @AppStorage("defaultRestDuration") private var defaultRestDuration: Double = 90
+    @AppStorage(RestTimer.defaultDurationKey) private var defaultRestDuration: Double = RestTimer.fallbackDuration
     
     /// Enables system sound effects (e.g. set completion). Default true.
     @AppStorage(SoundEffects.enabledKey) private var soundEffectsEnabled: Bool = true

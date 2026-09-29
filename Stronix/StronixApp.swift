@@ -14,7 +14,7 @@ struct StronixApp: App {
     @State private var restTimer = RestTimer()
     
     var container: ModelContainer = {
-        let schema = Schema([Exercise.self, WorkoutSet.self, Workout.self, WorkoutExercise.self, Equipment.self, MuscleGroup.self])
+        let schema = StronixSchema.make()
         let config = ModelConfiguration(schema: schema)
         do {
             let container = try ModelContainer(for: schema, configurations: config)

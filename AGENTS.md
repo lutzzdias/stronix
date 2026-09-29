@@ -34,7 +34,7 @@ Tests use **swift-testing** (`import Testing`, `@Test`, `#expect`), not XCTest.
 
 ### Data model
 
-SwiftData `@Model` classes in `Stronix/Models/`. The schema is declared in **two** places that must stay in sync when adding a model — `StronixApp.container` and `Preview Content/PreviewContainer.swift`.
+SwiftData `@Model` classes in `Stronix/Models/`, all `final` (required for the `UniquelyNamed` keypath conformance). Add a new model to `StronixSchema.models` — the single schema declaration that both `StronixApp.container` and `Preview Content/PreviewContainer.swift` build from.
 
 Session graph: `Workout` → (cascade) `WorkoutExercise` → (cascade) `WorkoutSet`. `WorkoutExercise.exercise` is `.noAction`/nullify onto the catalog `Exercise`, so deleting workout data never touches the catalog.
 
@@ -51,15 +51,22 @@ Deletion is **soft** for the catalog: `Exercise.isArchived` + `Exercise.activePr
 Business rules are model methods/computed properties, not view code or view models. Notable:
 
 - `Workout.finish()` — drops uncompleted sets, removes emptied exercises, normalizes nil weight/reps to 0, auto-names from date if blank, stamps `end`. Reads as the single "commit the session" mutation.
-- `Workout.duration` / `numberOfSets` / `totalWeight` / `hasCompletedSets` / `shareText`.
+- `Workout.duration` / `numberOfSets` / `totalVolume` / `hasCompletedSets` / `shareText(in:)`.
+- `Workout.totalVolume` — training volume (Σ weight × reps), **not** a weight. Which sets count
+  is decided solely by `Workout.countsTowardVolume(_:)` (currently completed sets only); every
+  display reads that one property, so never recompute volume in a view.
 - `WorkoutExercise.autoFillValues(for:using:)` — suggestion engine. Set 0 copies the first set of the most recent finished workout; set N tries a *progressive match* (a past workout whose sets 0..N-1 match the current workout exactly), else copies set N-1. History comes from `WorkoutExercise.fetchHistory(for:excluding:using:)`, which filters to `workout?.end != nil` and excludes the current workout in Swift (optional comparison isn't expressible in `#Predicate`).
-- `isDuplicateName(_:excludingID:in:)` — same trimmed/case-insensitive pattern on `Exercise`, `Equipment`, and `MuscleGroup`. Reuse it rather than writing new name checks.
+- `isDuplicateName(_:excludingID:in:)` — supplied by the `UniquelyNamed` protocol
+  (`Stronix/Models/UniquelyNamed.swift`), conformed to by `Exercise`, `Equipment`, and
+  `MuscleGroup`. Conform new catalog models to it rather than writing a name check; supply
+  `duplicateScope` to narrow which rows compete (as `Exercise` does to ignore archived ones)
+  and `nameComparisonProperties` to keep the per-keystroke fetch cheap.
 
 ### App wiring
 
 No singletons, no view models. State is injected through the SwiftUI environment from `StronixApp`:
 
-- `ErrorHandler` (`@Observable`) — call `errorHandler.show(message)` for user-facing failures; the alert comes from `.withErrorHandler()` applied once in `MainView`.
+- `ErrorHandler` (`@Observable`) — call `errorHandler.show(message)` for user-facing failures; the alert comes from `.withErrorHandler()` applied once in `MainView`. Every mutation that persists (create, edit, delete, archive) wraps `try context.save()` in a `do/catch` that logs *and* shows a message — don't rely on autosave silently succeeding. Views injecting `ErrorHandler` need `.environment(ErrorHandler())` in their `#Preview` or the preview traps.
 - `RestTimer` (`@Observable`) — shared countdown. Survives backgrounding/relaunch by persisting start epoch + duration to UserDefaults and scheduling a `UNNotificationRequest`; keep those three (ticking, defaults, notification) consistent on every state change.
 - `Log` (`Stronix/Utils/Log.swift`) — OSLog categories `persistence`, `navigation`, `workout`. Use these, not `print`.
 

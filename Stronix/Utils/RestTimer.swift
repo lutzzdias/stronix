@@ -17,7 +17,14 @@ class RestTimer {
     var expired: Bool = false
     
     static let presets: [TimeInterval] = [60, 90, 120, 150, 180]
-    
+
+    /// UserDefaults key for the rest duration a completed set starts.
+    /// Read via `@AppStorage` in the views that begin or configure the timer.
+    static let defaultDurationKey = "defaultRestDuration"
+
+    /// Duration used when the key is absent (first launch), in seconds.
+    static let fallbackDuration: TimeInterval = 90
+
     private static let notificationId = "restTimerNotification"
     private static let startKey = "restTimerStart"
     private static let durationKey = "restTimerDuration"

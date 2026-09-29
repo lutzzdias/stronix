@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Exercise {
+final class Exercise {
     @Attribute(.unique) var id: UUID
     var name: String
     var desc: String?
@@ -23,7 +23,7 @@ class Exercise {
     /// migration timestamp and so have no meaningful order among themselves.
     var createdAt: Date = Date.now
 
-    @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise]?
+    @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise] = []
 
     init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: Equipment? = nil, primaryMuscles: [MuscleGroup] = [], secondaryMuscles: [MuscleGroup] = [], createdAt: Date = Date.now) {
         self.id = id
@@ -43,22 +43,12 @@ extension Exercise {
     ///
     /// Derived from the `workoutExercises` relationship, so it cannot be used in a
     /// `#Predicate` or `SortDescriptor` — callers sort in memory instead.
-    var usageCount: Int { workoutExercises?.count ?? 0 }
+    var usageCount: Int { workoutExercises.count }
+}
 
-    /// Checks whether `name` is already taken by another non-archived exercise.
-    /// - Parameters:
-    ///   - name: The proposed exercise name.
-    ///   - excludingID: When editing, pass the current exercise's `id` so it doesn't match itself.
-    ///   - context: The `ModelContext` used to query existing exercises.
-    /// - Returns: `true` if a non-archived exercise with the same name (case-insensitive, trimmed) exists.
-    static func isDuplicateName(_ name: String, excludingID: UUID? = nil, in context: ModelContext) throws -> Bool {
-        var descriptor = FetchDescriptor<Exercise>(predicate: activePredicate)
-        descriptor.propertiesToFetch = [\.name, \.id]
-        let exercises = try context.fetch(descriptor)
-        let trimmed = name.trimmingCharacters(in: .whitespaces).lowercased()
-        return exercises.contains { exercise in
-            exercise.name.trimmingCharacters(in: .whitespaces).lowercased() == trimmed
-                && exercise.id != excludingID
-        }
-    }
+extension Exercise: UniquelyNamed {
+    /// Archived exercises don't block a name, so the catalog can reuse a retired name.
+    static var duplicateScope: Predicate<Exercise>? { activePredicate }
+
+    static var nameComparisonProperties: [PartialKeyPath<Exercise>] { [\.name, \.id] }
 }

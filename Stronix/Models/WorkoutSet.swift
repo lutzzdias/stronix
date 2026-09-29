@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class WorkoutSet {
+final class WorkoutSet {
     @Attribute(.unique) var id: UUID
     var repetitions: Int?
     var weight: Double?

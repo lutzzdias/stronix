@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class WorkoutExercise {
+final class WorkoutExercise {
     @Attribute(.unique) var id: UUID
     var comment: String
     var sortIndex: Int

@@ -42,7 +42,7 @@ struct WorkoutEditorView: View {
                     Spacer()
                     statView(String(describing: workout.numberOfSets), label: "Sets")
                     Spacer()
-                    statView(AppFormatter.weight(workout.totalWeight, in: weightUnit), label: "Weight")
+                    statView(AppFormatter.weight(workout.totalVolume, in: weightUnit), label: "Volume")
                     Spacer()
                 }
 

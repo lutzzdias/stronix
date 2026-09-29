@@ -49,7 +49,7 @@ struct WorkoutDetailView: View {
                 Spacer()
 
                 VStack {
-                    Text(AppFormatter.weight(workout.totalWeight, in: weightUnit))
+                    Text(AppFormatter.weight(workout.totalVolume, in: weightUnit))
                         .font(.title3)
 
                     Text("Weight")

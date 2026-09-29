@@ -12,6 +12,7 @@ import SwiftData
 
 struct WorkoutsView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(ErrorHandler.self) private var errorHandler
 
     @Query(sort: \Workout.start, order: .reverse) private var allWorkouts: [Workout]
     @State private var query: String = ""
@@ -50,7 +51,13 @@ struct WorkoutsView: View {
                     // Capture before deleting; a deleted model reads back as defaults.
                     let name = workout.name
                     modelContext.delete(workout)
-                    Log.persistence.info("Workout deleted: \(name)")
+                    do {
+                        try modelContext.save()
+                        Log.persistence.info("Workout deleted: \(name)")
+                    } catch {
+                        Log.persistence.error("Failed to delete workout: \(error.localizedDescription)")
+                        errorHandler.show("Could not delete \(name). Please try again.")
+                    }
                 }
                 Button("Cancel", role: .cancel) { }
             } message: { _ in
@@ -65,4 +72,5 @@ struct WorkoutsView: View {
     
     return WorkoutsView()
         .modelContainer(preview.container)
+        .environment(ErrorHandler())
 }

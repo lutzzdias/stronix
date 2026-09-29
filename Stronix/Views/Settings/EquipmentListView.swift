@@ -10,6 +10,7 @@ import SwiftData
 
 struct EquipmentListView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(ErrorHandler.self) private var errorHandler
 
     @Query(sort: \Equipment.name) private var equipment: [Equipment]
     @State private var showCreateSheet: Bool = false
@@ -55,7 +56,13 @@ struct EquipmentListView: View {
                 // Capture before deleting; a deleted model reads back as defaults.
                 let name = eq.name
                 modelContext.delete(eq)
-                Log.persistence.info("Equipment deleted: \(name)")
+                do {
+                    try modelContext.save()
+                    Log.persistence.info("Equipment deleted: \(name)")
+                } catch {
+                    Log.persistence.error("Failed to delete equipment: \(error.localizedDescription)")
+                    errorHandler.show("Could not delete \(name). Please try again.")
+                }
             }
             Button("Cancel", role: .cancel) { }
         } message: { _ in
@@ -71,4 +78,5 @@ struct EquipmentListView: View {
         EquipmentListView()
     }
     .modelContainer(preview.container)
+    .environment(ErrorHandler())
 }

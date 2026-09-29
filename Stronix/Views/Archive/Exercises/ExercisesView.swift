@@ -10,6 +10,7 @@ import SwiftData
 
 struct ExercisesView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(ErrorHandler.self) private var errorHandler
 
     @Query(filter: Exercise.activePredicate, sort: \Exercise.name) private var allExercises: [Exercise]
     @State private var query: String = ""
@@ -59,7 +60,13 @@ struct ExercisesView: View {
             .alert("Archive exercise?", isPresented: $isShowingArchiveConfirm, presenting: pendingArchive) { exercise in
                 Button("Archive", role: .destructive) {
                     exercise.isArchived = true
-                    Log.persistence.info("Exercise archived: \(exercise.name)")
+                    do {
+                        try modelContext.save()
+                        Log.persistence.info("Exercise archived: \(exercise.name)")
+                    } catch {
+                        Log.persistence.error("Failed to archive exercise: \(error.localizedDescription)")
+                        errorHandler.show("Could not archive \(exercise.name). Please try again.")
+                    }
                 }
                 Button("Cancel", role: .cancel) { }
             } message: { _ in
@@ -74,4 +81,5 @@ struct ExercisesView: View {
     
     return ExercisesView()
         .modelContainer(preview.container)
+        .environment(ErrorHandler())
 }

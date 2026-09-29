@@ -8,6 +8,7 @@ import SwiftData
 
 struct MuscleGroupListView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(ErrorHandler.self) private var errorHandler
 
     @Query(sort: \MuscleGroup.name) private var muscleGroups: [MuscleGroup]
     @State private var showCreateSheet: Bool = false
@@ -53,7 +54,13 @@ struct MuscleGroupListView: View {
                 // Capture before deleting; a deleted model reads back as defaults.
                 let name = group.name
                 modelContext.delete(group)
-                Log.persistence.info("Muscle deleted: \(name)")
+                do {
+                    try modelContext.save()
+                    Log.persistence.info("Muscle deleted: \(name)")
+                } catch {
+                    Log.persistence.error("Failed to delete muscle: \(error.localizedDescription)")
+                    errorHandler.show("Could not delete \(name). Please try again.")
+                }
             }
             Button("Cancel", role: .cancel) { }
         } message: { _ in
@@ -69,4 +76,5 @@ struct MuscleGroupListView: View {
         MuscleGroupListView()
     }
     .modelContainer(preview.container)
+    .environment(ErrorHandler())
 }

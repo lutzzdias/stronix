@@ -10,6 +10,7 @@ import SwiftData
 
 struct ArchiveView: View {
     @Environment(\.modelContext) var context
+    @Environment(ErrorHandler.self) private var errorHandler
     
     @Query(sort: \Workout.start, order: .reverse) var workouts: [Workout]
     @Query(filter: Exercise.activePredicate, sort: \Exercise.createdAt, order: .reverse) var exercises: [Exercise]
@@ -111,7 +112,13 @@ struct ArchiveView: View {
                     // Capture before deleting; a deleted model reads back as defaults.
                     let name = workout.name
                     context.delete(workout)
-                    Log.persistence.info("Workout deleted: \(name)")
+                    do {
+                        try context.save()
+                        Log.persistence.info("Workout deleted: \(name)")
+                    } catch {
+                        Log.persistence.error("Failed to delete workout: \(error.localizedDescription)")
+                        errorHandler.show("Could not delete \(name). Please try again.")
+                    }
                 }
                 Button("Cancel", role: .cancel) { }
             } message: { _ in
@@ -120,7 +127,13 @@ struct ArchiveView: View {
             .alert("Archive exercise?", isPresented: $isShowingExerciseArchiveConfirm, presenting: pendingExerciseArchive) { exercise in
                 Button("Archive", role: .destructive) {
                     exercise.isArchived = true
-                    Log.persistence.info("Exercise archived: \(exercise.name)")
+                    do {
+                        try context.save()
+                        Log.persistence.info("Exercise archived: \(exercise.name)")
+                    } catch {
+                        Log.persistence.error("Failed to archive exercise: \(error.localizedDescription)")
+                        errorHandler.show("Could not archive \(exercise.name). Please try again.")
+                    }
                 }
                 Button("Cancel", role: .cancel) { }
             } message: { _ in
@@ -135,4 +148,5 @@ struct ArchiveView: View {
     
     return ArchiveView()
         .modelContainer(preview.container)
+        .environment(ErrorHandler())
 }

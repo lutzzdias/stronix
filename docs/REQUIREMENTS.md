@@ -114,7 +114,7 @@
 
 **Acceptance criteria:**
 - A `ShareLink` button in the summary toolbar opens the iOS system share sheet
-- Share text format: date on line 1, duration on line 2, total weight on line 3, blank line, then per-exercise blocks with exercise name followed by indented set lines ("  weight kg × reps"), separated by blank lines
+- Share text format: date on line 1, duration on line 2, `Volume: <total>` on line 3, blank line, then per-exercise blocks with exercise name followed by indented set lines ("  weight kg × reps"), separated by blank lines
 - If an exercise's linked `Exercise` object is nil (deleted), the name displays as empty string in share text
 - Weight and reps default to 0 when nil in share text formatting
 
@@ -148,11 +148,13 @@
 **User story:** As a lifter, I want to view workout details, so that I can review a past session.
 
 **Acceptance criteria:**
-- `WorkoutDetailView` displays name, comment, duration, sets count, total weight, start/end dates, and per-exercise set listing
+- `WorkoutDetailView` displays name, comment, duration, sets count, total volume, start/end dates, and per-exercise set listing
 - The view is fully read-only (no editing capability)
 - If an exercise's linked `Exercise` object is nil, the name displays as "Unknown"
 - Duration is computed as `(end ?? Date.now) - start`
-- Total volume is computed as `Σ(weight × reps)` across all sets
+- Total volume is computed as `Σ(weight × reps)` over **completed sets only**, via
+  `Workout.totalVolume`; the set-inclusion rule lives solely in `Workout.countsTowardVolume(_:)`
+  so the summary, archive, editor, and share text can never disagree
 - Total sets is the count of all `WorkoutSet` records
 - TODO: `WorkoutDetailView` has `// TODO: Allow edit` and `// TODO: convert to TextField` comments indicating editing is planned (see US-37)
 

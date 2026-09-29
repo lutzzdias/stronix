@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Workout {
+final class Workout {
     @Attribute(.unique) var id: UUID
     var name: String
     var comment: String
@@ -71,12 +71,36 @@ class Workout {
         }
     }
     
-    var totalWeight: Double {
-        return workoutExercises.reduce(0) { result, workoutExercise in
-            result + workoutExercise.sets.reduce(0) { exerciseTotalWeight, set in
-                exerciseTotalWeight + ((set.weight ?? 0) * Double(set.repetitions ?? 0))
+    /// Total training volume in kilograms: the sum of `weight × repetitions`
+    /// across the workout's sets.
+    ///
+    /// Named "volume" rather than "weight" because it is not a weight — it is the
+    /// product of load and reps, which is why the UI labels it Volume.
+    var totalVolume: Double {
+        // Written as an explicit loop with annotated types: the equivalent nested
+        // reduce/filter chain blows the type-checker's budget.
+        var total: Double = 0
+        for workoutExercise in workoutExercises {
+            for set in workoutExercise.sets where Self.countsTowardVolume(set) {
+                let weight: Double = set.weight ?? 0
+                let reps: Int = set.repetitions ?? 0
+                total += weight * Double(reps)
             }
         }
+        return total
+    }
+
+    /// Decides which sets contribute to `totalVolume`.
+    ///
+    /// This is the single rule that previously differed between the summary sheet
+    /// (completed sets only) and the archive stat tile (every set), which is how
+    /// the same "Weight" figure could disagree between two screens.
+    static func countsTowardVolume(_ set: WorkoutSet) -> Bool {
+        // Completed sets only, so volume reflects work actually done rather than
+        // work merely planned. During a live workout the figure climbs as sets are
+        // completed; once `finish()` strips uncompleted sets, this admits everything
+        // that remains.
+        set.completed
     }
 
     /// `true` if any exercise in the workout has at least one completed set.
@@ -134,7 +158,7 @@ class Workout {
         var lines: [String] = []
         lines.append(AppFormatter.date(start))
         lines.append("Duration: \(AppFormatter.duration(duration))")
-        lines.append("Total weight: \(AppFormatter.weight(totalWeight, in: unit))")
+        lines.append("Volume: \(AppFormatter.weight(totalVolume, in: unit))")
         lines.append("")
         for exercise in sortedExercises {
             lines.append(exercise.exercise?.name ?? "Unknown")

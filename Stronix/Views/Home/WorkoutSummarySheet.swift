@@ -32,13 +32,9 @@ struct WorkoutSummarySheet: View {
         }
         self.exercises = completed
         self.setsCount = "\(completed.reduce(0) { $0 + $1.sets.count })"
-        // Volume from completed sets only
-        let totalVolume = workout.sortedExercises.reduce(0.0) { total, exercise in
-            total + exercise.sortedSets.filter(\.completed).reduce(0.0) { vol, set in
-                vol + (set.weight ?? 0) * Double(set.repetitions ?? 0)
-            }
-        }
-        self.volume = AppFormatter.weight(totalVolume, in: unit)
+        // Uses the model's single volume definition rather than recomputing, so this
+        // figure always agrees with the archive and the share text.
+        self.volume = AppFormatter.weight(workout.totalVolume, in: unit)
     }
     
     var body: some View {

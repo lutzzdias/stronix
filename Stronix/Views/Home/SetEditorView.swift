@@ -14,7 +14,7 @@ struct SetEditorView: View {
     }
     
     @Environment(RestTimer.self) var restTimer
-    @AppStorage("defaultRestDuration") private var defaultRestDuration: Double = 90
+    @AppStorage(RestTimer.defaultDurationKey) private var defaultRestDuration: Double = RestTimer.fallbackDuration
     @AppStorage(WeightUnit.storageKey) private var weightUnit: WeightUnit = .kilograms
 
     @Bindable var set: WorkoutSet
