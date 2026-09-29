@@ -18,20 +18,32 @@ class Exercise {
     @Relationship(inverse: \MuscleGroup.secondaryExercises) var secondaryMuscles: [MuscleGroup]
     var isArchived: Bool = false
 
+    /// When the exercise was added to the catalog, used to surface recent additions.
+    /// Defaulted so existing records migrate lightweightly; they all share the
+    /// migration timestamp and so have no meaningful order among themselves.
+    var createdAt: Date = Date.now
+
     @Relationship(deleteRule: .nullify) var workoutExercises: [WorkoutExercise]?
 
-    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: Equipment? = nil, primaryMuscles: [MuscleGroup] = [], secondaryMuscles: [MuscleGroup] = []) {
+    init(id: UUID = UUID(), name: String, desc: String? = nil, equipment: Equipment? = nil, primaryMuscles: [MuscleGroup] = [], secondaryMuscles: [MuscleGroup] = [], createdAt: Date = Date.now) {
         self.id = id
         self.name = name
         self.desc = desc
         self.equipment = equipment
         self.primaryMuscles = primaryMuscles
         self.secondaryMuscles = secondaryMuscles
+        self.createdAt = createdAt
     }
 }
 
 extension Exercise {
     static let activePredicate = #Predicate<Exercise> { exercise in !exercise.isArchived }
+
+    /// How many times the exercise has been used across all workouts.
+    ///
+    /// Derived from the `workoutExercises` relationship, so it cannot be used in a
+    /// `#Predicate` or `SortDescriptor` — callers sort in memory instead.
+    var usageCount: Int { workoutExercises?.count ?? 0 }
 
     /// Checks whether `name` is already taken by another non-archived exercise.
     /// - Parameters:

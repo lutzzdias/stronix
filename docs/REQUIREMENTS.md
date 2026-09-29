@@ -10,6 +10,7 @@
 | Dragger | Custom SwiftUI input control combining a `TextField` with a vertical drag gesture for adjusting weight or reps. Its step and unit label come from the selected `WeightUnit`. |
 | Equipment | Free-text property on `Exercise` describing the gear used (e.g., barbell, dumbbell); planned migration to a structured enum. |
 | Exercise | A named movement in the user's catalog (e.g., "Bench Press") stored as a SwiftData `@Model` with optional description, equipment, and muscle fields. |
+| Exercise usage count | How many `WorkoutExercise` records reference an exercise. Derived from a relationship, so it cannot be used in a `#Predicate` or `SortDescriptor` — callers sort in memory. |
 | Home tab | The first tab in `MainView`; currently shows only a "Start Workout" button. |
 | ModelContainer | The SwiftData persistence container initialized at app launch with on-disk SQLite storage. |
 | Muscle Group | Free-text property on `Exercise` indicating the target muscle; planned migration to a structured enum with color coding. |
@@ -63,6 +64,8 @@
 **Acceptance criteria:**
 - An "Add exercise" button below the exercise list opens a multi-select sheet (`AddExerciseSheetView`)
 - Exercises already in the workout are excluded from the selection list
+- The selection list is ordered by usage count descending (most-used first), with ties
+  broken alphabetically so ordering is stable across redraws
 - Selected exercises are appended to the workout with sequential `sortIndex` values
 - Each added exercise receives one empty set by default
 
@@ -134,7 +137,8 @@
 
 **Acceptance criteria:**
 - The Archive tab shows the 5 most recent workouts with a "See all" link to the full list
-- The full workout list is searchable and sorted by start date
+- The full workout list is searchable and sorted by start date, newest first
+- Both lists sort by `start` rather than `end`, since `end` is optional and nil ordering is undefined
 - Each workout row displays identifying information (name, date, stats)
 
 #### US-10: View Workout Details
@@ -214,8 +218,11 @@
 **User story:** As a lifter, I want to browse my exercise catalog, so that I can find and manage exercises.
 
 **Acceptance criteria:**
-- The Archive tab shows the 5 most recent exercises with a "See all" link and a create button
-- The full exercise list is searchable and displays only active (non-archived) exercises
+- The Archive tab shows the 5 most recent exercises with a "See all" link and a create button,
+  ordered by `Exercise.createdAt` descending
+- The full exercise list is searchable, sorted alphabetically, and displays only active
+  (non-archived) exercises
+- A row omits the muscle line entirely when no primary muscles are set, so the name stays centred
 
 #### US-16: Add and Manage Sets
 

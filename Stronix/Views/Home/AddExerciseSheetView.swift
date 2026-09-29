@@ -12,7 +12,7 @@ struct AddExerciseSheetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @Query(filter: Exercise.activePredicate) private var allExercises: [Exercise]
+    @Query(filter: Exercise.activePredicate, sort: \Exercise.name) private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     @State private var selectedExercises: Set<Exercise> = Set()
@@ -20,11 +20,21 @@ struct AddExerciseSheetView: View {
     let addedExercises: Set<Exercise>
     let onAdd: (Set<Exercise>) -> Void
     
+    /// Selectable exercises, most-used first so frequent picks sit at the top.
+    ///
+    /// `usageCount` is derived from a relationship and so cannot be a `@Query` sort;
+    /// the sort happens here instead. Ties fall back to name — `sorted(by:)` is not
+    /// guaranteed stable, so equally-used exercises need an explicit tie-break to
+    /// keep their order from shifting between redraws.
     var exercises: [Exercise] {
         let filteredExercises: [Exercise] = allExercises.filter { !addedExercises.contains($0) }
-        guard !query.isEmpty else { return filteredExercises }
-        return filteredExercises.filter { exercise in
-            exercise.name.localizedCaseInsensitiveContains(query)
+        let matching = query.isEmpty
+            ? filteredExercises
+            : filteredExercises.filter { $0.name.localizedCaseInsensitiveContains(query) }
+        return matching.sorted { left, right in
+            left.usageCount == right.usageCount
+                ? left.name.localizedCompare(right.name) == .orderedAscending
+                : left.usageCount > right.usageCount
         }
     }
     

@@ -11,8 +11,8 @@ import SwiftData
 struct ArchiveView: View {
     @Environment(\.modelContext) var context
     
-    @Query(sort: \Workout.end) var workouts: [Workout]
-    @Query(filter: Exercise.activePredicate) var exercises: [Exercise]
+    @Query(sort: \Workout.start, order: .reverse) var workouts: [Workout]
+    @Query(filter: Exercise.activePredicate, sort: \Exercise.createdAt, order: .reverse) var exercises: [Exercise]
     
     @State private var showCreateSheet: Bool = false
     @State private var pendingWorkoutDeletion: Workout?
@@ -73,9 +73,14 @@ struct ArchiveView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(exercise.name)
-                                    Text(exercise.primaryMuscles.map(\.name).joined(separator: ", "))
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
+                                    // Omitted entirely when empty — an empty Text still
+                                    // reserves a line, pushing the name off centre.
+                                    let muscles = exercise.primaryMuscles.map(\.name).joined(separator: ", ")
+                                    if !muscles.isEmpty {
+                                        Text(muscles)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
                                 }
                             }
                         }
@@ -103,8 +108,10 @@ struct ArchiveView: View {
             }
             .alert("Delete workout?", isPresented: $isShowingWorkoutDeleteConfirm, presenting: pendingWorkoutDeletion) { workout in
                 Button("Delete", role: .destructive) {
+                    // Capture before deleting; a deleted model reads back as defaults.
+                    let name = workout.name
                     context.delete(workout)
-                    Log.persistence.info("Workout deleted: \(workout.name)")
+                    Log.persistence.info("Workout deleted: \(name)")
                 }
                 Button("Cancel", role: .cancel) { }
             } message: { _ in

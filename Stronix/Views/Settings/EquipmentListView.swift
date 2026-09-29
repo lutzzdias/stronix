@@ -52,8 +52,10 @@ struct EquipmentListView: View {
         }
         .alert("Delete equipment?", isPresented: $isShowingDeleteConfirm, presenting: pendingDelete) { eq in
             Button("Delete", role: .destructive) {
+                // Capture before deleting; a deleted model reads back as defaults.
+                let name = eq.name
                 modelContext.delete(eq)
-                Log.persistence.info("Equipment deleted: \(eq.name)")
+                Log.persistence.info("Equipment deleted: \(name)")
             }
             Button("Cancel", role: .cancel) { }
         } message: { _ in

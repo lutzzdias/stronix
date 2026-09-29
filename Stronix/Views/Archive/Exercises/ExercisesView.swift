@@ -11,7 +11,7 @@ import SwiftData
 struct ExercisesView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Query(filter: Exercise.activePredicate) private var allExercises: [Exercise]
+    @Query(filter: Exercise.activePredicate, sort: \Exercise.name) private var allExercises: [Exercise]
     @State private var query: String = ""
     @State private var showCreateSheet: Bool = false
     @State private var pendingArchive: Exercise?

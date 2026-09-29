@@ -13,7 +13,7 @@ import SwiftData
 struct WorkoutsView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Query private var allWorkouts: [Workout]
+    @Query(sort: \Workout.start, order: .reverse) private var allWorkouts: [Workout]
     @State private var query: String = ""
     @State private var pendingDeletion: Workout?
     @State private var isShowingDeleteConfirm = false
@@ -47,8 +47,10 @@ struct WorkoutsView: View {
             }
             .alert("Delete workout?", isPresented: $isShowingDeleteConfirm, presenting: pendingDeletion) { workout in
                 Button("Delete", role: .destructive) {
+                    // Capture before deleting; a deleted model reads back as defaults.
+                    let name = workout.name
                     modelContext.delete(workout)
-                    Log.persistence.info("Workout deleted: \(workout.name)")
+                    Log.persistence.info("Workout deleted: \(name)")
                 }
                 Button("Cancel", role: .cancel) { }
             } message: { _ in

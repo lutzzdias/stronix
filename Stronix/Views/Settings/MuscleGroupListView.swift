@@ -50,8 +50,10 @@ struct MuscleGroupListView: View {
         }
         .alert("Delete muscle?", isPresented: $isShowingDeleteConfirm, presenting: pendingDelete) { group in
             Button("Delete", role: .destructive) {
+                // Capture before deleting; a deleted model reads back as defaults.
+                let name = group.name
                 modelContext.delete(group)
-                Log.persistence.info("Muscle deleted: \(group.name)")
+                Log.persistence.info("Muscle deleted: \(name)")
             }
             Button("Cancel", role: .cancel) { }
         } message: { _ in

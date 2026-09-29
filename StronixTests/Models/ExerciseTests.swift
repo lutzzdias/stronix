@@ -6,6 +6,7 @@
 //
 
 import Testing
+import Foundation
 import SwiftData
 @testable import Stronix
 
@@ -53,6 +54,41 @@ struct ExerciseTests {
         #expect(exercise.isArchived == false)
         exercise.isArchived.toggle()
         #expect(exercise.isArchived == true)
+    }
+
+    // MARK: - createdAt
+
+    @Test
+    func createdAtDefaultsToNow() {
+        let before = Date.now
+        let exercise = Exercise(name: "Test")
+
+        #expect(exercise.createdAt >= before)
+        #expect(exercise.createdAt <= Date.now)
+    }
+
+    @Test
+    func createdAtAcceptsExplicitValue() {
+        let date = Date(timeIntervalSince1970: 1_000_000)
+        #expect(Exercise(name: "Test", createdAt: date).createdAt == date)
+    }
+
+    // MARK: - usageCount
+
+    @Test
+    func usageCountIsZeroWhenUnused() {
+        #expect(Exercise(name: "Test").usageCount == 0)
+    }
+
+    @Test
+    func usageCountCountsWorkoutExercises() {
+        let exercise = Exercise(name: "Bench Press")
+        exercise.workoutExercises = [
+            WorkoutExercise(exercise: exercise),
+            WorkoutExercise(exercise: exercise),
+        ]
+
+        #expect(exercise.usageCount == 2)
     }
 }
 
