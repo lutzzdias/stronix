@@ -17,15 +17,15 @@ struct WorkoutSummarySheet: View {
     
     @State private var saveCount = 0
     
-    init(workout: Workout, onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
+    init(workout: Workout, unit: WeightUnit, onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
         self.onSave = onSave
         self.onCancel = onCancel
         self.duration = AppFormatter.duration(workout.duration)
-        self.shareText = workout.shareText
-        
+        self.shareText = workout.shareText(in: unit)
+
         let completed = workout.sortedExercises.compactMap { exercise -> (name: String, sets: [(weight: String, reps: Int)])? in
             let sets = exercise.sortedSets.filter(\.completed).map {
-                (weight: String(format: "%g", $0.weight ?? 0), reps: $0.repetitions ?? 0)
+                (weight: AppFormatter.weight($0.weight ?? 0, in: unit), reps: $0.repetitions ?? 0)
             }
             guard !sets.isEmpty else { return nil }
             return (name: exercise.exercise?.name ?? "", sets: sets)
@@ -38,7 +38,7 @@ struct WorkoutSummarySheet: View {
                 vol + (set.weight ?? 0) * Double(set.repetitions ?? 0)
             }
         }
-        self.volume = "\(String(format: "%g", totalVolume)) kg"
+        self.volume = AppFormatter.weight(totalVolume, in: unit)
     }
     
     var body: some View {
@@ -59,7 +59,7 @@ struct WorkoutSummarySheet: View {
                 ForEach(exercises.indices, id: \.self) { i in
                     Section(exercises[i].name) {
                         ForEach(exercises[i].sets.indices, id: \.self) { j in
-                            Text("\(exercises[i].sets[j].weight) kg × \(exercises[i].sets[j].reps)")
+                            Text("\(exercises[i].sets[j].weight) × \(exercises[i].sets[j].reps)")
                         }
                     }
                 }

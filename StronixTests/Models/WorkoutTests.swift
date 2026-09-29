@@ -342,4 +342,45 @@ struct WorkoutTests {
 
         #expect(workout.name == "Leg Day")
     }
+
+    // MARK: - shareText
+
+    /// A workout with one exercise and a single 20 kg × 10 set.
+    private func makeShareableWorkout() -> Workout {
+        let set = WorkoutSet(repetitions: 10, weight: 20, completed: true)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(name: "Bench Press"), sets: [set])
+        return Workout(name: "Push", exercises: [workoutExercise])
+    }
+
+    @Test func shareTextInKilograms() {
+        let text = makeShareableWorkout().shareText(in: .kilograms)
+
+        #expect(text.contains("Bench Press"))
+        #expect(text.contains("20 kg × 10"))
+        // totalWeight is volume: 20 × 10 = 200
+        #expect(text.contains("Total weight: 200 kg"))
+    }
+
+    @Test func shareTextInPounds() {
+        let text = makeShareableWorkout().shareText(in: .pounds)
+
+        #expect(text.contains("44 lbs × 10"))
+        #expect(text.contains("Total weight: 441 lbs"))
+        #expect(!text.contains("kg"))
+    }
+
+    @Test func shareTextLabelsUnknownExercise() {
+        let workout = makeShareableWorkout()
+        workout.workoutExercises[0].exercise = nil
+
+        #expect(workout.shareText(in: .kilograms).contains("Unknown"))
+    }
+
+    @Test func shareTextTreatsNilWeightAsZero() {
+        let set = WorkoutSet(repetitions: 10, weight: nil)
+        let workoutExercise = WorkoutExercise(exercise: makeExercise(), sets: [set])
+        let workout = Workout(exercises: [workoutExercise])
+
+        #expect(workout.shareText(in: .kilograms).contains("0 kg × 10"))
+    }
 }

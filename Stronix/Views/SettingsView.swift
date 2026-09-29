@@ -13,7 +13,10 @@ struct SettingsView: View {
     
     /// Enables system sound effects (e.g. set completion). Default true.
     @AppStorage(SoundEffects.enabledKey) private var soundEffectsEnabled: Bool = true
-    
+
+    /// Unit weights are shown and entered in. Storage stays kilograms.
+    @AppStorage(WeightUnit.storageKey) private var weightUnit: WeightUnit = .kilograms
+
     /// Options from 30s to 5min in 15s increments
     private static let durationOptions: [TimeInterval] = stride(from: 30, through: 300, by: 15).map { $0 }
     
@@ -29,6 +32,14 @@ struct SettingsView: View {
                 Section("Muscles") {
                     NavigationLink("Manage Muscles") {
                         MuscleGroupListView()
+                    }
+                }
+
+                Section("Units") {
+                    Picker("Weight Unit", selection: $weightUnit) {
+                        ForEach(WeightUnit.allCases, id: \.self) { unit in
+                            Text(unit.label).tag(unit)
+                        }
                     }
                 }
 

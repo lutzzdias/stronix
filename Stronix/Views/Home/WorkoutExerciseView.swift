@@ -10,6 +10,7 @@ import SwiftData
 
 struct WorkoutExerciseView: View {
     @Environment(\.modelContext) var modelContext
+    @AppStorage(WeightUnit.storageKey) private var weightUnit: WeightUnit = .kilograms
 
     let workout: Workout
     @Bindable var workoutExercise: WorkoutExercise
@@ -36,7 +37,7 @@ struct WorkoutExerciseView: View {
                                     .opacity(selectedSet == workoutSet ? 1 : 0)
                             }
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("\(String(format: "%g", workoutSet.weight ?? 0)) × \(workoutSet.repetitions ?? 0)")
+                                Text("\(AppFormatter.weight(workoutSet.weight ?? 0, in: weightUnit)) × \(workoutSet.repetitions ?? 0)")
                                 if let comment = workoutSet.comment, !comment.isEmpty {
                                     Text(comment)
                                         .font(.caption)
@@ -98,7 +99,7 @@ struct WorkoutExerciseView: View {
                                     .foregroundStyle(.secondary)
                                 
                                 ForEach(entry.sets) { set in
-                                    Text("\(String(format: "%g", set.weight ?? 0)) × \(set.repetitions ?? 0)")
+                                    Text("\(AppFormatter.weight(set.weight ?? 0, in: weightUnit)) × \(set.repetitions ?? 0)")
                                         .font(.caption)
                                         .foregroundStyle(.tertiary)
                                 }

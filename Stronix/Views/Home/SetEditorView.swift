@@ -15,7 +15,8 @@ struct SetEditorView: View {
     
     @Environment(RestTimer.self) var restTimer
     @AppStorage("defaultRestDuration") private var defaultRestDuration: Double = 90
-    
+    @AppStorage(WeightUnit.storageKey) private var weightUnit: WeightUnit = .kilograms
+
     @Bindable var set: WorkoutSet
     let onComplete: (WorkoutSet?) -> Void
     
@@ -27,9 +28,12 @@ struct SetEditorView: View {
         VStack(spacing: 24) {
             HStack(spacing: 16) {
                 Dragger(
-                    unit: "kg",
-                    value: $set.weight,
-                    step: 2.5,
+                    unit: weightUnit.label,
+                    value: Binding(
+                        get: { set.weight.map(weightUnit.fromKilograms) },
+                        set: { set.weight = $0.map(weightUnit.toKilograms) }
+                    ),
+                    step: weightUnit.draggerStep,
                     focus: $focusedField,
                     focusValue: .weight
                 )
@@ -116,7 +120,7 @@ struct SetEditorView: View {
         completionCount += 1
         SoundEffects.playTink()
         focusedField = nil
-        Log.persistence.debug("Set completed: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
+        Log.persistence.debug("Set completed: \(set.weight ?? 0) kg * \(set.repetitions ?? 0) reps")
         onComplete(nil)
     }
 
@@ -124,7 +128,7 @@ struct SetEditorView: View {
     private func uncompleteSet() {
         set.completed = false
         focusedField = nil
-        Log.persistence.debug("Set uncompleted: \(set.weight ?? 0)kg * \(set.repetitions ?? 0) reps")
+        Log.persistence.debug("Set uncompleted: \(set.weight ?? 0) kg * \(set.repetitions ?? 0) reps")
     }
 }
 

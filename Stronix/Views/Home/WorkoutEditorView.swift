@@ -14,6 +14,7 @@ struct WorkoutEditorView: View {
     @Environment(\.modelContext) var context
     @Environment(ErrorHandler.self) var errorHandler
     @Environment(RestTimer.self) var restTimer
+    @AppStorage(WeightUnit.storageKey) private var weightUnit: WeightUnit = .kilograms
 
     let mode: WorkoutMode
     @Bindable var workout: Workout
@@ -41,7 +42,7 @@ struct WorkoutEditorView: View {
                     Spacer()
                     statView(String(describing: workout.numberOfSets), label: "Sets")
                     Spacer()
-                    statView(String(format: "%g", workout.totalWeight), label: "Weight")
+                    statView(AppFormatter.weight(workout.totalWeight, in: weightUnit), label: "Weight")
                     Spacer()
                 }
 
@@ -151,7 +152,7 @@ struct WorkoutEditorView: View {
             )
         }
         .sheet(isPresented: $isShowingSummary) {
-            WorkoutSummarySheet(workout: workout, onSave: {
+            WorkoutSummarySheet(workout: workout, unit: weightUnit, onSave: {
                 workout.finish()
                 context.insert(workout)
                 restTimer.stop()

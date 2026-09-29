@@ -51,4 +51,15 @@ enum AppFormatter {
     static func shortDate(_ date: Date) -> String {
         shortDate.string(from: date)
     }
+
+    /// Formats a stored kilogram value in `unit`, without a unit label.
+    private static func weightValue(_ kilograms: Double, in unit: WeightUnit) -> String {
+        String(format: "%g", unit.fromKilograms(kilograms))
+    }
+
+    /// Formats a stored kilogram value in `unit`, suffixed with its label
+    /// (e.g. `"22.5 kg"`, `"49.5 lbs"`).
+    static func weight(_ kilograms: Double, in unit: WeightUnit) -> String {
+        "\(weightValue(kilograms, in: unit)) \(unit.label)"
+    }
 }

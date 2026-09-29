@@ -7,7 +7,7 @@
 | Archive | The tab displaying recent workouts and exercises; also the soft-delete action that sets `isArchived = true` on an exercise. |
 | Auto-fill | Automatic population of weight and reps on a new set using historical workout data (progressive match or fallback copy). |
 | Current Workout | The in-progress workout being tracked in `CurrentWorkoutView`; not yet persisted to SwiftData until the user taps Save. |
-| Dragger | Custom SwiftUI input control combining a `TextField` with a vertical drag gesture for adjusting weight (kg) or reps. |
+| Dragger | Custom SwiftUI input control combining a `TextField` with a vertical drag gesture for adjusting weight or reps. Its step and unit label come from the selected `WeightUnit`. |
 | Equipment | Free-text property on `Exercise` describing the gear used (e.g., barbell, dumbbell); planned migration to a structured enum. |
 | Exercise | A named movement in the user's catalog (e.g., "Bench Press") stored as a SwiftData `@Model` with optional description, equipment, and muscle fields. |
 | Home tab | The first tab in `MainView`; currently shows only a "Start Workout" button. |
@@ -19,6 +19,7 @@
 | Set (uncompleted) | A `WorkoutSet` record with `completed = false`; removed by `Workout.finish()` before saving. |
 | Sortable | A protocol requiring a mutable `sortIndex: Int` property with a `reorder()` extension that reassigns sequential indices from 0. |
 | Tag | A `Codable` enum on `WorkoutSet` with cases `.warmUp` (W), `.drop` (D), `.failure` (F); displayed as capsule badges. |
+| Weight Unit | The unit weights are shown and entered in (`kg` or `lbs`), persisted in UserDefaults. Storage is always kilograms; this only affects display and input. |
 | Workout | A SwiftData `@Model` representing a single training session with start/end timestamps and a cascade relationship to `WorkoutExercise`. |
 | WorkoutExercise | A SwiftData `@Model` joining a `Workout` to an `Exercise` with a `sortIndex` and a cascade relationship to `WorkoutSet`. |
 | WorkoutSet | A SwiftData `@Model` representing one set within a `WorkoutExercise`; stores weight, reps, completed flag, tag, RPE, and comment. |
@@ -791,19 +792,40 @@
 
 #### US-55: Weight Unit Setting
 
-**Status:** Planned
+**Status:** Implemented
 
 **User story:** As a lifter, I want to choose between kg and lbs, so that I can use my preferred unit system.
 
 **Acceptance criteria:**
-- Settings includes a "Weight Unit" picker (kg / lbs)
+- Settings includes a "Weight Unit" picker (kg / lbs) in a "Units" section
 - All weight displays convert from internal kg to the selected unit
 - All weight inputs convert from the selected unit back to kg for storage
-- The Dragger step size adapts: 2.5 kg → 5 lbs for barbell, 1 kg → 2.5 lbs for dumbbell
+- The Dragger step size adapts to the selected unit: 2.5 kg → 5 lbs
 - The unit label in the Dragger reflects the selected unit ("kg" or "lbs")
 - The workout summary, history, and share text display weights in the selected unit
-- Conversion uses `Measurement<UnitMass>` for precision; display uses appropriate decimal places
-- `@AppStorage("weightUnit")` stores the selection
+- Every displayed weight is suffixed with its unit label, so a value is never ambiguous
+  after the user switches units (set rows, inline history, stat tiles, summary, share text)
+- Conversion uses `Measurement<UnitMass>` for precision; kg displays as stored, lbs rounds
+  to the nearest 0.5 so converted metric history reads cleanly
+- A value entered in lbs round-trips back to the same number after kg storage
+- `@AppStorage("weightUnit")` stores the selection, keyed by `WeightUnit.storageKey`
+- `Workout.shareText(in:)` takes the unit as a parameter, since models cannot read `@AppStorage`
+
+**Notes:** Equipment-dependent step sizes are deliberately excluded here; see US-68.
+
+#### US-68: Equipment-Aware Dragger Step
+
+**Status:** Planned
+
+**User story:** As a lifter, I want the weight adjustment step to match the equipment I'm using, so that dragging lands on weights I can actually load.
+
+**Acceptance criteria:**
+- The Dragger step varies by the exercise's `Equipment`, not just the selected unit
+- Barbell uses 2.5 kg / 5 lbs; dumbbell uses 1 kg / 2.5 lbs
+- Machine, cable, bodyweight, and exercises with no equipment fall back to the barbell step
+- Requires plumbing the exercise's equipment from `WorkoutExerciseView` into `SetEditorView`
+  (`WorkoutSet` has no back-reference to its exercise)
+- TODO: decide whether the step is derived from equipment name or becomes a stored field on `Equipment`
 
 ### Delight & Feedback
 
@@ -1067,6 +1089,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 - ~~US-51: Data Integrity Validation and Orphan Cleanup~~
 - ~~US-56: Haptic and Sound Micro-Rewards on Set Completion~~
 - ~~US-57: Dragger Boundary Haptics~~
+- ~~US-55: Weight Unit Setting~~
 
 ### Planned Waves
 
@@ -1074,7 +1097,6 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 |---|---|---|---|
 | Wave 2 | US-60: Activity Heatmap Dashboard | Progress visibility | Planned |
 | Wave 2 | US-39: Repeat Workout from History | Workflow efficiency | Planned |
-| Wave 2 | US-55: Weight Unit Setting | Internationalization | Planned |
 | Wave 2 | US-43: Actionable Rest Timer Notifications | In-workout friction | Planned |
 | Wave 2 | US-36: Median Set Count Auto-Creation | Workflow efficiency | Planned |
 | Wave 2 | US-45: Home Screen Widget | Platform reach | Planned |
@@ -1089,6 +1111,7 @@ This roadmap organizes all user stories into delivery waves by priority. Impleme
 | Wave 3 | US-34: Exercise Illustration System | Catalog richness | Planned |
 | Wave 3 | US-46: Apple Watch Companion | Platform integration | Planned |
 | Wave 3 | US-44: Equipment-Aware Rest Timer Defaults | Personalization | Planned |
+| Wave 3 | US-68: Equipment-Aware Dragger Step | Personalization | Planned |
 | Wave 3 | US-59: Unfinished Workout Reminder | Safety | Planned |
 | Wave 3 | US-48: App Intents for Shortcuts | Platform integration | Planned |
 | Wave 3 | US-58: Dragger Audio Feedback | Delight | Planned |

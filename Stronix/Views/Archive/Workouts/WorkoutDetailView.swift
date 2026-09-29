@@ -10,6 +10,7 @@ import SwiftData
 
 struct WorkoutDetailView: View {
     let workout: Workout
+    @AppStorage(WeightUnit.storageKey) private var weightUnit: WeightUnit = .kilograms
     @State private var isEditing = false
 
     var body: some View {
@@ -48,7 +49,7 @@ struct WorkoutDetailView: View {
                 Spacer()
 
                 VStack {
-                    Text(String(format: "%g", workout.totalWeight))
+                    Text(AppFormatter.weight(workout.totalWeight, in: weightUnit))
                         .font(.title3)
 
                     Text("Weight")
@@ -70,7 +71,7 @@ struct WorkoutDetailView: View {
                 Section(workoutExercise.exercise?.name ?? "Unknown") {
                     ForEach(workoutExercise.sortedSets) { workoutSet in
                         HStack {
-                            Text("\(String(format: "%g", workoutSet.weight ?? 0)) × \(workoutSet.repetitions ?? 0)")
+                            Text("\(AppFormatter.weight(workoutSet.weight ?? 0, in: weightUnit)) × \(workoutSet.repetitions ?? 0)")
                                 .foregroundStyle(.secondary)
 
                             Spacer()

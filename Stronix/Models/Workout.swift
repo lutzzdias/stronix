@@ -126,19 +126,22 @@ class Workout {
         end = Date.now
     }
     
-    /// Plain text summary suitable for sharing.
-    var shareText: String {
+    /// Plain text summary suitable for sharing, with weights rendered in `unit`.
+    ///
+    /// Stored weights are kilograms; the unit is passed in because models have no
+    /// access to the SwiftUI environment where the user's selection lives.
+    func shareText(in unit: WeightUnit) -> String {
         var lines: [String] = []
         lines.append(AppFormatter.date(start))
         lines.append("Duration: \(AppFormatter.duration(duration))")
-        lines.append("Total weight: \(String(format: "%g", totalWeight)) kg")
+        lines.append("Total weight: \(AppFormatter.weight(totalWeight, in: unit))")
         lines.append("")
         for exercise in sortedExercises {
             lines.append(exercise.exercise?.name ?? "Unknown")
             for set in exercise.sortedSets {
-                let w = String(format: "%g", set.weight ?? 0)
+                let w = AppFormatter.weight(set.weight ?? 0, in: unit)
                 let r = set.repetitions ?? 0
-                lines.append("  \(w) kg × \(r)")
+                lines.append("  \(w) × \(r)")
             }
             lines.append("")
         }

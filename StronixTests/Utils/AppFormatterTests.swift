@@ -51,4 +51,38 @@ struct AppFormatterTests {
         let result = AppFormatter.date(date!)
         #expect(result == "13 Apr 2026 at 21:30")
     }
+
+    // MARK: - weight
+
+    @Test
+    func weightAppendsKilogramLabel() {
+        #expect(AppFormatter.weight(22.5, in: .kilograms) == "22.5 kg")
+    }
+
+    @Test
+    func weightInKilogramsShowsStoredValueUnchanged() {
+        #expect(AppFormatter.weight(22.3456, in: .kilograms) == "22.3456 kg")
+    }
+
+    @Test
+    func weightDropsTrailingZeros() {
+        #expect(AppFormatter.weight(100, in: .kilograms) == "100 kg")
+    }
+
+    @Test
+    func weightInPoundsConvertsAndRoundsToNearestHalf() {
+        // 22.5 kg == 49.60462… lbs, shown as 49.5
+        #expect(AppFormatter.weight(22.5, in: .pounds) == "49.5 lbs")
+    }
+
+    @Test
+    func weightInPoundsNeverShowsKilogramLabel() {
+        #expect(!AppFormatter.weight(20, in: .pounds).contains("kg"))
+    }
+
+    @Test
+    func weightFormatsZero() {
+        #expect(AppFormatter.weight(0, in: .kilograms) == "0 kg")
+        #expect(AppFormatter.weight(0, in: .pounds) == "0 lbs")
+    }
 }
